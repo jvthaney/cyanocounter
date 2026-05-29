@@ -2,544 +2,179 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content=""width=device-width,initial-scale=1.0">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia|Ubuntu|Advent Pro|Oswald|Noto Sans|Assistant|Cabin|News Cycle">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">    <title>CyanoCounter</title>
-    <link href="main.css" rel="stylesheet">
-    <link href="main.js">
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" > -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia|Ubuntu|Cabin|News Cycle">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>CyanoCounter</title>
+    <link href="main.css" rel="stylesheet">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8JDJ20QH0E"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-8JDJ20QH0E');
-    </script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-8JDJ20QH0E');</script>
+    <style>
+        #threshold-bar-wrap { margin: 12px 0 4px 0; display: none; }
+        #threshold-bar-wrap .progress { height: 22px; border-radius: 8px; }
+        #threshold-bar { transition: width 0.2s ease; background-color: #009988; }
+        #threshold-bar.done { background-color: #EE7733; }
+        #threshold-label { font-family:'Cabin',sans-serif; font-size:15px; margin-top:4px; color:#333; }
+        #threshold-reached-alert { display:none; font-family:'Cabin',sans-serif; font-size:16px; font-weight:bold; color:#fff; background:#EE7733; border-radius:8px; padding:8px 16px; margin-top:8px; }
+        #counter-grid { display:flex; flex-wrap:wrap; gap:20px; padding:10px 0; }
+        #counter-grid .counter-col { flex: 0 0 225px; }
+        .btn-delete-counter { position:absolute; top:4px; right:8px; background:none; border:none; color:rgba(255,255,255,0.7); font-size:18px; line-height:1; cursor:pointer; z-index:10; padding:0; }
+        .btn-delete-counter:hover { color:#fff; }
+        .counter { position:relative; }
+        .chart-toggle-btn { font-family:'Cabin',sans-serif; font-size:14px; border-radius:6px; border:1px solid #009988; background:#fff; color:#009988; padding:4px 12px; cursor:pointer; margin-right:6px; }
+        .chart-toggle-btn.active-toggle { background:#009988; color:#fff; }
+    </style>
 </head>
-
 <body class="jumbotron">
-    <div class="navheader">
-        <nav class="navbar-light navbar-expand-lg fixed-top" style="background-color: #333;">
-          <a class="navbar-brand" href="#" style="color: rgb(163, 255, 223)">CyanoCounter</a>
-          <li style="float:right" class="dropdown-menu-dark nav-item banner" >
+<div class="navheader">
+    <nav class="navbar-light navbar-expand-lg fixed-top" style="background-color:#333;">
+        <a class="navbar-brand" href="#" style="color:rgb(163,255,223)">CyanoCounter</a>
+        <li style="float:right" class="dropdown-menu-dark nav-item banner">
             <a class="button active" href="https://github.com/jvthaney/cyanocounter/blob/main/README.md" target="_blank">Full instructions</a>
-            <li style="float:right" class="dropdown-menu-dark nav-item banner" >
-            <a class="dropdown-toggle" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:white;font-size: 22px;">More counters</a>
-            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink" style="font-size: 22px;">
-                <li><a class="dropdown-item" href="index.html">CyanoCounter</a> </li>
-                <li><a class="dropdown-item" href="Plankton.html">PlanktonCounter</a> </li>
-                <li><a class="dropdown-item" href="Taxon.html">TaxonCounter (terrestrial or aquatic)</a> </li>
+        </li>
+        <li style="float:right" class="dropdown-menu-dark nav-item banner">
+            <a class="dropdown-toggle" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:white;font-size:22px;">More counters</a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink" style="font-size:22px;">
+                <li><a class="dropdown-item" href="index.html">CyanoCounter</a></li>
+                <li><a class="dropdown-item" href="Plankton.html">PlanktonCounter</a></li>
+                <li><a class="dropdown-item" href="Taxon.html">TaxonCounter (terrestrial or aquatic)</a></li>
             </ul>
         </li>
-        </nav>
-      </div>
-      <form class="row g-3 first">
-        <h3 style="font-family: 'News Cycle', 'Arial Narrow', Arial, sans-serif;font-size: 32px; color: darkcyan;text-align: center;"><b>Counters for enumerating cyanobacteria taxa </b></h3>
+    </nav>
+</div>
 
-        <div class="col-md-2">
-            <label for="inputname" class="form-label">Name of counter</label>
-            <input type="text" class="form-control nameinput" id="text1" placeholder="Type your name">
-          </div>
-          <div class="col-md-2">
-            <label for="inputdate" class="form-label ">Date</label>
-            <input type="date" class="form-control dateinput" id="text2">
-          </div>
-          <div class="col-md-2">
-            <label for="inputtime" class="form-label time">Time of collection</label>
-            <input type="time" class="form-control timeinput" id="text3">
-          </div>
-          <div class="col-md-2">
-            <label for="inputlocation" class="form-label ">Sampling Location</label>
-            <input type="text" class="form-control locationinput" id="text4">
-          </div>
-          <div class="col-md-2">
-            <label for="inputlat" class="form-label">Latitude (e.g., 43.385787)</label>
-            <input type="text" class="form-control latinput" id="text5">
-          </div>
-          <div class="col-md-2">
-            <label for="inputlon" class="form-label loninput">Longitude (e.g., -72.08125)</label>
-            <input type="name" class="form-control loninput" id="text6">
-          </div>
-          <div class="col-md-2">
-            <label for="inputlon" class="form-label loninput">Volume sample (ml)</label>
-            <input type="grad" class="form-control gradinput" id="text7" placeholder="Vol in graduated cylinder">
-          </div>
-          <div class="col-md-1">
-            <label for="inputlon" class="form-label rowinput">Rows counted</label>
-            <input type="rows" class="form-control rowinput" id="text8" value="3">
-          </div>
-          <div class="col-sm-1">
-            <label for="inputlon" class="form-label depthinput">Depth (m)</label>
-            <input type="depth" class="form-control depthinput" id="text9" value="2">
-          </div>
-          <div class="col-sm-1">
-            <label for="inputlon" class="form-label towsinput"># Tows </label>
-            <input type="tows" class="form-control towsinput" id="text10" value="2">
-          </div>
-          <div class="col-md-3">
-            <label for="inputlon" class="form-label diaminput">Net diameter (m; default = LSPA net)</label>
-            <input type="name" class="form-control daiminput" id="text11" value="0.16">
-          </div>
-          <div class="col-md-1">
-            <label for="inputlon" class="form-label volinput">Vol slide (ml)</label>
-            <input type="rows" class="form-control volinput" id="text12" value="1">
-          </div>
-          <div class="col-md-2">
-            <label for="inputlon" class="form-label noteinput">Notes</label>
-            <input type="notes" class="form-control noteinput" id="text13">
-          </div>
-          <div class="row">
-          <button type="button" class="btn btn-r bg-light submitinfo" id="subbtn" onclick="fn1();rel()">Submit info</button>
-         <br><br> <p id="outalert"></p>
-        </div>
-
-          <div class="container second">
-            <ul>
-              <li class="instructions no-bullet">1. Enter your information in the boxes above and click <b>"Submit Info"</b> to log the information.</li>
-              <ul style="margin-left: 50px; padding-left: 0">
-                <li class="instructions">Default values are for LSPA protocols: e.g., 2 m sample depth, net ring size, rows counted, and volume on slide (Sedgewick Rafter)</li>
-                <li class="instructions" style="padding-bottom: 10px;">If you vary from these defaults, please change the value and click Submit Info again to adjust the calculations</li>
-            </ul>
-              <li class="instructions no-bullet">2. As you move across your slide, use the counters below to keep track of the #cells/colonies of each type of cyanobacteria.</li>
-              <ul style="margin-left: 50px; padding-left: 0">
-                <li class="instructions">Aim to count 3 random rows of your slide - if you count more or less than 5 rows, please change the number of rows in the box above to 
-                adjust the calculations </li>
-                <li class="instructions" style="padding-bottom: 10px;">You can preview the data at any time at the bottom of the page (this is what will appear in the downloaded .CSV file) </li>
-            </ul>
-              <li class="instructions no-bullet">3. When you are done counting, click <b>"Export data"</b> to download it 
-                as a .CSV file to your computer.</li>
-            </ul>
-          </div>
-    </form>
-    <hr>
-      <div class="container second">
-        <div class="row">
-            <div class="col-md-3 col-sm-6">
-                <div class="counter">
-                    <div class="counter-icon">
-                        <i class="fa fa-globe"></i>
-                    </div>
-                    <button type="button" id="myImg1" class="btn btn-light view">View</button>
-                    <br>
-                    <button class="btn add mx-10 mt-10 add1">+</button>
-                    <button class="btn add mx-10 mt-10 min1">-</button>
-                    <h3>Microcystis</h3>
-                    <span class="totalcount1 counter-value">0</span>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="counter pink">
-                    <div class="counter-icon">
-                        <i class="fa fa-rocket"></i>
-                    </div>
-                    <button type="button" id="myImg2" class="btn btn-light view">View</button>
-                    <br>
-                    <button class="btn add mx-10 mt-10 add2">+</button>
-                    <button class="btn add mx-10 mt-10 min2">-</button>
-                    <h3>Dolichospermum</h3>
-                    <span class="totalcount2 counter-value">0</span>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="counter blue">
-                    <div class="counter-icon">
-                        <i class="fa fa-rocket"></i>
-                    </div>
-                    <button type="button" id="myImg3" class="btn btn-light view">View</button>
-                    <br>
-                    <button class="btn add mx-10 mt-10 add3">+</button>
-                    <button class="btn add mx-10 mt-10 min3">-</button>
-                    <h3>Gloeotrichia</h3>
-                    <span class="totalcount3 counter-value">0</span>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="counter orange">
-                    <div class="counter-icon">
-                        <i class="fa fa-rocket"></i>
-                    </div>
-                    <button type="button" id="myImg4" class="btn btn-light view">View</button>
-                    <br>
-                    <button class="btn add mx-10 mt-10 add4">+</button>
-                    <button class="btn add mx-10 mt-10 min4">-</button>
-                    <h3>Chroococcus</h3>
-                    <span class="totalcount4 counter-value">0</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container second">
-            <div class="row">
-            <div class="col-md-3 col-sm-6">
-                <div class="counter teal">
-                    <div class="counter-icon">
-                        <i class="fa fa-rocket"></i>
-                    </div>
-                    <button type="button" id="myImg5" class="btn btn-light view">View</button>
-                    <br>
-                    <button class="btn add mx-10 mt-10 add5">+</button>
-                    <button class="btn add mx-10 mt-10 min5">-</button>
-                    <h3>Coelosphaerium/Woronichinia</h3>
-                    <span class="totalcount5 counter-value">0</span>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="counter grey">
-                    <div class="counter-icon">
-                        <i class="fa fa-rocket"></i>
-                    </div>
-                    <button type="button" id="myImg6" class="btn btn-light view">View</button>
-                    <br>
-                    <button class="btn add mx-10 mt-10 add6">+</button>
-                    <button class="btn add mx-10 mt-10 min6">-</button>
-                    <h3>Aphanocapsa</h3>
-                    <span class="totalcount6 counter-value">0</span>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="counter rose">
-                    <div class="counter-icon">
-                        <i class="fa fa-rocket"></i>
-                    </div>
-                    <button type="button" id="myImg7" class="btn btn-light view">View</button>
-                    <br>
-                    <button class="btn add mx-10 mt-10 add7">+</button>
-                    <button class="btn add mx-10 mt-10 min7">-</button>
-                    <h3>Merismopedia</h3>
-                    <span class="totalcount7 counter-value">0</span>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="counter wine">
-                    <div class="counter-icon">
-                        <i class="fa fa-rocket"></i>
-                    </div>
-                    <button type="button" id="myImg8" class="btn btn-light view">View</button>
-                    <br>
-                    <button class="btn add mx-10 mt-10 add8">+</button>
-                    <button class="btn add mx-10 mt-10 min8">-</button>
-                    <h3>Oscillatoria</h3>
-                    <span class="totalcount8 counter-value">0</span>
-                </div>
-            </div>
-        </div>
+<!-- METADATA -->
+<div class="row g-3 first" style="margin-left:2px;margin-right:2px;">
+    <h3 style="font-family:'News Cycle','Arial Narrow',Arial,sans-serif;font-size:32px;color:darkcyan;text-align:center;"><b>Counters for enumerating cyanobacteria taxa</b></h3>
+    <div class="col-md-2"><label class="form-label">Name of counter</label><input type="text" class="form-control" id="text1" placeholder="Type your name"></div>
+    <div class="col-md-2"><label class="form-label">Date</label><input type="date" class="form-control" id="text2"></div>
+    <div class="col-md-2"><label class="form-label">Time of collection</label><input type="time" class="form-control" id="text3"></div>
+    <div class="col-md-2"><label class="form-label">Sampling Location</label><input type="text" class="form-control" id="text4"></div>
+    <div class="col-md-2"><label class="form-label">Latitude (e.g., 43.385787)</label><input type="text" class="form-control" id="text5"></div>
+    <div class="col-md-2"><label class="form-label">Longitude (e.g., -72.08125)</label><input type="text" class="form-control" id="text6"></div>
+    <div class="col-md-2"><label class="form-label">Volume sample (ml)</label><input type="text" class="form-control" id="text_vol" placeholder="Vol in graduated cylinder"></div>
+    <div class="col-md-2"><label class="form-label">Squares counted (of 1,000) <span title="Sedgewick Rafter = 50 cols × 20 rows = 1,000 squares. Enter total squares traversed; enter 1000 for full slide." style="cursor:help;color:#009988;">&#9432;</span></label><input type="number" class="form-control" id="text_squares" placeholder="e.g. 300"></div>
+    <div class="col-md-2"><label class="form-label">Depth (m)</label><input type="text" class="form-control" id="text_depth" placeholder="e.g. 2"></div>
+    <div class="col-md-1"><label class="form-label"># Tows</label><input type="text" class="form-control" id="text_tows" placeholder="e.g. 2"></div>
+    <div class="col-md-3"><label class="form-label">Net diameter (m)</label><input type="text" class="form-control" id="text_diam" placeholder="e.g. 0.16"></div>
+    <div class="col-md-1"><label class="form-label">Vol slide (ml)</label><input type="text" class="form-control" id="text_volslide" placeholder="e.g. 1"></div>
+    <div class="col-md-2"><label class="form-label">Count threshold <span title="Optional. Enter a number to enable threshold counting with progress bar. Leave blank to count by squares only." style="cursor:help;color:#009988;">&#9432;</span></label><input type="number" class="form-control" id="text_threshold" min="1" placeholder="e.g. 300 (optional)"></div>
+    <div class="col-md-2"><label class="form-label">Notes</label><input type="text" class="form-control" id="text_notes"></div>
+    <div class="row">
+        <button type="button" class="btn btn-r bg-light submitinfo" onclick="submitInfo()">Submit info</button>
+        <br><br><p id="outalert" style="color:darkgreen;font-family:'Cabin',sans-serif;font-size:15px;margin-left:12px;"></p>
     </div>
-
-    <div class="container" id="nextcounter" style="display:none">
-        <div class="row">
-            <div class="col-md-3 col-sm-6">
-            <div class="counter">
-                <div class="counter-icon">
-                    <i class="fa fa-rocket"></i>
-                </div>
-                <button class="btn add mx-10 mt-10 add9">+</button>
-                <button class="btn add mx-10 mt-10 min9">-</button>
-                <input type="text" onchange="namechange()" class="form-control transparent-input countername" id="tax9" placeholder="Enter name">
-                <span class="totalcount9 counter-value">0</span>
-            </div>
-        </div>
-            <div class="col-md-3 col-sm-6" id="nextcounter2" style="display:none">
-                <div class="counter pink">
-                    <div class="counter-icon">
-                        <i class="fa fa-rocket"></i>
-                    </div>
-                    <button class="btn add mx-10 mt-10 add10">+</button>
-                    <button class="btn add mx-10 mt-10 min10">-</button>
-                    <input type="text" onchange="namechange()" class="form-control transparent-input countername" id="tax10" placeholder="Enter name">
-                    <span class="totalcount10 counter-value">0</span>
-                </div>
-            </div>        
-            <div class="col-md-3 col-sm-6" id="nextcounter3" style="display:none">
-                <div class="counter blue">
-                    <div class="counter-icon">
-                        <i class="fa fa-rocket"></i>
-                    </div>
-                    <button class="btn add mx-10 mt-10 add11">+</button>
-                    <button class="btn add mx-10 mt-10 min11">-</button>
-                    <input type="text" onchange="namechange()" class="form-control transparent-input countername" id="tax11" placeholder="Enter name">
-                    <span class="totalcount11 counter-value">0</span>
-                </div>
-            </div>        
-            <div class="col-md-3 col-sm-6" id="nextcounter4" style="display:none">
-                <div class="counter orange">
-                    <div class="counter-icon">
-                        <i class="fa fa-rocket"></i>
-                    </div>
-                    <button class="btn add mx-10 mt-10 add12">+</button>
-                    <button class="btn add mx-10 mt-10 min12">-</button>
-                    <input type="text" onchange="namechange()" class="form-control transparent-input countername" id="tax12" placeholder="Enter name">
-                    <span class="totalcount12 counter-value">0</span>
-                </div>
-            </div>          
-         </div>
-    </div>
-    <div class="container" id="nextcounter5" style="display:none">
-        <div class="row">
-            <div class="col-md-3 col-sm-6">
-            <div class="counter teal">
-                <div class="counter-icon">
-                    <i class="fa fa-rocket"></i>
-                </div>
-                <button class="btn add mx-10 mt-10 add13">+</button>
-                <button class="btn add mx-10 mt-10 min13">-</button>
-                <input type="text" onchange="namechange()" class="form-control transparent-input countername" id="tax13" placeholder="Enter name">
-                <span class="totalcount13 counter-value">0</span>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-6" id="nextcounter6" style="display:none">
-            <div class="counter grey">
-                <div class="counter-icon">
-                    <i class="fa fa-rocket"></i>
-                </div>
-                <button class="btn add mx-10 mt-10 add14">+</button>
-                <button class="btn add mx-10 mt-10 min14">-</button>
-                <input type="text" onchange="namechange()" class="form-control transparent-input countername" id="tax14" placeholder="Enter name">
-                <span class="totalcount14 counter-value">0</span>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-6" id="nextcounter7" style="display:none">
-            <div class="counter rose">
-                <div class="counter-icon">
-                    <i class="fa fa-rocket"></i>
-                </div>
-                <button class="btn add mx-10 mt-10 add15">+</button>
-                <button class="btn add mx-10 mt-10 min15">-</button>
-                <input type="text" onchange="namechange()" class="form-control transparent-input countername" id="tax15" placeholder="Enter name">
-                <span class="totalcount15 counter-value">0</span>
-            </div>
-        </div>
-        <div class="col-md-3 col-sm-6" id="nextcounter8" style="display:none">
-            <div class="counter wine">
-                <div class="counter-icon">
-                    <i class="fa fa-rocket"></i>
-                </div>
-                <button class="btn add mx-10 mt-10 add16">+</button>
-                <button class="btn add mx-10 mt-10 min16">-</button>
-                <input type="text" onchange="namechange()" class="form-control transparent-input countername" id="tax16" placeholder="Enter name">
-                <span class="totalcount16 counter-value">0</span>
-            </div>
-        </div>                              
+    <div class="container second">
+        <ul>
+            <li class="instructions no-bullet">1. Enter your information above and click <b>"Submit Info"</b>.</li>
+            <ul style="margin-left:50px;padding-left:0">
+                <li class="instructions">Enter the total <b>squares counted</b> (out of 1,000) when you finish. The Sedgewick Rafter has 50 columns × 20 rows = 1,000 squares. For a partial row, add completed squares in that row to your full rows (e.g., 5 rows + 23 squares = 273).</li>
+                <li class="instructions" style="padding-bottom:10px;">If using a <b>count threshold</b>, a progress bar will appear tracking your total. Stop when it turns orange or complete the slide.</li>
+            </ul>
+            <li class="instructions no-bullet">2. Use the counters to tally each cyanobacterium. Click <b>"Add counter +"</b> for any taxa beyond the presets.</li>
+            <li class="instructions no-bullet">3. When done, click <b>"Export data"</b> to download a .CSV file.</li>
+        </ul>
     </div>
 </div>
-<br><br>
-<button type="button" class="btn btn-r btn-addcounter" id="btn-addcounter" onclick="addnewcounter()" style="background-color: darkslategray;color: white;">Add counter +</button>
-<span class="numbercounters counter-value" style="display:none">0</span>
-<br><br>
-<button class="btn btn-r reset bg-light" >Reset counters</button>
 <hr>
+
+<!-- THRESHOLD BAR -->
+<div class="container" style="margin-top:10px;margin-bottom:0;">
+    <div id="threshold-bar-wrap">
+        <div class="progress"><div id="threshold-bar" class="progress-bar" role="progressbar" style="width:0%"></div></div>
+        <div id="threshold-label">Total counted: <b id="total-counted-display">0</b> / <b id="threshold-display">300</b></div>
+        <div id="threshold-reached-alert">&#10003; Threshold reached — stop counting or continue to complete the slide.</div>
+    </div>
+</div>
+
+<!-- PRESET COUNTERS -->
+<div class="container second">
+    <div class="row">
+        <div class="col-md-3 col-sm-6"><div class="counter" id="preset-card-1"><div class="counter-icon"></div><button type="button" id="myImg1" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">−</button><h3>Microcystis</h3><span class="counter-value" id="count-1">0</span></div></div>
+        <div class="col-md-3 col-sm-6"><div class="counter pink" id="preset-card-2"><div class="counter-icon"></div><button type="button" id="myImg2" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">−</button><h3>Dolichospermum</h3><span class="counter-value" id="count-2">0</span></div></div>
+        <div class="col-md-3 col-sm-6"><div class="counter blue" id="preset-card-3"><div class="counter-icon"></div><button type="button" id="myImg3" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">−</button><h3>Gloeotrichia</h3><span class="counter-value" id="count-3">0</span></div></div>
+        <div class="col-md-3 col-sm-6"><div class="counter orange" id="preset-card-4"><div class="counter-icon"></div><button type="button" id="myImg4" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">−</button><h3>Chroococcus</h3><span class="counter-value" id="count-4">0</span></div></div>
+    </div>
+</div>
+<div class="container second">
+    <div class="row">
+        <div class="col-md-3 col-sm-6"><div class="counter teal" id="preset-card-5"><div class="counter-icon"></div><button type="button" id="myImg5" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">−</button><h3>Coelosphaerium/Woronichinia</h3><span class="counter-value" id="count-5">0</span></div></div>
+        <div class="col-md-3 col-sm-6"><div class="counter grey" id="preset-card-6"><div class="counter-icon"></div><button type="button" id="myImg6" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">−</button><h3>Aphanocapsa</h3><span class="counter-value" id="count-6">0</span></div></div>
+        <div class="col-md-3 col-sm-6"><div class="counter rose" id="preset-card-7"><div class="counter-icon"></div><button type="button" id="myImg7" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">−</button><h3>Merismopedia</h3><span class="counter-value" id="count-7">0</span></div></div>
+        <div class="col-md-3 col-sm-6"><div class="counter wine" id="preset-card-8"><div class="counter-icon"></div><button type="button" id="myImg8" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">−</button><h3>Oscillatoria</h3><span class="counter-value" id="count-8">0</span></div></div>
+    </div>
+</div>
+
+<!-- DYNAMIC COUNTER GRID -->
+<div class="container second"><div id="counter-grid"></div></div>
 <br>
-<button type="button" class="btn btn-r exp btn-light" >EXPORT DATA</button>
+<button type="button" class="btn btn-r" onclick="addCounter()" style="background-color:darkslategray;color:white;">Add counter +</button>
 <br><br>
-<hr>
-<h1 class="instructions">Preview of data:</h1>
-    <br>
-    <table class="tbl", border="1" cellspacing="0" cellpadding="10">
-        <tr>
-            <th>Name</th>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Location</th>
-            <th>Lat</th>
-            <th>Lon</th>
-            <th>Vol sample (ml)</th>
-            <th>Rows counted</th>
-            <th>Depth (m)</th>
-            <th># Tows</th>
-            <th>Net diam (m)</th>
-            <th>Vol slide (ml)</th>
-            <th>Counter notes</th>
-        </tr>
-        <tr>
-            <td class="nameoutput" id="output1"></td>
-            <td class="dateoutput" id="output2"></td>
-            <td class="timeoutput" id="output3"></td>
-            <td class="locationoutput" id="output4"></td>
-            <td class="latoutput" id="output5"></td>
-            <td class="lonoutput" id="output6"></td>
-            <td class="gradoutput" id="output7"></td>
-            <td class="rowoutput" id="output8"></td>
-            <td class="towsoutput" id="output9"></td>
-            <td class="depthoutput" id="output10"></td>
-            <td class="diamoutput" id="output11"></td>
-            <td class="noteoutput" id="output12"></td>
-            <td class="slideoutput" id="output13"></td>
-        </tr>
-    </table> 
-    <br>
-        <table class="tbl", border="1" cellspacing="0" cellpadding="10" >
-            <tr>
-                <th>Cyanobacteria</th>
-                <th>Count</th>
-                <th>Colonies/slide</th>
-                <th>Colonies/L</th>
-                <th>Relative abundance (%)</th>
-            </tr>
-            <tr>
-                <td>Microcystis</td>
-                <td class="tbl1">0</td>
-                <td class="tbl1b" id="tbl1b">0</td>
-                <td class="tbl1c" id="tbl1c">0</td>
-                <td class="tbl1d" id="tbl1d">0</td>
-            </tr>
-            <tr>
-                <td>Dolichospermum</td>
-                <td class="tbl2">0</td>
-                <td class="tbl2b" id="tbl2b">0</td>
-                <td class="tbl2c" id="tbl2c">0</td>
-                <td class="tbl2d" id="tbl2d">0</td>
-            </tr>
-            <tr>
-                <td>Gloeotrichia</td>
-                <td class="tbl3">0</td>
-                <td class="tbl3b" id="tbl3b">0</td>
-                <td class="tbl3c" id="tbl3c">0</td>
-                <td class="tbl3d" id="tbl3d">0</td>
-            </tr>
-            <tr>
-                <td>Chroococcus</td>
-                <td class="tbl4">0</td>
-                <td class="tbl4b" id="tbl4b">0</td>
-                <td class="tbl4c" id="tbl4c">0</td>
-                <td class="tbl4d" id="tbl4d">0</td>
-            </tr>
-            <tr>
-                <td>Coelosph/Woron</td>
-                <td class="tbl5">0</td>
-                <td class="tbl5b" id="tbl5b">0</td>
-                <td class="tbl5c" id="tbl5c">0</td>
-                <td class="tbl5d" id="tbl5d">0</td>
-            </tr>
-            <tr>
-                <td>Aphanocapsa</td>
-                <td class="tbl6">0</td>
-                <td class="tbl6b" id="tbl6b">0</td>
-                <td class="tbl6c" id="tbl6c">0</td>
-                <td class="tbl6d" id="tbl6d">0</td>
-            </tr>
-            <tr>
-                <td>Merismopedia</td>
-                <td class="tbl7 counter-value">0</td>
-                <td class="tbl7b counter-value" id="tbl7b">0</td>
-                <td class="tbl7c" id="tbl7c">0</td>
-                <td class="tbl7d" id="tbl7d">0</td>
-            </tr>
-            <tr>
-                <td>Oscillatoria</td>
-                <td class="tbl8 counter-value">0</td>
-                <td class="tbl8b counter-value" id="tbl8b">0</td>
-                <td class="tbl8c counter-value" id="tbl8c">0</td>
-                <td class="tbl8d" id="tbl8d">0</td>
-            </tr>
-            <tr id="nextrow" style="display:none">
-                <td id="tax9out"></td>
-                <td class="tbl9 counter-value">0</td>
-                <td class="tbl9b counter-value" id="tbl9b">0</td>
-                <td class="tbl9c counter-value" id="tbl9c">0</td>
-                <td class="tbl9d" id="tbl9d">0</td>
-            </tr>
-            <tr id="nextrow2" style="display:none">
-                <td id="tax10out"></td>
-                <td class="tbl10 counter-value">0</td>
-                <td class="tbl10b counter-value" id="tbl10b">0</td>
-                <td class="tbl10c counter-value" id="tbl10c">0</td>
-                <td class="tbl10d" id="tbl10d">0</td>
-            </tr>
-            <tr id="nextrow3" style="display:none">
-                <td id="tax11out"></td>
-                <td class="tbl11 counter-value">0</td>
-                <td class="tbl11b counter-value" id="tbl11b">0</td>
-                <td class="tbl11c counter-value" id="tbl11c">0</td>
-                <td class="tbl11d" id="tbl11d">0</td>
-            </tr>
-            <tr id="nextrow4" style="display:none">
-                <td id="tax12out"></td>
-                <td class="tbl12 counter-value">0</td>
-                <td class="tbl12b counter-value" id="tbl12b">0</td>
-                <td class="tbl12c counter-value" id="tbl12c">0</td>
-                <td class="tbl12d" id="tbl12d">0</td>
-            </tr>
-            <tr id="nextrow5" style="display:none">
-                <td id="tax13out"></td>
-                <td class="tbl13 counter-value">0</td>
-                <td class="tbl13b counter-value" id="tbl13b">0</td>
-                <td class="tbl13c counter-value" id="tbl13c">0</td>
-                <td class="tbl13d" id="tbl13d">0</td>
-            </tr>
-            <tr id="nextrow6" style="display:none">
-                <td id="tax14out"></td>
-                <td class="tbl14 counter-value">0</td>
-                <td class="tbl14b counter-value" id="tbl14b">0</td>
-                <td class="tbl14c counter-value" id="tbl14c">0</td>
-                <td class="tbl14d" id="tbl14d">0</td>
-            </tr>
-            <tr id="nextrow7" style="display:none">
-                <td id="tax15out"></td>
-                <td class="tbl15 counter-value">0</td>
-                <td class="tbl15b counter-value" id="tbl15b">0</td>
-                <td class="tbl15c counter-value" id="tbl15c">0</td>
-                <td class="tbl15d" id="tbl15d">0</td>
-            </tr>
-            <tr id="nextrow8" style="display:none">
-                <td id="tax16out"></td>
-                <td class="tbl16 counter-value">0</td>
-                <td class="tbl16b counter-value" id="tbl16b">0</td>
-                <td class="tbl16c counter-value" id="tbl16c">0</td>
-                <td class="tbl16d" id="tbl16d">0</td>
-            </tr>
-        </table>
-        <br>
+<button type="button" class="btn btn-r reset bg-light" onclick="resetCounters()">Reset counters</button>
+<hr><br>
+<button type="button" class="btn btn-r exp btn-light" onclick="exportData()">EXPORT DATA</button>
+<br><br><hr>
 
-<!-- Trigger the Modal -->
-<!-- <img id="myImg" src="MCimages.jpg" alt="Snow" style="width:100%;max-width:300px"> -->
-                    <!-- The Modal -->
-                    <div id="myModal1" class="modal modal1">
-                        <span class="close close1">&times;</span>
-                        <img class="modal-content" id="img01 myImg1" src="IDimages/MCimages.jpg">
-                        <div id="caption1" class="caption"><a class="caption" href="http://cfb.unh.edu/CyanoKey/Microcystis.html" target="_blank">See more images</a></div>
-                    </div>
-                    <div id="myModal2" class="modal modal2">
-                        <span class="close close2">&times;</span>
-                        <img class="modal-content" id="img02 myImg2" src="IDimages/DOLimages.jpg">
-                        <div id="caption2" class="caption"><a class="caption" href="http://cfb.unh.edu/CyanoKey/Anabaena.html" target="_blank">See more images</a></div>
-                    </div>
-                    <div id="myModal3" class="modal modal3">
-                        <span class="close close3">&times;</span>
-                        <img class="modal-content" id="img03 myImg3" src="IDimages/GLOEOimages.jpg">
-                        <div id="caption3" class="caption"><a class="caption" href="http://cfb.unh.edu/CyanoKey/Gloeotrichia.html" target="_blank">See more images</a></div>
-                    </div>
-                    <div id="myModal4" class="modal modal4">
-                        <span class="close close4">&times;</span>
-                        <img class="modal-content" id="img04 myImg4" src="IDimages/CHROOimages.jpg">
-                        <div id="caption4" class="caption"><a class="caption" href="http://cfb.unh.edu/CyanoKey/Gloeocapsa.html" target="_blank">See more images</a></div>
-                    </div>
-                    <div id="myModal5" class="modal modal5">
-                        <span class="close close5">&times;</span>
-                        <img class="modal-content" id="img05 myImg5" src="IDimages/COEL_WOROimages.jpg">
-                        <div id="caption5" class="caption">See more images of <a style="text-decoration: none;color: darksalmon;" href="http://cfb.unh.edu/CyanoKey/Woronichinia.html" target="_blank">Woronichinia</a> and 
-                            <a style="text-decoration: none;color: darksalmon;" href="http://cfb.unh.edu/CyanoKey/Coelosphaerium.html" target="_blank">Coelosphaerium</a></div>
-                    </div>
-                    <div id="myModal6" class="modal modal6">
-                        <span class="close close6">&times;</span>
-                        <img class="modal-content" id="img06 myImg6" src="IDimages/APHANimages.jpg">
-                        <div id="caption6" class="caption"><a class="caption" href="http://cfb.unh.edu/CyanoKey/Aphanocapsa.html" target="_blank">See more images</a></div>
-                    </div>
-                    <div id="myModal7" class="modal modal7">
-                        <span class="close close7">&times;</span>
-                        <img class="modal-content" id="img07 myImg7" src="IDimages/MERISimages.jpg">
-                        <div id="caption7" class="caption"><a class="caption" href="http://cfb.unh.edu/CyanoKey/Merismopedia.html" target="_blank">See more images</a></div>
-                    </div>
-                    <div id="myModal8" class="modal modal8">
-                        <span class="close close8">&times;</span>
-                        <img class="modal-content" id="img08 myImg8" src="IDimages/OSCimages.jpg">
-                        <div id="caption8" class="caption"><a class="caption" href="http://cfb.unh.edu/CyanoKey/Oscillatoria.html" target="_blank">See more images</a></div>
-                    </div>
+<!-- PREVIEW -->
+<h1 class="instructions">Preview of data:</h1><br>
+<table class="tbl" border="1" cellspacing="0" cellpadding="10">
+    <thead><tr><th>Name</th><th>Date</th><th>Time</th><th>Location</th><th>Lat</th><th>Lon</th><th>Vol sample (ml)</th><th>Squares counted</th><th>Depth (m)</th><th># Tows</th><th>Net diam (m)</th><th>Vol slide (ml)</th><th>Count threshold</th><th>Total counted</th><th>Notes</th></tr></thead>
+    <tbody><tr><td id="out1"></td><td id="out2"></td><td id="out3"></td><td id="out4"></td><td id="out5"></td><td id="out6"></td><td id="out_vol"></td><td id="out_squares"></td><td id="out_depth"></td><td id="out_tows"></td><td id="out_diam"></td><td id="out_volslide"></td><td id="out_threshold"></td><td id="out_total_counted"></td><td id="out_notes"></td></tr></tbody>
+</table><br>
+<table class="tbl" border="1" cellspacing="0" cellpadding="10">
+    <thead><tr><th>Taxon name</th><th>Count</th><th>Individuals/slide</th><th>Individuals/L</th><th>Relative abundance (%)</th></tr></thead>
+    <tbody id="taxa-preview-body"></tbody>
+</table><br>
 
+<!-- CHART -->
+<h2 class="instructions" style="margin-top:20px;">Chart:</h2>
+<div style="margin:8px 0 16px 0;">
+    <button class="chart-toggle-btn active-toggle" data-mode="rel" onclick="setChartMode('rel')">Relative abundance (%)</button>
+    <button class="chart-toggle-btn" data-mode="slide" onclick="setChartMode('slide')">Individuals/slide</button>
+    <button class="chart-toggle-btn" data-mode="density" onclick="setChartMode('density')">Individuals/L</button>
+</div>
+<div style="max-width:860px;"><canvas id="taxa-chart"></canvas></div><br>
 
-    <script src="main.js"></script>
-    
+<!-- MODALS -->
+<div id="myModal1" class="modal"><span class="close">&times;</span><img class="modal-content" src="IDimages/MCimages.jpg"><div class="caption"><a href="http://cfb.unh.edu/CyanoKey/Microcystis.html" target="_blank">See more images</a></div></div>
+<div id="myModal2" class="modal"><span class="close">&times;</span><img class="modal-content" src="IDimages/DOLimages.jpg"><div class="caption"><a href="http://cfb.unh.edu/CyanoKey/Anabaena.html" target="_blank">See more images</a></div></div>
+<div id="myModal3" class="modal"><span class="close">&times;</span><img class="modal-content" src="IDimages/GLOEOimages.jpg"><div class="caption"><a href="http://cfb.unh.edu/CyanoKey/Gloeotrichia.html" target="_blank">See more images</a></div></div>
+<div id="myModal4" class="modal"><span class="close">&times;</span><img class="modal-content" src="IDimages/CHROOimages.jpg"><div class="caption"><a href="http://cfb.unh.edu/CyanoKey/Gloeocapsa.html" target="_blank">See more images</a></div></div>
+<div id="myModal5" class="modal"><span class="close">&times;</span><img class="modal-content" src="IDimages/COEL_WOROimages.jpg"><div class="caption">See more of <a href="http://cfb.unh.edu/CyanoKey/Woronichinia.html" target="_blank">Woronichinia</a> and <a href="http://cfb.unh.edu/CyanoKey/Coelosphaerium.html" target="_blank">Coelosphaerium</a></div></div>
+<div id="myModal6" class="modal"><span class="close">&times;</span><img class="modal-content" src="IDimages/APHANimages.jpg"><div class="caption"><a href="http://cfb.unh.edu/CyanoKey/Aphanocapsa.html" target="_blank">See more images</a></div></div>
+<div id="myModal7" class="modal"><span class="close">&times;</span><img class="modal-content" src="IDimages/MERISimages.jpg"><div class="caption"><a href="http://cfb.unh.edu/CyanoKey/Merismopedia.html" target="_blank">See more images</a></div></div>
+<div id="myModal8" class="modal"><span class="close">&times;</span><img class="modal-content" src="IDimages/OSCimages.jpg"><div class="caption"><a href="http://cfb.unh.edu/CyanoKey/Oscillatoria.html" target="_blank">See more images</a></div></div>
+
+<script>
+window.PAGE_CONFIG = {
+    mode: 'cyano',
+    presets: [
+        { name:'Microcystis',             colour:'',      imgIndex:1 },
+        { name:'Dolichospermum',          colour:'pink',  imgIndex:2 },
+        { name:'Gloeotrichia',            colour:'blue',  imgIndex:3 },
+        { name:'Chroococcus',             colour:'orange',imgIndex:4 },
+        { name:'Coelosphaerium/Woronichinia', colour:'teal', imgIndex:5 },
+        { name:'Aphanocapsa',             colour:'grey',  imgIndex:6 },
+        { name:'Merismopedia',            colour:'rose',  imgIndex:7 },
+        { name:'Oscillatoria',            colour:'wine',  imgIndex:8 },
+    ],
+    yAxisLabels: { rel:'Relative abundance (%)', slide:'Individuals/slide', density:'Individuals/L' },
+    densityLabel: 'Individuals/L',
+};
+</script>
+<script src="main.js"></script>
+<script>
+// Wire preset cards: View buttons open modals
+document.querySelectorAll('[id^="myImg"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const idx = btn.id.replace('myImg','');
+        openModal(idx);
+    });
+});
+initCounters();
+</script>
 </body>
 </html>
