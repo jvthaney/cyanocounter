@@ -15,9 +15,9 @@ const COLOURS = ['', 'pink', 'blue', 'orange', 'teal', 'grey', 'rose', 'wine', '
 // ─── Metadata state ───────────────────────────────────────────────────────────
 let meta = {
     name: '', date: '', time: '', location: '',
-    lat: '', lon: '', volSample: '', depth: '2',
-    netDiam: '0.16', rowsCounted: '20', volSlide: '1',
-    threshold: '300', notes: ''
+    lat: '', lon: '', volSample: '', depth: '',
+    netDiam: '', rowsCounted: '', volSlide: '',
+    threshold: '', notes: ''
 };
 
 // ─── DOM refs ─────────────────────────────────────────────────────────────────
@@ -179,28 +179,27 @@ function updateAll() {
     }
 
     // Parse parameters for density calculations
-    const rowsCounted  = parseFloat(meta.rowsCounted) || 20;
+    const rowsCounted  = parseFloat(meta.rowsCounted);
     const totalRows    = 20;
-    const percSlide    = rowsCounted / totalRows;           // proportion of slide traversed
+    const percSlide    = (!isNaN(rowsCounted) && rowsCounted > 0) ? rowsCounted / totalRows : NaN;
 
-    const volSampleML  = parseFloat(meta.volSample) || NaN;
-    const volSlideML   = parseFloat(meta.volSlide)  || 1;   // Sedgewick Rafter = 1 ml
-    const depth        = parseFloat(meta.depth)     || 2;
-    const diameter     = parseFloat(meta.netDiam)   || 0.16;
+    const volSampleML  = parseFloat(meta.volSample);
+    const volSlideML   = parseFloat(meta.volSlide);
+    const depth        = parseFloat(meta.depth);
+    const diameter     = parseFloat(meta.netDiam);
 
     // Volume of lake water sampled (litres): cylinder V = π r² h
     const r            = diameter / 2;
-    const lakeWaterL   = Math.PI * r * r * depth * 1000;   // m³ → L
+    const lakeWaterL   = (!isNaN(diameter) && !isNaN(depth))
+                         ? Math.PI * r * r * depth * 1000 : NaN;
 
     // Proportion of sample volume that went onto the slide
-    // propOnSlide = volSlide / volSample  (both in ml)
-    const propOnSlide  = (!isNaN(volSampleML) && volSampleML > 0)
-                         ? volSlideML / volSampleML
-                         : NaN;
+    const propOnSlide  = (!isNaN(volSampleML) && volSampleML > 0 && !isNaN(volSlideML) && volSlideML > 0)
+                         ? volSlideML / volSampleML : NaN;
 
     counters.forEach(c => {
         // Colonies per whole slide (scale up from rows actually counted)
-        const coloniesPerSlide = percSlide > 0 ? c.count / percSlide : 0;
+        const coloniesPerSlide = (!isNaN(percSlide) && percSlide > 0) ? c.count / percSlide : NaN;
 
         // Colonies per litre of lake water
         // coloniesPerSlide / propOnSlide = colonies in whole sample
@@ -256,18 +255,19 @@ function exportData() {
         'Colonies/slide (estimated)','Colonies/L','Relative abundance (%)'
     ];
 
-    const rowsCounted = parseFloat(meta.rowsCounted) || 20;
-    const percSlide   = rowsCounted / 20;
-    const volSampleML = parseFloat(meta.volSample) || NaN;
-    const volSlideML  = parseFloat(meta.volSlide)  || 1;
-    const depth       = parseFloat(meta.depth)     || 2;
-    const diameter    = parseFloat(meta.netDiam)   || 0.16;
+    const rowsCounted = parseFloat(meta.rowsCounted);
+    const percSlide   = (!isNaN(rowsCounted) && rowsCounted > 0) ? rowsCounted / 20 : NaN;
+    const volSampleML = parseFloat(meta.volSample);
+    const volSlideML  = parseFloat(meta.volSlide);
+    const depth       = parseFloat(meta.depth);
+    const diameter    = parseFloat(meta.netDiam);
     const r           = diameter / 2;
-    const lakeWaterL  = Math.PI * r * r * depth * 1000;
-    const propOnSlide = (!isNaN(volSampleML) && volSampleML > 0) ? volSlideML / volSampleML : NaN;
+    const lakeWaterL  = (!isNaN(diameter) && !isNaN(depth)) ? Math.PI * r * r * depth * 1000 : NaN;
+    const propOnSlide = (!isNaN(volSampleML) && volSampleML > 0 && !isNaN(volSlideML) && volSlideML > 0)
+                        ? volSlideML / volSampleML : NaN;
 
     const taxaRows = counters.map(c => {
-        const coloniesPerSlide = percSlide > 0 ? c.count / percSlide : 0;
+        const coloniesPerSlide = (!isNaN(percSlide) && percSlide > 0) ? c.count / percSlide : NaN;
         let coloniesPerLitre = NaN;
         if (!isNaN(propOnSlide) && propOnSlide > 0 && lakeWaterL > 0) {
             coloniesPerLitre = (coloniesPerSlide / propOnSlide) / lakeWaterL;
