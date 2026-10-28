@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cabin|News Cycle">
 <script src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js"></script>
 <style>
- :root { --phyto:#2e8b57; --zoop:#1f6f9c; --other:#727171; --ink:#222; --line:#ccc; }
+ :root { --phyto:#2e8b57; --zoop:#F8BD7F; --other:#727171; --ink:#222; --line:#ccc; }
  body { font-family:'Cabin',sans-serif; color:var(--ink); margin:0; background:#fafaf8; }
  header { background:#333; color:#fff; padding:14px 20px; }
  header h1 { font-family:'News Cycle',sans-serif; font-size:26px; margin:0; color:lightgreen; }
@@ -30,7 +30,8 @@
  .rm { color:#a00; border-color:#a00; padding:2px 7px; }
  #graph { width:100%; height:620px; background:#fff; border:1px solid var(--line); border-radius:8px; }
  .legend span { display:inline-block; margin-right:14px; font-size:14px; }
- .sw { display:inline-block; width:12px; height:12px; border-radius:50%; margin-right:5px; vertical-align:middle; }
+ .sw { display:inline-block; width:12px; height:12px; border-radius:50%; margin-right:5px;
+        vertical-align:middle; box-shadow:0 0 0 1px rgba(0,0,0,0.25); }
  .warn { background:#fff8e1; border-left:4px solid #EE7733; padding:8px 12px; font-size:14px; margin:8px 0; }
  .notelist { max-height:170px; overflow-y:auto; margin:4px 0; }
  .notelist div { padding:1px 0; }
@@ -270,6 +271,74 @@ function aliasOf(name) {
   return a && a.toLowerCase() !== (name||'').trim().toLowerCase() ? a : null;
 }
 
+// ─── "did you mean" ───────────────────────────────────────────────────────────
+// Counter sheets carry typos (Wornichinia), group names (Protozoa), life stages
+// (nauplii) and stray keystrokes. Reporting "not in the table" is true but useless,
+// so look for a near match and offer it.
+const ALL_NAMES = (() => {
+  const set = new Set();
+  DATA.algae.forEach(p => { if (p.gen) set.add(p.gen); });
+  DATA.algae.forEach(p => set.add(p.n.replace(/\s*\(genus median\)$/, '')));
+  DATA.animals.forEach(a => { set.add(a.n); const g = a.n.split(/\s+/)[0]; if (g) set.add(g); });
+  return [...set].filter(n => n && n.length > 2);
+})();
+
+// Words that are a group or a life stage rather than a taxon in the tables.
+const NOT_A_TAXON = {
+  'protozoa': 'a group, not a taxon: count the genus, or set the group to Other',
+  'protozoan': 'a group, not a taxon',
+  'ciliate': 'a group of protozoa: set the group to Other',
+  'ciliates': 'a group of protozoa: set the group to Other',
+  'nauplii': 'a copepod life stage: the trait tables hold adults, so set the group to Zoop and give it a body length by hand',
+  'nauplius': 'a copepod life stage, see nauplii',
+  'napuli': 'probably "nauplii", a copepod life stage',
+  'copepodite': 'a copepod life stage, not in the trait tables',
+  'copepodites': 'a copepod life stage, not in the trait tables',
+  'cyclopoid': 'an order of copepods: count the genus, or set the group to Zoop and give a body length',
+  'calanoid': 'an order of copepods: count the genus, or set the group to Zoop and give a body length',
+  'harpacticoid': 'an order of copepods, not a taxon in the tables',
+  'rotifer': 'a phylum: count the genus',
+  'rotifers': 'a phylum: count the genus',
+  'cladoceran': 'a group: count the genus',
+  'diatom': 'a group: count the genus',
+  'diatoms': 'a group: count the genus',
+  'green algae': 'a group: count the genus',
+  'detritus': 'not an organism',
+  'unknown': 'not a taxon',
+};
+
+function editDistance(a, b) {
+  const m = a.length, n = b.length;
+  if (!m || !n) return Math.max(m, n);
+  let prev = Array.from({length: n + 1}, (_, j) => j), cur = new Array(n + 1);
+  for (let i = 1; i <= m; i++) {
+    cur[0] = i;
+    for (let j = 1; j <= n; j++) {
+      cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1,
+                        prev[j - 1] + (a[i-1] === b[j-1] ? 0 : 1));
+    }
+    [prev, cur] = [cur, prev];
+  }
+  return prev[n];
+}
+
+function didYouMean(raw) {
+  const name = (raw || '').trim();
+  const key = name.toLowerCase();
+  if (NOT_A_TAXON[key]) return { kind: 'explain', text: NOT_A_TAXON[key] };
+  if (name.length < 4 || !/[a-z]{3}/i.test(name)) return null;
+  let best = null, bestD = Infinity;
+  for (const cand of ALL_NAMES) {
+    const c = cand.toLowerCase();
+    if (Math.abs(c.length - key.length) > 4) continue;
+    const d = editDistance(key, c);
+    if (d < bestD) { bestD = d; best = cand; if (d === 0) break; }
+  }
+  if (!best) return null;
+  const sim = 1 - bestD / Math.max(key.length, best.length);
+  return sim >= 0.72 ? { kind: 'suggest', name: best, sim } : null;
+}
+
 function lookupAnimalLoose(rawName) {
   const a = lookupAnimal(rawName);
   if (a) return { trait: a, how: 'name' };
@@ -292,20 +361,26 @@ function buildLinks() {
     if (!r.taxon.trim()) return;
     if (r.group === 'zoop') {
       const { trait: a, how } = lookupAnimalLoose(r.taxon);
-      if (!a) notes.push(`${r.taxon}: not in the zooplankton trait table`);
+      if (!a) notes.push({ row: r.id, taxon: r.taxon,
+                           msg: 'not in the zooplankton trait table',
+                           hint: didYouMean(r.taxon) });
       else if (how !== 'name') matched.push(`${r.taxon}: matched by ${how}`);
-      if (a && !a.hi) notes.push(`${r.taxon}: no body length, so it cannot be linked`);
+      if (a && !a.hi) notes.push({ row: r.id, taxon: r.taxon,
+                                  msg: 'no body length, so it cannot be linked', hint: null });
       nodes.push({ id:r.taxon, group:'zoop', count:r.count, unit:r.unit, trait:a });
     } else if (r.group === 'phyto') {
       const { trait: p, how } = lookupAlga(r.taxon, r.unit);
-      if (!p) notes.push(`${r.taxon}: not in the phytoplankton trait table`);
+      if (!p) notes.push({ row: r.id, taxon: r.taxon,
+                           msg: 'not in the phytoplankton trait table',
+                           hint: didYouMean(r.taxon) });
       else if (how !== 'name') matched.push(`${r.taxon}: matched by ${how}`);
       const shownUnit = p ? p.u : r.unit;
       nodes.push({ id:`${r.taxon} (${shownUnit==='filament_100um'?'filament':shownUnit})`,
                    group:'phyto', count:r.count, unit:shownUnit, trait:p });
     } else {
       nodes.push({ id:r.taxon, group:'other', count:r.count, unit:r.unit, trait:null });
-      notes.push(`${r.taxon}: "other" taxa have no traits yet, so they are drawn unlinked`);
+      notes.push({ row:r.id, taxon:r.taxon,
+                   msg:'"other" taxa have no traits yet, so they are drawn unlinked', hint:null });
     }
   });
 
@@ -399,18 +474,30 @@ function redraw() {
     `<span class="stat"><b>${nodes.length}</b> taxa &nbsp; <b>${links.length}</b> links &nbsp; ` +
     `connectance <b>${possible? (links.length/possible).toFixed(3):'0'}</b></span>`;
 
-  const esc = t => t.replace(/[&<>]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[ch]));
-  const listBox = (items, cls, heading, footer) => items.length ? `<div class="${cls}">` +
+  const esc = t => String(t).replace(/[&<>"]/g, ch =>
+      ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
+  const noteLine = n => {
+    let extra = '';
+    if (n.hint && n.hint.kind === 'suggest') {
+      extra = ` &mdash; did you mean <b>${esc(n.hint.name)}</b>? ` +
+              `<button style="font-size:12px;padding:1px 7px;" ` +
+              `onclick="applySuggestion(${n.row}, '${esc(n.hint.name).replace(/'/g, "\\'")}')">Use</button>`;
+    } else if (n.hint && n.hint.kind === 'explain') {
+      extra = ` &mdash; <span class="muted">${esc(n.hint.text)}</span>`;
+    }
+    return `<div><b>${esc(n.taxon)}</b>: ${esc(n.msg)}${extra}</div>`;
+  };
+  const listBox = (items, cls, heading, footer, render) => items.length ? `<div class="${cls}">` +
       `<b>${heading} (${items.length})</b>` +
       `<button onclick="copyNotes('${cls}')" style="float:right;font-size:12px;padding:2px 8px;">Copy list</button>` +
-      `<div class="notelist" id="list-${cls}">` +
-      items.map(n => `<div>${esc(n)}</div>`).join('') + `</div>` +
+      `<div class="notelist" id="list-${cls}">` + items.map(render).join('') + `</div>` +
       (footer ? `<span class="muted">${footer}</span>` : '') + `</div>` : '';
   document.getElementById('count-warn').innerHTML =
-    listBox(notes, 'warn', 'Not found or unusable', '') +
+    listBox(notes, 'warn', 'Not found or unusable', '', noteLine) +
     listBox(matched, 'from-counter', 'Matched less exactly',
             'A genus value is the median across the species in the trait table, so it is a '
-            + 'rough stand-in for a species measurement.');
+            + 'rough stand-in for a species measurement.',
+            m => `<div>${esc(m)}</div>`);
 
   document.getElementById('cent-body').innerHTML = cent
     .sort((a,b)=>b.degree-a.degree || b.betweenness-a.betweenness)
@@ -427,7 +514,7 @@ function redraw() {
   nodes.forEach(n => { n.degree = centById[n.id] ? centById[n.id].degree : 0; });
   const maxCount = d3.max(nodes, n=>n.count) || 1;
   const rOf = n => 6 + 18*Math.sqrt((n.count||0)/maxCount);
-  const colour = g => g==='phyto' ? '#2e8b57' : g==='zoop' ? '#1f6f9c' : '#727171';
+  const colour = g => g==='phyto' ? '#2e8b57' : g==='zoop' ? '#F8BD7F' : '#727171';
 
   const link = svg.append('g').attr('stroke','#999').attr('stroke-opacity',0.45)
     .selectAll('line').data(links).join('line')
@@ -443,7 +530,7 @@ function redraw() {
         .on('drag',  (e,d)=>{ d.fx=e.x; d.fy=e.y; })
         .on('end',   (e,d)=>{ if(!e.active) sim.alphaTarget(0); d.fx=null; d.fy=null; }));
   node.append('circle').attr('r', rOf).attr('fill', d=>colour(d.group))
-      .attr('stroke','#fff').attr('stroke-width',1.5)
+      .attr('stroke', d=>d.group==='zoop' ? '#b07a3c' : '#fff').attr('stroke-width',1.5)
       .append('title').text(d=>`${d.id}\ncount ${d.count}\ndegree ${centById[d.id]?.degree ?? 0}`);
   node.append('text').text(d=>d.id).attr('font-size',11).attr('dx', d=>rOf(d)+3).attr('dy',4);
 
@@ -466,6 +553,20 @@ function redraw() {
           .attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
       node.attr('transform', d=>`translate(${d.x},${d.y})`);
     });
+}
+
+function applySuggestion(rowId, name) {
+  const r = rows.find(r => r.id === rowId);
+  if (!r) return;
+  r.taxon = name;
+  const input = document.querySelector(`#r${rowId} input.taxon-in`);
+  if (input) input.value = name;
+  // the corrected name may belong to the other group
+  const grpSel = document.querySelector(`#r${rowId} select`);
+  if (lookupAnimalLoose(name).trait && !lookupAlga(name, 'cell').trait) {
+    r.group = 'zoop'; if (grpSel) grpSel.value = 'zoop'; renderUnits(rowId);
+  }
+  redraw();
 }
 
 function copyNotes(cls) {

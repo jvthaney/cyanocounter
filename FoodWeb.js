@@ -27,7 +27,7 @@ const SR_TOTAL = 1000;    // Sedgewick Rafter squares (50 columns x 20 rows)
 const GROUPS = {
     phyto: { label: 'Phytoplankton', css: 'grp-phyto', colour: '#2e8b57',
              units: ['cell', 'colony', 'filament'], defaultUnit: 'cell' },
-    zoop:  { label: 'Zooplankton',   css: 'grp-zoop',  colour: '#1f6f9c',
+    zoop:  { label: 'Zooplankton',   css: 'grp-zoop',  colour: '#F8BD7F',
              units: ['individual'], defaultUnit: 'individual' },
     other: { label: 'Other',         css: 'grp-other', colour: '#727171',
              units: ['individual'], defaultUnit: 'individual' },
