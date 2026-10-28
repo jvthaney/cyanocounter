@@ -308,7 +308,7 @@ function sendToDashboard() {
             + 'Use "Export data" and then load the file in the dashboard.');
         return;
     }
-    window.open('foodweb.html', '_blank', 'noopener');
+    window.open('dashboard.html', '_blank', 'noopener');
 }
 
 // ─── Export ───────────────────────────────────────────────────────────────────
