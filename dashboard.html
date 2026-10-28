@@ -108,7 +108,9 @@
       <span><i class="sw" style="background:var(--phyto)"></i>Phytoplankton</span>
       <span><i class="sw" style="background:var(--zoop)"></i>Zooplankton</span>
       <span><i class="sw" style="background:var(--other)"></i>Other</span>
-      <span class="muted">node size = abundance &nbsp;|&nbsp; a dashed red ring means no links: select it to see why</span>
+      <span class="muted">node size = abundance &nbsp;|&nbsp; arrows point from the food to the
+      feeder &nbsp;|&nbsp; dashed line = grazing, solid = predation &nbsp;|&nbsp;
+      a dashed red ring means no links: select it to see why</span>
     </div>
     <div id="summary" style="margin:8px 0;"></div>
     <svg id="graph" role="img" aria-label="Food web diagram"></svg>
@@ -537,10 +539,25 @@ function redraw() {
   const rOf = n => 6 + 18*Math.sqrt((n.count||0)/maxCount);
   const colour = g => g==='phyto' ? '#2e8b57' : g==='zoop' ? '#F8BD7F' : '#727171';
 
-  const link = svg.append('g').attr('stroke','#999').attr('stroke-opacity',0.45)
+  // arrowheads: the line runs from the PREY to the PREDATOR, the way energy moves
+  const defs = svg.append('defs');
+  [['arrow-graz', '#999'], ['arrow-pred', '#555']].forEach(([id, fill]) => {
+    defs.append('marker')
+        .attr('id', id).attr('viewBox', '0 -5 10 10')
+        .attr('refX', 9).attr('refY', 0)
+        .attr('markerWidth', 6).attr('markerHeight', 6)
+        .attr('orient', 'auto-start-reverse')
+      .append('path')
+        .attr('d', 'M0,-4L9,0L0,4')
+        .attr('fill', fill);
+  });
+
+  const link = svg.append('g').attr('stroke','#999').attr('stroke-opacity',0.55)
     .selectAll('line').data(links).join('line')
+      .attr('stroke', d=>d.type==='predation'?'#555':'#999')
       .attr('stroke-width', d=>d.type==='predation'?2:1)
-      .attr('stroke-dasharray', d=>d.type==='predation'?'':'3,2');
+      .attr('stroke-dasharray', d=>d.type==='predation'?'':'3,2')
+      .attr('marker-end', d=>`url(#${d.type==='predation'?'arrow-pred':'arrow-graz'})`);
 
   const node = svg.append('g').selectAll('g').data(nodes).join('g')
       .attr('tabindex', 0).style('cursor','pointer')
@@ -572,8 +589,18 @@ function redraw() {
         d.x = Math.max(r, Math.min(W - r - labelRoom, d.x));
         d.y = Math.max(r, Math.min(H - r, d.y));
       });
-      link.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y)
-          .attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
+      // d.source is the consumer and d.target the food, so the line is drawn the
+      // other way round and stops at the edge of the consumer's circle, leaving
+      // the arrowhead visible rather than buried under the node.
+      link.each(function (d) {
+        const dx = d.source.x - d.target.x, dy = d.source.y - d.target.y;
+        const len = Math.hypot(dx, dy) || 1;
+        const stop = rOf(d.source) + 7;
+        this.setAttribute('x1', d.target.x);
+        this.setAttribute('y1', d.target.y);
+        this.setAttribute('x2', d.source.x - (dx / len) * stop);
+        this.setAttribute('y2', d.source.y - (dy / len) * stop);
+      });
       node.attr('transform', d=>`translate(${d.x},${d.y})`);
     });
 }
