@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <title>CyanoCounter</title>
+    <title>Cyano Counter</title>
     <link href="main.css" rel="stylesheet">
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8JDJ20QH0E"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-8JDJ20QH0E');</script>
@@ -26,26 +26,41 @@
         .counter { position:relative; }
         .chart-toggle-btn { font-family:'Cabin',sans-serif; font-size:14px; border-radius:6px; border:1px solid #009988; background:#fff; color:#009988; padding:4px 12px; cursor:pointer; margin-right:6px; }
         .chart-toggle-btn.active-toggle { background:#009988; color:#fff; }
+    
+        /* ---- site navigation: one button per counter, visible from every page ---- */
+        .site-nav { display:flex; flex-wrap:wrap; align-items:center; gap:6px; padding:6px 14px 8px; }
+        .site-nav a {
+            font-family:'Cabin',sans-serif; font-size:15px; text-decoration:none;
+            color:#fff; background:rgba(255,255,255,0.10);
+            border:1px solid rgba(255,255,255,0.45); border-radius:6px;
+            padding:4px 11px; white-space:nowrap; line-height:1.3;
+        }
+        .site-nav a:hover { background:rgba(255,255,255,0.24); }
+        .site-nav a:focus-visible { outline:3px solid #ffbf47; outline-offset:2px; }
+        /* the two food web pages are a set, and a different colour says so */
+        .site-nav a.fw { background:#009988; border-color:#00bfa8; }
+        .site-nav a.fw:hover { background:#00b3a0; }
+        .site-nav a[aria-current="page"] { background:#fff; color:#222; border-color:#fff; font-weight:600; }
+        .site-nav a.fw[aria-current="page"] { background:#fff; color:#00695f; border-color:#fff; }
+        .site-nav .spacer { flex:1 1 auto; }
+        .site-nav a.help { background:transparent; border-style:dashed; }
+        .navheader nav { padding-bottom:2px; }
+        .first { margin-top:86px !important; }
     </style>
 </head>
 <body class="jumbotron">
 <div class="navheader">
     <nav class="navbar-light navbar-expand-lg fixed-top" style="background-color:#333;">
-        <a class="navbar-brand" href="#" style="color:rgb(163,255,223)">CyanoCounter</a>
-        <li style="float:right" class="dropdown-menu-dark nav-item banner">
-            <a class="button active" href="https://github.com/jvthaney/cyanocounter/blob/main/README.md" target="_blank">Full instructions</a>
-        </li>
-        <li style="float:right" class="dropdown-menu-dark nav-item banner">
-            <a class="dropdown-toggle" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:white;font-size:22px;">More counters</a>
-            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink" style="font-size:22px;">
-                <li><a class="dropdown-item" href="index.html">CyanoCounter</a></li>
-                <li><a class="dropdown-item" href="Plankton.html">PlanktonCounter</a></li>
-                <li><a class="dropdown-item" href="Taxon.html">TaxonCounter (terrestrial or aquatic)</a></li>
-                <li><a class="dropdown-item" href="FoodWeb.html">FoodWebCounter</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="dashboard.html">Food web dashboard</a></li>
-            </ul>
-        </li>
+        <a class="navbar-brand" href="index.html" style="color:lightgreen;padding-left:14px;">Cyano Counter</a>
+        <div class="site-nav">
+        <a href="index.html" aria-current="page">Cyano Counter</a>
+        <a href="Plankton.html">Plankton Counter</a>
+        <a href="Taxon.html">Taxon Counter</a>
+        <a href="FoodWeb.html" class="fw">Food Web Counter</a>
+        <a href="dashboard.html" class="fw">Food Web Dashboard</a>
+        <span class="spacer"></span>
+        <a class="help" href="https://github.com/jvthaney/cyanocounter/blob/main/README.md" target="_blank">Full instructions</a>
+        </div>
     </nav>
 </div>
 

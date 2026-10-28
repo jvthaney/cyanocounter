@@ -1,5 +1,5 @@
 /*
- * FoodWeb.js — FoodWebCounter
+ * FoodWeb.js — Food Web Counter
  *
  * A counter page that records, for every taxon, WHAT WAS COUNTED as well as how many:
  *   group         phytoplankton | zooplankton | other
