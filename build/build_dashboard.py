@@ -45,8 +45,10 @@ from pathlib import Path
 
 try:
     from openpyxl import load_workbook
-except ImportError:
-    sys.exit("Needs openpyxl:  conda install -c conda-forge openpyxl")
+except ImportError:                       # only needed for .xlsx inputs
+    def load_workbook(*_a, **_k):
+        sys.exit("Reading a spreadsheet needs openpyxl:  conda install -c conda-forge openpyxl\n"
+                 "A CSV input needs nothing extra.")
 
 # Names people actually stop at when counting, mapped to the rank we can aggregate.
 # "Cyclopoid" is an order, but it is where a counter often stops, so it needs to work.
@@ -107,7 +109,17 @@ Peridinium,phyto,cell,30,70,,,"spelt Perindium in some counts. CHECK"
 
 
 def rows_of(path, sheet):
-    wb = load_workbook(Path(path).expanduser(), read_only=True, data_only=True)
+    """Rows from a spreadsheet sheet, or from a CSV where the sheet name is ignored.
+    The zooplankton traits arrive as a CSV exported from the key's workbook, so this
+    build needs nothing from the key project itself."""
+    p = Path(path).expanduser()
+    if p.suffix.lower() in (".csv", ".tsv", ".txt"):
+        with p.open(encoding="utf-8-sig", newline="") as fh:
+            sample = fh.read(4096)
+            fh.seek(0)
+            delim = "\t" if sample.count("\t") > sample.count(",") else ","
+            return [dict(r) for r in csv.DictReader(fh, delimiter=delim)]
+    wb = load_workbook(p, read_only=True, data_only=True)
     if sheet not in wb.sheetnames:
         return []
     ws = wb[sheet]
@@ -138,7 +150,9 @@ def fnum(v):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--zooplankton", required=True)
+    ap.add_argument("--zooplankton", required=True,
+                    help="the zooplankton feeding traits: either zooplankton_feeding.csv, "
+                         "exported from the key's workbook, or the workbook itself")
     ap.add_argument("--phytoplankton", required=True)
     ap.add_argument("--rules", default="")
     ap.add_argument("--extras", default="",
@@ -339,9 +353,7 @@ PAGE = r"""<!DOCTYPE html>
                 border-radius:6px; white-space:nowrap; line-height:1.3; }
  header nav a:hover { background:rgba(255,255,255,0.24); }
  header nav a:focus-visible { outline:3px solid #ffbf47; outline-offset:2px; }
- header nav a.fw { background:#009988; border-color:#00bfa8; }
- header nav a.fw:hover { background:#00b3a0; }
- header nav a[aria-current="page"] { background:#fff; color:#00695f; border-color:#fff; font-weight:600; }
+ header nav a[aria-current="page"] { background:#fff; color:#222; border-color:#fff; font-weight:600; }
  .wrap { display:grid; grid-template-columns:minmax(360px,460px) minmax(0,1fr); gap:20px;
          padding:18px 20px; align-items:start; }
  @media (max-width:1000px){ .wrap { grid-template-columns:1fr; } }
@@ -381,8 +393,8 @@ PAGE = r"""<!DOCTYPE html>
   <nav aria-label="Counters and tools">
     <a href="index.html">Home</a>
     <a href="cyano.html">Cyano Counter</a>
-    <a href="FoodWeb.html" class="fw">Food Web Counter</a>
-    <a href="dashboard.html" class="fw" aria-current="page">Food Web Dashboard</a>
+    <a href="FoodWeb.html">Food Web Counter</a>
+    <a href="dashboard.html" aria-current="page">Food Web Dashboard</a>
   </nav>
 </header>
 

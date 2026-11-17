@@ -65,11 +65,7 @@
         }
         .site-nav a:hover { background:rgba(255,255,255,0.24); }
         .site-nav a:focus-visible { outline:3px solid #ffbf47; outline-offset:2px; }
-        /* the two food web pages are a set, and a different colour says so */
-        .site-nav a.fw { background:#009988; border-color:#00bfa8; }
-        .site-nav a.fw:hover { background:#00b3a0; }
         .site-nav a[aria-current="page"] { background:#fff; color:#222; border-color:#fff; font-weight:600; }
-        .site-nav a.fw[aria-current="page"] { background:#fff; color:#00695f; border-color:#fff; }
         .site-nav .spacer { flex:1 1 auto; }
         .site-nav a.help { background:transparent; border-style:dashed; }
         .navheader nav { padding-bottom:2px; }
@@ -83,8 +79,8 @@
         <div class="site-nav">
         <a href="index.html">Home</a>
         <a href="cyano.html">Cyano Counter</a>
-        <a href="FoodWeb.html" class="fw" aria-current="page">Food Web Counter</a>
-        <a href="dashboard.html" class="fw">Food Web Dashboard</a>
+        <a href="FoodWeb.html" aria-current="page">Food Web Counter</a>
+        <a href="dashboard.html">Food Web Dashboard</a>
         <span class="spacer"></span>
         <a class="help" href="https://github.com/jvthaney/cyanocounter/blob/main/README.md" target="_blank">Full instructions</a>
         </div>
@@ -93,7 +89,8 @@
 
 <!-- METADATA -->
 <div class="row g-3 first" style="margin-left:2px;margin-right:2px;">
-    <h3 style="font-family:'News Cycle','Arial Narrow',Arial,sans-serif;font-size:32px;color:#1f6f9c;text-align:center;"><b>Count plankton for food web analysis</b></h3>
+    <h3 style="font-family:'News Cycle','Arial Narrow',Arial,sans-serif;font-size:36px;color:black;text-align:center;"><b>Count plankton and other taxa</b></h3>
+    <h3 style="font-family:'News Cycle','Arial Narrow',Arial,sans-serif;font-size:16px;color:black;text-align:center;">Counts can optionally be sent to the Food Web Dashboard to build a food web</h3>
     <div class="col-md-2"><label class="form-label" for="text1">Name of counter</label><input type="text" class="form-control" id="text1" placeholder="Type your name"></div>
     <div class="col-md-2"><label class="form-label" for="text2">Date</label><input type="date" class="form-control" id="text2"></div>
     <div class="col-md-2"><label class="form-label" for="text3">Time of collection</label><input type="time" class="form-control" id="text3"></div>

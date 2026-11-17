@@ -1,0 +1,241 @@
+﻿species_id,display_name,Order,Family,Genus,feeding_mode,trophic_group,feeding_mode_draft,trophic_group_draft,body_length_min_mm,body_length_max_mm,body_length_mm_draft,food_size_um_draft,prey_size_min_um,prey_size_max_um,life_stage,draft_basis,confidence,source
+acanthocyclops-robustus,Acanthocyclops robustus,Cyclopoida,Cyclopidae,Acanthocyclops,,,raptorial,carnivore,1.14,1.14,0.36,,,,,genus default (Acanthocyclops),medium,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 1 measurement(s)"
+acantholeberis-curvirostris,Acantholeberis curvirostris,Cladocera,Macrothricidae,Acantholeberis,,,scraper,detritivore,0.63,0.63,,,,,,the key's own text,high,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 1 measurement(s)"
+acroperus-harpae,Acroperus harpae,Cladocera,Chydoridae,Acroperus,,,scraper,detritivore,0.7,1,,,,,,family default (Chydoridae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 3 measurement(s)"
+aglaodiaptomus-clavipes,Aglaodiaptomus clavipes,Calanoida,Diaptomidae,Aglaodiaptomus,,,suspension,omnivore,,,,,,,,family default (Diaptomidae),low,
+aglaodiaptomus-leptopus,Aglaodiaptomus leptopus,Calanoida,Diaptomidae,Aglaodiaptomus,,,suspension,omnivore,,,1.5-2.5,,,,,the key's own text,high,
+aglaodiaptomus-spatulocrenatus,Aglaodiaptomus spatulocrenatus,Calanoida,Diaptomidae,Aglaodiaptomus,,,suspension,omnivore,,,1-1.3,,,,,family default (Diaptomidae),low,
+alona-bicolor,Alona bicolor,Cladocera,Chydoridae,Alona,,,scraper,detritivore,,,,,,,,family default (Chydoridae),low,
+alona-rustica,Alona rustica,Cladocera,Chydoridae,Alona,,,scraper,detritivore,,,,,,,,family default (Chydoridae),low,
+alona-setulosa,Alona setulosa,Cladocera,Chydoridae,Alona,,,scraper,detritivore,,,,,,,,family default (Chydoridae),low,
+alonella-excisa,Alonella excisa,Cladocera,Chydoridae,Alonella,,,scraper,detritivore,,,,,,,,family default (Chydoridae),low,
+alonella-exigua,Alonella exigua,Cladocera,Chydoridae,Alonella,,,scraper,detritivore,,,,,,,,family default (Chydoridae),low,
+alonopsis-americana,Alonopsis americana,Cladocera,Chydoridae,Alonopsis,,,scraper,detritivore,,,,,,,,family default (Chydoridae),low,
+anuraeopsis-fissa,Anuraeopsis fissa,Ploima,Brachionidae,Anuraeopsis,,,filter,herbivore,,,,,,,,family default (Brachionidae),low,
+anuraeopsis-navicula,Anuraeopsis navicula,Ploima,Brachionidae,Anuraeopsis,,,filter,herbivore,,,,,,,,family default (Brachionidae),low,
+arctodiaptomus-dorsalis,Arctodiaptomus dorsalis,Calanoida,Diaptomidae,Arctodiaptomus,,,suspension,omnivore,0.98,0.98,,,,,,family default (Diaptomidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 1 measurement(s)"
+arctodiaptomus-floridanus,Arctodiaptomus floridanus,Calanoida,Diaptomidae,Arctodiaptomus,,,suspension,omnivore,,,,,,,,family default (Diaptomidae),low,
+argulus-spp,Argulus spp.,Arguloida,Arguloidae,Argulus,,,parasitic,parasite,,,,,,,,genus default (Argulus),medium,
+ascomorpha-ecaudis,Ascomorpha ecaudis,Ploima,Gastropidae,Ascomorpha,,,raptorial,omnivore,,,,,,,,genus default (Ascomorpha),medium,
+ascomorpha-saltans,Ascomorpha saltans,Ploima,Gastropidae,Ascomorpha,,,raptorial,omnivore,,,,,,,,genus default (Ascomorpha),medium,
+asplanchna-brightwelli,Asplanchna brightwelli,Ploima,Asplanchnidae,Asplanchna,,,raptorial,carnivore,,,,,,,,genus default (Asplanchna),medium,
+asplanchna-herricki,Asplanchna herricki,Ploima,Asplanchnidae,Asplanchna,,,raptorial,carnivore,,,,,,,,genus default (Asplanchna),medium,
+asplanchna-priodonta,Asplanchna priodonta,Ploima,Asplanchnidae,Asplanchna,,,raptorial,carnivore,,,,,,,,genus default (Asplanchna),medium,
+bipalpus-hudsoni,Bipalpus hudsoni,Ploima,Synchaetidae,Bipalpus,,,raptorial,omnivore,,,,,,,,family default (Synchaetidae),low,
+bosmina-longirostris,Bosmina longirostris,Cladocera,Bosminidae,Bosmina,,,raptorial,carnivore,0.24,0.52,0.5,10-15,,,,the key's own text,high,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 4 measurement(s)"
+bosminopsis-deitersi,Bosminopsis deitersi,Cladocera,Bosminidae,Bosminopsis,,,filter,herbivore,0.33,0.33,,,,,,family default (Bosminidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 1 measurement(s)"
+brachionus-angularis,Brachionus angularis,Ploima,Brachionidae,Brachionus,,,filter,herbivore,,,0.091-0.202,,,,,family default (Brachionidae),low,
+brachionus-bidentata,Brachionus bidentata,Ploima,Brachionidae,Brachionus,,,filter,herbivore,,,0.175-0.578,,,,,family default (Brachionidae),low,
+brachionus-calyciflorus,Brachionus calyciflorus,Ploima,Brachionidae,Brachionus,,,filter,herbivore,,,0.18-0.57,,,,,family default (Brachionidae),low,
+brachionus-caudatus,Brachionus caudatus,Ploima,Brachionidae,Brachionus,,,filter,herbivore,,,0.136-0.26,,,,,family default (Brachionidae),low,
+brachionus-havanaensis,Brachionus havanaensis,Ploima,Brachionidae,Brachionus,,,filter,herbivore,,,0.135-0.35,,,,,family default (Brachionidae),low,
+brachionus-quadridentatus,Brachionus quadridentatus,Ploima,Brachionidae,Brachionus,,,filter,herbivore,,,0.188-0.418,,,,,family default (Brachionidae),low,
+brachionus-rubens,Brachionus rubens,Ploima,Brachionidae,Brachionus,,,filter,herbivore,,,,,,,,family default (Brachionidae),low,
+brachionus-urceolaris,Brachionus urceolaris,Ploima,Brachionidae,Brachionus,,,filter,herbivore,,,,,,,,family default (Brachionidae),low,
+brachionus-variabilis,Brachionus variabilis,Ploima,Brachionidae,Brachionus,,,filter,herbivore,,,,,,,,family default (Brachionidae),low,
+bythotrephes-cedarstroemii,Bythotrephes cedarstroemii,Cladocera,Cercopagididae,Bythotrephes,,,raptorial,carnivore,,,1.5-5,,,,,genus default (Bythotrephes),medium,
+camptocercus-spp,Camptocercus spp.,Cladocera,Chydoridae,Camptocercus,,,scraper,detritivore,0.78,0.78,,,,,,family default (Chydoridae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 2 measurement(s)"
+cercopagis-pengoi,Cercopagis pengoi,Cladocera,Cercopagididae,Cercopagis,,,raptorial,carnivore,,,1-2.5,,,,,genus default (Cercopagis),medium,
+ceriodaphnia-dubia,Ceriodaphnia dubia,Cladocera,Daphniidae,Ceriodaphnia,,,filter,herbivore,,,,,,,,family default (Daphniidae),low,
+ceriodaphnia-lacustris,Ceriodaphnia lacustris,Cladocera,Daphniidae,Ceriodaphnia,,,filter,herbivore,0.416,0.85,,,,,,family default (Daphniidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 2 measurement(s)"
+ceriodaphnia-laticaudata,Ceriodaphnia laticaudata,Cladocera,Daphniidae,Ceriodaphnia,,,filter,herbivore,0.59,0.96,,,,,,family default (Daphniidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 2 measurement(s)"
+ceriodaphnia-reticulata,Ceriodaphnia reticulata,Cladocera,Daphniidae,Ceriodaphnia,,,filter,herbivore,0.45,1.28,,,,,,family default (Daphniidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 3 measurement(s)"
+ceriodaphnia-rigaudi,Ceriodaphnia rigaudi,Cladocera,Daphniidae,Ceriodaphnia,,,filter,herbivore,0.45,0.45,,,,,,family default (Daphniidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 1 measurement(s)"
+chaoborus-albipes-flavicans,Chaoborus (albipes) flavicans,Diptera,Chaoboridae,Chaoborus,,,raptorial,carnivore,,,,,,,,genus default (Chaoborus),medium,
+chaoborus-americanus,Chaoborus americanus,Diptera,Chaoboridae,Chaoborus,,,raptorial,carnivore,,,,,,,,genus default (Chaoborus),medium,
+chaoborus-punctipennis,Chaoborus punctipennis,Diptera,Chaoboridae,Chaoborus,,,raptorial,carnivore,,,6.5-8.5,,,,,the key's own text,high,
+chaoborus-trivittatus,Chaoborus trivittatus,Diptera,Chaoboridae,Chaoborus,,,raptorial,carnivore,,,,,,,,genus default (Chaoborus),medium,
+chydorus-bicornutus,Chydorus bicornutus,Cladocera,Chydoridae,Chydorus,,,scraper,detritivore,0.29,0.29,,,,,,family default (Chydoridae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 1 measurement(s)"
+chydorus-sphaericus,Chydorus sphaericus,Cladocera,Chydoridae,Chydorus,,,scraper,detritivore,0.29,0.6,,,,,,family default (Chydoridae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 4 measurement(s)"
+collotheca-mutabilis,Collotheca mutabilis,Collothecaceae,Collothecidae,Collotheca,,,raptorial,carnivore,,,,,,,,genus default (Collotheca),medium,
+collotheca-pelagica,Collotheca pelagica,Collothecaceae,Collothecidae,Collotheca,,,raptorial,carnivore,,,,,,,,genus default (Collotheca),medium,
+conochiloides-coenobasis,Conochiloides coenobasis,Flosculariaceae,Conochilidae,Conochiloides,,,filter,herbivore,,,,,,,,family default (Conochilidae),low,
+conochiloides-dossuarius,Conochiloides dossuarius,Flosculariaceae,Conochilidae,Conochiloides,,,filter,herbivore,,,,,,,,family default (Conochilidae),low,
+conochiloides-natans,Conochiloides natans,Flosculariaceae,Conochilidae,Conochiloides,,,filter,herbivore,,,,,,,,family default (Conochilidae),low,
+conochilus-hippocrepis,Conochilus hippocrepis,Flosculariaceae,Conochilidae,Conochilus,,,raptorial,carnivore,,,1.8,,,,,the key's own text,high,
+conochilus-unicornis,Conochilus unicornis,Flosculariaceae,Conochilidae,Conochilus,,,filter,herbivore,,,,,,,,family default (Conochilidae),low,
+cyclops-scutifer,Cyclops scutifer,Cyclopoida,Cyclopidae,Cyclops,,,raptorial,carnivore,0.88,1.5,0.7-1.5,,,,,the key's own text,high,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 2 measurement(s)"
+daphnia-ambigua,Daphnia ambigua,Cladocera,Daphniidae,Daphnia,,,filter,herbivore,0.72,1.75,1,,,,,family default (Daphniidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 3 measurement(s)"
+daphnia-catawba,Daphnia catawba,Cladocera,Daphniidae,Daphnia,,,raptorial,carnivore,1.13,1.7,,,,,,the key's own text,high,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 2 measurement(s)"
+daphnia-dubia,Daphnia dubia,Cladocera,Daphniidae,Daphnia,,,filter,herbivore,1.19,1.19,,,,,,family default (Daphniidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 1 measurement(s)"
+daphnia-laevis,Daphnia laevis,Cladocera,Daphniidae,Daphnia,,,filter,herbivore,1.6,2.96,1-2,,,,,family default (Daphniidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 3 measurement(s)"
+daphnia-longiremus,Daphnia longiremus,Cladocera,Daphniidae,Daphnia,,,filter,herbivore,,,,,,,,family default (Daphniidae),low,
+daphnia-lumholtzi,Daphnia lumholtzi,Cladocera,Daphnidae,Daphnia,,,filter,herbivore,1.04,1.64,,,,,,order default (Cladocera),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 3 measurement(s)"
+daphnia-magna,Daphnia magna,Cladocera,Daphnidae,Daphnia,,,filter,herbivore,2.2,5.9,5,,,,,order default (Cladocera),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 3 measurement(s)"
+daphnia-mendotae,Daphnia mendotae,Cladocera,Daphniidae,Daphnia,,,filter,herbivore,,,,,,,,family default (Daphniidae),low,
+daphnia-middendorffiana,Daphnia middendorffiana,Cladocera,Daphniidae,Daphnia,,,filter,herbivore,2.1,2.8,,,,,,family default (Daphniidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 2 measurement(s)"
+daphnia-parvula,Daphnia parvula,Cladocera,Daphniidae,Daphnia,,,filter,herbivore,1.1,1.1,1.2,,,,,family default (Daphniidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 1 measurement(s)"
+daphnia-pulex,Daphnia pulex,Cladocera,Daphnidae,Daphnia,,,filter,herbivore,1.2,3.5,,,,,,the key's own text,high,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 4 measurement(s)"
+daphnia-pulicaria,Daphnia pulicaria,Cladocera,Daphniidae,Daphnia,,,filter,herbivore,1.3,1.75,,,,,,family default (Daphniidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 2 measurement(s)"
+daphnia-retrocurva,Daphnia retrocurva,Cladocera,Daphniidae,Daphnia,,,raptorial,carnivore,0.87,0.87,,,,,,the key's own text,high,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 1 measurement(s)"
+daphnia-rosea,Daphnia rosea,Cladocera,Daphniidae,Daphnia,,,filter,herbivore,0.9,2.48,,,,,,family default (Daphniidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 4 measurement(s)"
+daphnia-schdleri,Daphnia schødleri,Cladocera,Daphniidae,Daphnia,,,filter,herbivore,,,2,,,,,family default (Daphniidae),low,
+diacyclops-bicuspidatus-odessanus,Diacyclops bicuspidatus odessanus,Cyclopoida,Cyclopidae,Diacyclops,,,raptorial,omnivore,,,,,,,,genus default (Diacyclops),medium,
+diacyclops-thomasi,Diacyclops thomasi,Cyclopoida,Cyclopidae,Diacyclops,,,raptorial,carnivore,,,0.068-0.079,,,,,the key's own text,high,
+diaphanosoma-birgei,Diaphanosoma birgei,Cladocera,Sididae,Diaphanosoma,,,filter,herbivore,0.606,0.606,,,,,,family default (Sididae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 1 measurement(s)"
+diaphanosoma-brachyurum,Diaphanosoma brachyurum,Cladocera,Sididae,Diaphanosoma,,,filter,herbivore,0.54,1.12,,,,,,family default (Sididae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 4 measurement(s)"
+disparalona-hamata,Disparalona hamata,Cladocera,Chydoridae,Disparalona,,,scraper,detritivore,,,,,,,,family default (Chydoridae),low,
+ectocyclops-phaleratus,Ectocyclops phaleratus,Cyclopoida,Cyclopidae,Ectocyclops,,,raptorial,omnivore,,,,,,,,family default (Cyclopidae),low,
+epischura-lacustris,Epischura lacustris,Calanoida,Temoridae,Epischura,,,raptorial,carnivore,1.53,1.75,,,,,,the key's own text,high,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 2 measurement(s)"
+epischura-nordenskildi,Epischura nordenskiøldi,Calanoida,Temoridae,Epischura,,,raptorial,carnivore,,,,,,,,genus default (Epischura),medium,
+ergasilus-spp,Ergasilus spp.,Poecilostomatoida,Ergasilidae,Ergasilus,,,parasitic,parasite,,,,,,,,the key's own text,high,
+eubosmina-coregoni,Eubosmina coregoni,Cladocera,Bosminidae,Eubosmina,,,filter,herbivore,0.5,0.6,,,,,,family default (Bosminidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 2 measurement(s)"
+eubosmina-hagmanni,Eubosmina hagmanni,Cladocera,Bosminidae,Eubosmina,,,filter,herbivore,,,,,,,,family default (Bosminidae),low,
+eubosmina-longispina,Eubosmina longispina,Cladocera,Bosminidae,Eubosmina,,,filter,herbivore,,,,,,,,family default (Bosminidae),low,
+eubosmina-tubicen,Eubosmina tubicen,Cladocera,Bosminidae,Eubosmina,,,filter,herbivore,,,,,,,,family default (Bosminidae),low,
+eubranchipus-spp,Eubranchipus spp.,Anostraca,Chirocephelidae,Eubranchipus,,,filter,herbivore,,,,,,,,genus default (Eubranchipus),medium,
+euchlanis-alata,Euchlanis alata,Ploima,Brachionidae,Euchlanis,,,filter,herbivore,,,0.26-0.28,,,,,family default (Brachionidae),low,
+euchlanis-calpidia,Euchlanis calpidia,Ploima,Brachionidae,Euchlanis,,,filter,herbivore,,,,,,,,family default (Brachionidae),low,
+euchlanis-dilatata,Euchlanis dilatata,Ploima,Brachionidae,Euchlanis,,,filter,herbivore,,,0.2-0.27,,,,,family default (Brachionidae),low,
+euchlanis-meneta,Euchlanis meneta,Ploima,Brachionidae,Euchlanis,,,filter,herbivore,,,0.12-0.14,,,,,family default (Brachionidae),low,
+euchlanis-parva,Euchlanis parva,Ploima,Brachionidae,Euchlanis,,,filter,herbivore,,,,,,,,family default (Brachionidae),low,
+euchlanis-pellucida,Euchlanis pellucida,Ploima,Brachionidae,Euchlanis,,,filter,herbivore,,,0.3-0.5,,,,,family default (Brachionidae),low,
+euchlanis-triquetra,Euchlanis triquetra,Ploima,Brachionidae,Euchlanis,,,filter,herbivore,,,0.21-0.27,,,,,family default (Brachionidae),low,
+eucyclops-agilis,Eucyclops agilis,Cyclopoida,Cyclopidae,Eucyclops,,,raptorial,carnivore,1.1,1.1,,,,,,the key's own text,high,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 1 measurement(s)"
+eucyclops-elegans,Eucyclops elegans,Cyclopoida,Cyclopidae,Eucyclops,,,scraper,omnivore,0.92,0.92,,,,,,genus default (Eucyclops),medium,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 1 measurement(s)"
+eucyclops-prionophorus,Eucyclops prionophorus,Cyclopoida,Cyclopidae,Eucyclops,,,scraper,omnivore,,,,,,,,genus default (Eucyclops),medium,
+eurycercus-spp,Eurycercus spp.,Cladocera,Chydoridae,Eurycercus,,,scraper,detritivore,0.68,5.2,,,,,,family default (Chydoridae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 8 measurement(s)"
+eurytemora-affinis,Eurytemora affinis,Calanoida,Temoridae,Eurytemora,,,suspension,omnivore,,,,,,,,family default (Temoridae),low,
+filinia-longiseta,Filinia longiseta,Flosculariaceae,Filinidae,Filinia,,,scraper,detritivore,,,,,,,,the key's own text,high,
+filinia-terminalis,Filinia terminalis,Flosculariaceae,Filinidae,Filinia,,,filter,herbivore,,,,,,,,order default (Flosculariaceae),low,
+gastropus-hyptopus,Gastropus hyptopus,Ploima,Gastropidae,Gastropus,,,raptorial,omnivore,,,,,,,,genus default (Gastropus),medium,
+gastropus-stylifer,Gastropus stylifer,Ploima,Gastropidae,Gastropus,,,raptorial,omnivore,,,,,,,,genus default (Gastropus),medium,
+graptoleberis-testudinaria,Graptoleberis testudinaria,Cladocera,Chydoridae,Graptoleberis,,,scraper,detritivore,,,,,,,,the key's own text,high,
+harpacticoida,Harpacticoida,Harpacticoida,,Harpacticoida,,,scraper,detritivore,,,,,,,,order default (Harpacticoida),low,
+hesperodiaptomus-franciscanus,Hesperodiaptomus franciscanus,Calanoida,Diaptomidae,Hesperodiaptomus,,,suspension,omnivore,,,,,,,,family default (Diaptomidae),low,
+hesperodiaptomus-shoshone,Hesperodiaptomus shoshone,Calanoida,Diaptomidae,Hesperodiaptomus,,,suspension,omnivore,,,2.6-3.3,,,,,family default (Diaptomidae),low,
+heterocope-septentrionalis,Heterocope septentrionalis,Calanoida,Temoridae,Heterocope,,,suspension,omnivore,,,,,,,,family default (Temoridae),low,
+hexarthra-mira,Hexarthra mira,Flosculariaceae,Hexarthridae,Hexarthra,,,scraper,detritivore,,,,,,,,the key's own text,high,
+holopedium-gibberum,Holopedium gibberum,Cladocera,Holopedidae,Holopedium,,,filter,herbivore,0.77,1.04,,,,,,order default (Cladocera),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 2 measurement(s)"
+homocyclops-ater,Homocyclops ater,Cyclopoida,Cyclopidae,Homocyclops,,,raptorial,omnivore,,,1.8-2.9,,,,,family default (Cyclopidae),low,
+hydracarina,Hydracarina,Trombidiformes,,Hydracarina,,,,,,,,,,,,nothing found,none,
+ilyocryptus-spp,Ilyocryptus spp.,Cladocera,Ilyocryptidae,Ilyocryptus,,,scraper,detritivore,0.4,0.4,,,,,,the key's own text,high,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 2 measurement(s)"
+kellicottia-bostoniensis,Kellicottia bostoniensis,Ploima,Brachionidae,Kellicottia,,,filter,herbivore,,,,,,,,family default (Brachionidae),low,
+kellicottia-longispina,Kellicottia longispina,Ploima,Brachionidae,Kellicottia,,,filter,herbivore,,,,,,,,family default (Brachionidae),low,
+keratella-cochlearis,Keratella cochlearis,Ploima,Brachionidae,Keratella,,,filter,herbivore,0.1133,0.2005,,,,,,family default (Brachionidae),low,"Stemberger 1979, EPA-600/4-79-021, A Guide to Rotifers of the Laurentian Great Lakes; lorica length, from the cochlearis form"
+keratella-crassa,Keratella crassa,Ploima,Brachionidae,Keratella,,,filter,herbivore,0.1928,0.2362,,,,,,family default (Brachionidae),low,"Stemberger 1979, EPA-600/4-79-021, A Guide to Rotifers of the Laurentian Great Lakes; lorica length"
+keratella-earlinae,Keratella earlinae,Ploima,Brachionidae,Keratella,,,filter,herbivore,0.1856,0.2362,,,,,,family default (Brachionidae),low,"Stemberger 1979, EPA-600/4-79-021, A Guide to Rotifers of the Laurentian Great Lakes; lorica length"
+keratella-hiemalis,Keratella hiemalis,Ploima,Brachionidae,Keratella,,,filter,herbivore,,,,,,,,family default (Brachionidae),low,
+keratella-quadrata,Keratella quadrata,Ploima,Brachionidae,Keratella,,,filter,herbivore,,,,,,,,family default (Brachionidae),low,
+keratella-serrulata,Keratella serrulata,Ploima,Brachionidae,Keratella,,,filter,herbivore,,,,,,,,family default (Brachionidae),low,
+keratella-taurocephala,Keratella taurocephala,Ploima,Brachionidae,Keratella,,,filter,herbivore,,,,,,,,family default (Brachionidae),low,
+keratella-tecta,Keratella tecta,Ploima,Brachionidae,Keratella,,,filter,herbivore,,,,,,,,family default (Brachionidae),low,
+keratella-testudo,Keratella testudo,Ploima,Brachionidae,Keratella,,,filter,herbivore,,,,,,,,family default (Brachionidae),low,
+keratella-valga,Keratella valga,Ploima,Brachionidae,Keratella,,,filter,herbivore,,,,,,,,family default (Brachionidae),low,
+kurzia-latissima,Kurzia latissima,Cladocera,Chydoridae,Kurzia,,,scraper,detritivore,,,,,,,,family default (Chydoridae),low,
+lathonura-rectirostris,Lathonura rectirostris,Cladocera,Macrothricidae,Lathonura,,,scraper,detritivore,,,,,,,,the key's own text,high,
+latona-glacialis,Latona glacialis,Cladocera,Sididae,Latona,,,filter,herbivore,,,,,,,,family default (Sididae),low,
+latona-parviremis,Latona parviremis,Cladocera,Sididae,Latona,,,filter,herbivore,,,,,,,,family default (Sididae),low,
+latona-setifera,Latona setifera,Cladocera,Sididae,Latona,,,filter,herbivore,0.96,0.96,,,,,,family default (Sididae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 1 measurement(s)"
+lecane-crepida,Lecane crepida,Ploima,Lecanidae,Lecane,,,scraper,detritivore,,,,,,,,family default (Lecanidae),low,
+lecane-inermis,Lecane inermis,Ploima,Lecanidae,Lecane,,,scraper,detritivore,,,,,,,,family default (Lecanidae),low,
+lecane-leontina,Lecane leontina,Ploima,Lecanidae,Lecane,,,scraper,detritivore,,,0.145-0.24,,,,,family default (Lecanidae),low,
+lecane-ludwigi,Lecane ludwigi,Ploima,Lecanidae,Lecane,,,scraper,detritivore,,,,,,,,family default (Lecanidae),low,
+lecane-luna,Lecane luna,Ploima,Lecanidae,Lecane,,,scraper,detritivore,,,,,,,,family default (Lecanidae),low,
+lecane-mira,Lecane mira,Ploima,Lecanidae,Lecane,,,scraper,detritivore,,,,,,,,family default (Lecanidae),low,
+lecane-ohioensis,Lecane ohioensis,Ploima,Lecanidae,Lecane,,,scraper,detritivore,,,,,,,,family default (Lecanidae),low,
+lecane-stokesi,Lecane stokesi,Ploima,Lecanidae,Lecane,,,scraper,detritivore,,,,,,,,family default (Lecanidae),low,
+lecane-tenuiseta,Lecane tenuiseta,Ploima,Lecanidae,Lecane,,,scraper,detritivore,,,,,,,,family default (Lecanidae),low,
+lecane-tudicola,Lecane tudicola,Ploima,Lecanidae,Lecane,,,scraper,detritivore,,,,,,,,family default (Lecanidae),low,
+lecane-ungulata,Lecane ungulata,Ploima,Lecanidae,Lecane,,,scraper,detritivore,,,,,,,,family default (Lecanidae),low,
+lepadella-acuminata,Lepadella acuminata,Ploima,Brachionidae,Lepadella,,,filter,herbivore,,,0.092-0.11,,,,,family default (Brachionidae),low,
+lepadella-ehrenbergi,Lepadella ehrenbergi,Ploima,Brachionidae,Lepadella,,,filter,herbivore,,,0.07-0.094,,,,,family default (Brachionidae),low,
+lepadella-ovalis,Lepadella ovalis,Ploima,Brachionidae,Lepadella,,,filter,herbivore,,,0.093-0.155,,,,,family default (Brachionidae),low,
+lepadella-patella,Lepadella patella,Ploima,Brachionidae,Lepadella,,,filter,herbivore,,,0.09-0.108,,,,,family default (Brachionidae),low,
+lepadella-rhomboides,Lepadella rhomboides,Ploima,Brachionidae,Lepadella,,,filter,herbivore,,,0.11-0.12,,,,,family default (Brachionidae),low,
+lepadella-triptera,Lepadella triptera,Ploima,Brachionidae,Lepadella,,,filter,herbivore,,,0.065-0.1,,,,,family default (Brachionidae),low,
+leptodiaptomus-ashlandi,Leptodiaptomus ashlandi,Calanoida,Diaptomidae,Leptodiaptomus,,,suspension,omnivore,0.82,0.82,,,,,,family default (Diaptomidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 1 measurement(s)"
+leptodiaptomus-coloradensis,Leptodiaptomus coloradensis,Calanoida,Diaptomidae,Leptodiaptomus,,,suspension,omnivore,,,,,,,,family default (Diaptomidae),low,
+leptodiaptomus-minutus,Leptodiaptomus minutus,Calanoida,Diaptomidae,Leptodiaptomus,,,suspension,omnivore,0.84,0.86,1,,,,,family default (Diaptomidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 2 measurement(s)"
+leptodiaptomus-novamexicanus,Leptodiaptomus novamexicanus,Calanoida,Diaptomidae,Leptodiaptomus,,,suspension,omnivore,,,,,,,,family default (Diaptomidae),low,
+leptodiaptomus-nudus,Leptodiaptomus nudus,Calanoida,Diaptomidae,Leptodiaptomus,,,suspension,omnivore,,,1.1,,,,,family default (Diaptomidae),low,
+leptodiaptomus-sicilis,Leptodiaptomus sicilis,Calanoida,Diaptomidae,Leptodiaptomus,,,suspension,omnivore,1.07,1.24,1-1.5,,,,,family default (Diaptomidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 2 measurement(s)"
+leptodiaptomus-siciloides,Leptodiaptomus siciloides,Calanoida,Diaptomidae,Leptodiaptomus,,,suspension,omnivore,0.95,0.95,,,,,,family default (Diaptomidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 1 measurement(s)"
+leptodiaptomus-signicauda,Leptodiaptomus signicauda,Calanoida,Diaptomidae,Leptodiaptomus,,,suspension,omnivore,,,,,,,,family default (Diaptomidae),low,
+leptodiaptomus-tyrrelli,Leptodiaptomus tyrrelli,Calanoida,Diaptomidae,Leptodiaptomus,,,suspension,omnivore,,,,,,,,family default (Diaptomidae),low,
+leptodora-kindti,Leptodora kindti,Cladocera,Leptodoridae,Leptodora,,,raptorial,carnivore,,,17,,,,,the key's own text,high,
+leydigia-spp,Leydigia spp.,Cladocera,Chydoridae,Leydigia,,,scraper,detritivore,0.75,0.75,,,,,,family default (Chydoridae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 3 measurement(s)"
+limnocalanus-macrurus,Limnocalanus macrurus,Calanoida,Centropagidae,Limnocalanus,,,raptorial,carnivore,1.91,2.25,,,,,,genus default (Limnocalanus),medium,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 2 measurement(s)"
+macrocyclops-albidus,Macrocyclops albidus,Cyclopoida,Cyclopidae,Macrocyclops,,,raptorial,omnivore,2,2,,,,,,genus default (Macrocyclops),medium,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 1 measurement(s)"
+macrocyclops-fuscus,Macrocyclops fuscus,Cyclopoida,Cyclopidae,Macrocyclops,,,raptorial,omnivore,,,,,,,,genus default (Macrocyclops),medium,
+macrothrix-spp,Macrothrix spp.,Cladocera,Macrothricidae,Macrothrix,,,scraper,detritivore,0.47,0.63,,,,,,family default (Macrothricidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 4 measurement(s)"
+mesocyclops-edax,Mesocyclops edax,Cyclopoida,Cyclopidae,Mesocyclops,,,raptorial,carnivore,0.778,1.3,,,,,,genus default (Mesocyclops),medium,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 4 measurement(s)"
+microcyclops-rubellus,Microcyclops rubellus,Cyclopoida,Cyclopidae,Microcyclops,,,raptorial,omnivore,,,,,,,,genus default (Microcyclops),medium,
+microcyclops-varicans,Microcyclops varicans,Cyclopoida,Cyclopidae,Microcyclops,,,raptorial,omnivore,,,,,,,,genus default (Microcyclops),medium,
+mochlonyx-spp,Mochlonyx spp.,Diptera,Chaoboridae,Mochlonyx,,,raptorial,carnivore,,,,,,,,family default (Chaoboridae),low,
+moina-macrocopa,Moina macrocopa,Cladocera,Moinidae,Moina,,,filter,herbivore,0.9,1.8,,,,,,family default (Moinidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 2 measurement(s)"
+moina-micrura,Moina micrura,Cladocera,Moinidae,Moina,,,filter,herbivore,0.6,0.84,0.5-1.2,,,,,family default (Moinidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 2 measurement(s)"
+monospilus-dispar,Monospilus dispar,Cladocera,Chydoridae,Monospilus,,,scraper,detritivore,,,,,,,,family default (Chydoridae),low,
+monostyla-bulla,Monostyla bulla,Ploima,Lecanidae,Monostyla,,,scraper,detritivore,,,,,,,,family default (Lecanidae),low,
+monostyla-closterocerca,Monostyla closterocerca,Ploima,Lecanidae,Monostyla,,,scraper,detritivore,,,,,,,,family default (Lecanidae),low,
+monostyla-copeis,Monostyla copeis,Ploima,Lecanidae,Monostyla,,,scraper,detritivore,,,,,,,,family default (Lecanidae),low,
+monostyla-cornuta,Monostyla cornuta,Ploima,Lecanidae,Monostyla,,,scraper,detritivore,,,,,,,,family default (Lecanidae),low,
+monostyla-lunaris,Monostyla lunaris,Ploima,Lecanidae,Monostyla,,,scraper,detritivore,,,,,,,,family default (Lecanidae),low,
+monostyla-quadridentata,Monostyla quadridentata,Ploima,Lecanidae,Monostyla,,,scraper,detritivore,,,,,,,,family default (Lecanidae),low,
+monostyla-stenroosi,Monostyla stenroosi,Ploima,Lecanidae,Monostyla,,,scraper,detritivore,,,,,,,,family default (Lecanidae),low,
+mysis-spp,Mysis spp.,Mysida,Mysidae,Mysis,,,raptorial,omnivore,,,,,,,,genus default (Mysis),medium,
+notholca-acuminata,Notholca acuminata,Ploima,Brachionidae,Notholca,,,filter,herbivore,,,,,,,,family default (Brachionidae),low,
+notholca-caudata,Notholca caudata,Ploima,Brachionidae,Notholca,,,filter,herbivore,,,,,,,,family default (Brachionidae),low,
+notholca-foliacea,Notholca foliacea,Ploima,Brachionidae,Notholca,,,filter,herbivore,,,,,,,,family default (Brachionidae),low,
+notholca-labis,Notholca labis,Ploima,Brachionidae,Notholca,,,filter,herbivore,,,,,,,,family default (Brachionidae),low,
+notholca-laurentiae,Notholca laurentiae,Ploima,Brachionidae,Notholca,,,filter,herbivore,0.192,0.25,,,,,,family default (Brachionidae),low,"Stemberger 1979, EPA-600/4-79-021, A Guide to Rotifers of the Laurentian Great Lakes; lorica length"
+notholca-michiganensis,Notholca michiganensis,Ploima,Brachionidae,Notholca,,,filter,herbivore,0.18,0.22,,,,,,family default (Brachionidae),low,"Stemberger 1979, EPA-600/4-79-021, A Guide to Rotifers of the Laurentian Great Lakes; lorica length"
+notholca-squamula,Notholca squamula,Ploima,Brachionidae,Notholca,,,filter,herbivore,0.112,0.16,,,,,,family default (Brachionidae),low,"Stemberger 1979, EPA-600/4-79-021, A Guide to Rotifers of the Laurentian Great Lakes; lorica length, from the typical form form"
+onychodiaptomus-birgei,Onychodiaptomus birgei,Calanoida,Diaptomidae,Onychodiaptomus,,,suspension,omnivore,1.44,1.44,,,,,,family default (Diaptomidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 1 measurement(s)"
+onychodiaptomus-sanguineus,Onychodiaptomus sanguineus,Calanoida,Diaptomidae,Onychodiaptomus,,,suspension,omnivore,,,1.4-2.1,,,,,family default (Diaptomidae),low,
+ophryoxus-gracilis,Ophryoxus gracilis,Cladocera,Macrothricidae,Ophryoxus,,,scraper,detritivore,,,,,,,,the key's own text,high,
+orthocyclops-modestus,Orthocyclops modestus,Cyclopoida,Cyclopidae,Orthocyclops,,,raptorial,omnivore,0.9,0.9,,,,,,family default (Cyclopidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 1 measurement(s)"
+osphranticum-labronectum,Osphranticum labronectum,Calanoida,Centropagidae,Osphranticum,,,suspension,omnivore,,,,,,,,family default (Centropagidae),low,
+oxyurella-brevicaudis,Oxyurella brevicaudis,Cladocera,Chydoridae,Oxyurella,,,scraper,detritivore,,,,,,,,family default (Chydoridae),low,
+parophryoxus-tubulatus,Parophryoxus tubulatus,Cladocera,Macrothricidae,Parophryoxus,,,scraper,detritivore,,,,,,,,the key's own text,high,
+platyias-patulus,Platyias patulus,Ploima,Brachionidae,Platyias,,,filter,herbivore,,,,,,,,family default (Brachionidae),low,
+platyias-quadricornis,Platyias quadricornis,Ploima,Brachionidae,Platyias,,,filter,herbivore,,,,,,,,family default (Brachionidae),low,
+pleuroxus-denticulatus,Pleuroxus denticulatus,Cladocera,Chydoridae,Pleuroxus,,,scraper,detritivore,,,,,,,,family default (Chydoridae),low,
+pleuroxus-procurvus,Pleuroxus procurvus,Cladocera,Chydoridae,Pleuroxus,,,scraper,detritivore,0.27,0.27,,,,,,family default (Chydoridae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 1 measurement(s)"
+pleuroxus-straminius,Pleuroxus straminius,Cladocera,Chydoridae,Pleuroxus,,,scraper,detritivore,,,,,,,,family default (Chydoridae),low,
+pleuroxus-striatus,Pleuroxus striatus,Cladocera,Chydoridae,Pleuroxus,,,scraper,detritivore,,,,,,,,family default (Chydoridae),low,
+pleuroxus-trigonellus,Pleuroxus trigonellus,Cladocera,Chydoridae,Pleuroxus,,,scraper,detritivore,,,,,,,,family default (Chydoridae),low,
+ploesoma-lenticulare,Ploesoma lenticulare,Ploima,Synchaetidae,Ploesoma,,,suspension,omnivore,,,,,,,,the key's own text,high,
+ploesoma-truncatum,Ploesoma truncatum,Ploima,Synchaetidae,Ploesoma,,,suspension,omnivore,,,,,,,,the key's own text,high,
+polyarthra-dolichoptera,Polyarthra dolichoptera,Ploima,Synchaetidae,Polyarthra,,,raptorial,omnivore,0.0833,0.1593,,,,,,genus default (Polyarthra),medium,"Stemberger 1979, EPA-600/4-79-021, A Guide to Rotifers of the Laurentian Great Lakes; body length"
+polyarthra-euryptera,Polyarthra euryptera,Ploima,Synchaetidae,Polyarthra,,,raptorial,omnivore,0.1715,0.1887,,,,,,genus default (Polyarthra),medium,"Stemberger 1979, EPA-600/4-79-021, A Guide to Rotifers of the Laurentian Great Lakes; body length"
+polyarthra-major,Polyarthra major,Ploima,Synchaetidae,Polyarthra,,,raptorial,omnivore,0.1348,0.2009,,,,,,genus default (Polyarthra),medium,"Stemberger 1979, EPA-600/4-79-021, A Guide to Rotifers of the Laurentian Great Lakes; body length"
+polyarthra-remata,Polyarthra remata,Ploima,Synchaetidae,Polyarthra,,,raptorial,omnivore,0.072,0.1176,,,,,,genus default (Polyarthra),medium,"Stemberger 1979, EPA-600/4-79-021, A Guide to Rotifers of the Laurentian Great Lakes; body length"
+polyarthra-vulgaris,Polyarthra vulgaris,Ploima,Synchaetidae,Polyarthra,,,raptorial,omnivore,0.0907,0.1519,,,,,,genus default (Polyarthra),medium,"Stemberger 1979, EPA-600/4-79-021, A Guide to Rotifers of the Laurentian Great Lakes; body length"
+polyphemus-pediculus,Polyphemus pediculus,Cladocera,Polyphemidae,Polyphemus,,,raptorial,carnivore,0.83,0.83,,,,,,the key's own text,high,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 1 measurement(s)"
+pompholyx-sulcata,Pompholyx sulcata,Flosculariacea,Testudinellidae,Pompholyx,,,filter,herbivore,,,,,,,,family default (Testudinellidae),low,
+rhynochotalona-falcata,Rhynochotalona falcata,Cladocera,Chydoridae,Rhynochotalona,,,scraper,detritivore,,,,,,,,family default (Chydoridae),low,
+scapholeberis-mucronata,Scapholeberis mucronata,Cladocera,Daphniidae,Scapholeberis,,,filter,herbivore,0.6,1,,,,,,family default (Daphniidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 2 measurement(s)"
+sida-crystallina,Sida crystallina,Cladocera,Sididae,Sida,,,filter,herbivore,1.47,2.95,,,,,,family default (Sididae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 4 measurement(s)"
+simocephalus-exspinosus,Simocephalus exspinosus,Cladocera,Daphniidae,Simocephalus,,,filter,herbivore,2,3.5,,,,,,family default (Daphniidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 2 measurement(s)"
+simocephalus-serrulatus,Simocephalus serrulatus,Cladocera,Daphniidae,Simocephalus,,,filter,herbivore,0.97,0.97,,,,,,family default (Daphniidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 1 measurement(s)"
+simocephalus-vetulus,Simocephalus vetulus,Cladocera,Daphniidae,Simocephalus,,,filter,herbivore,0.6,2.3,,,,,,family default (Daphniidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 3 measurement(s)"
+skistodiaptomus-mississippiensis,Skistodiaptomus mississippiensis,Calanoida,Diaptomidae,Skistodiaptomus,,,suspension,omnivore,,,0.98,,,,,family default (Diaptomidae),low,
+skistodiaptomus-oregonensis,Skistodiaptomus oregonensis,Eucopepoda,Diaptomidae,Skistodiaptomus,,,suspension,omnivore,1.2,1.26,1.2-1.4,,,,,family default (Diaptomidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 2 measurement(s)"
+skistodiaptomus-pallidus,Skistodiaptomus pallidus,Calanoida,Diaptomidae,Skistodiaptomus,,,suspension,omnivore,1.2,1.2,,,,,,family default (Diaptomidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 1 measurement(s)"
+skistodiaptomus-pygmaeus,Skistodiaptomus pygmaeus,Calanoida,Diaptomidae,Skistodiaptomus,,,suspension,omnivore,,,1,,,,,family default (Diaptomidae),low,
+skistodiaptomus-reighardi,Skistodiaptomus reighardi,Calanoida,Diaptomidae,Skistodiaptomus,,,suspension,omnivore,1.06,1.06,1,,,,,family default (Diaptomidae),low,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 1 measurement(s)"
+stephanoceros-fimbriatus,Stephanoceros fimbriatus,Collothecaceae,Collothecidae,Stephanoceros,,,raptorial,carnivore,,,0.9-1.5,,,,,order default (Collothecaceae),low,
+streblocerus-serricaudatus,Streblocerus serricaudatus,Cladocera,Macrothricidae,Streblocerus,,,scraper,detritivore,,,0.6,,,,,family default (Macrothricidae),low,
+synchaeta-asymmetrica,Synchaeta asymmetrica,Ploima,Synchaetidae,Synchaeta,,,raptorial,omnivore,,,,,,,,genus default (Synchaeta),medium,
+synchaeta-grandis,Synchaeta grandis,Ploima,Synchaetidae,Synchaeta,,,raptorial,omnivore,,,0.4-0.6,,,,,genus default (Synchaeta),medium,
+synchaeta-kitina,Synchaeta kitina,Ploima,Synchaetidae,Synchaeta,,,raptorial,omnivore,,,,,,,,genus default (Synchaeta),medium,
+synchaeta-lakowitziana,Synchaeta lakowitziana,Ploima,Synchaetidae,Synchaeta,,,raptorial,omnivore,,,0.225-0.3,,,,,genus default (Synchaeta),medium,
+synchaeta-oblonga,Synchaeta oblonga,Ploima,Synchaetidae,Synchaeta,,,raptorial,omnivore,,,,,,,,genus default (Synchaeta),medium,
+synchaeta-pectinata,Synchaeta pectinata,Ploima,Synchaetidae,Synchaeta,,,raptorial,omnivore,,,0.34-0.51,,,,,genus default (Synchaeta),medium,
+synchaeta-stylata,Synchaeta stylata,Ploima,Synchaetidae,Synchaeta,,,raptorial,omnivore,,,0.34-0.511,,,,,genus default (Synchaeta),medium,
+synchaeta-tremula,Synchaeta tremula,Ploima,Synchaetidae,Synchaeta,,,raptorial,omnivore,,,,,,,,genus default (Synchaeta),medium,
+trichocerca-cylindrica,Trichocerca cylindrica,Ploima,Trichocercidae,Trichocerca,,,raptorial,omnivore,,,0.26-0.31,,,,,genus default (Trichocerca),medium,
+trichocerca-lata,Trichocerca lata,Ploima,Trichocercidae,Trichocerca,,,raptorial,omnivore,,,0.155-0.18,,,,,genus default (Trichocerca),medium,
+trichocerca-longiseta,Trichocerca longiseta,Ploima,Trichocercidae,Trichocerca,,,raptorial,omnivore,,,0.295-0.33,,,,,genus default (Trichocerca),medium,
+trichocerca-mucosa,Trichocerca mucosa,Ploima,Trichocercidae,Trichocerca,,,raptorial,omnivore,,,0.18-0.2,,,,,genus default (Trichocerca),medium,
+trichocerca-multicrinis,Trichocerca multicrinis,Ploima,Trichocercidae,Trichocerca,,,raptorial,omnivore,,,0.18-0.2,,,,,genus default (Trichocerca),medium,
+trichocerca-porcellus,Trichocerca porcellus,Ploima,Trichocercidae,Trichocerca,,,raptorial,omnivore,,,0.14-0.15,,,,,genus default (Trichocerca),medium,
+trichocerca-pusilla,Trichocerca pusilla,Ploima,Trichocercidae,Trichocerca,,,raptorial,omnivore,,,0.085-0.12,,,,,genus default (Trichocerca),medium,
+trichocerca-rattus,Trichocerca rattus,Ploima,Trichocercidae,Trichocerca,,,raptorial,omnivore,,,0.17-0.18,,,,,genus default (Trichocerca),medium,
+trichocerca-rousseleti,Trichocerca rousseleti,Ploima,Trichocercidae,Trichocerca,,,raptorial,omnivore,,,0.085-0.11,,,,,genus default (Trichocerca),medium,
+trichocerca-similis,Trichocerca similis,Ploima,Trichocercidae,Trichocerca,,,raptorial,omnivore,,,,,,,,genus default (Trichocerca),medium,
+trichotria-pocillum,Trichotria pocillum,Ploima,Brachionidae,Trichotria,,,filter,herbivore,,,0.218-0.38,,,,,family default (Brachionidae),low,
+trichotria-tetractis,Trichotria tetractis,Ploima,Brachionidae,Trichotria,,,filter,herbivore,,,0.2-0.35,,,,,family default (Brachionidae),low,
+tropocyclops-prasinus-mexicanus,Tropocyclops prasinus mexicanus,Cyclopoida,Cyclopidae,Tropocyclops,,,suspension,omnivore,0.7,0.7,,,,,,genus default (Tropocyclops),medium,"Hebert, Beisner & Maranger 2016, Ecology 97:1081, doi:10.1890/15-1275.1; body length in mm, 1 measurement(s)"
+tylotrocha-monopus,Tylotrocha monopus,Ploima,Tylotrochidae,Tylotrocha,,,filter,herbivore,,,0.175-0.25,,,,,order default (Ploima),low,
