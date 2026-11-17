@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia|Ubuntu|Cabin|News Cycle">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Cyano Counter</title>
+    <link href="main.css" rel="stylesheet">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8JDJ20QH0E"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-8JDJ20QH0E');</script>
+    <style>
+        #threshold-bar-wrap { margin: 12px 0 4px 0; display: none; }
+        #threshold-bar-wrap .progress { height: 22px; border-radius: 8px; }
+        #threshold-bar { transition: width 0.2s ease; background-color: #009988; }
+        #threshold-bar.done { background-color: #EE7733; }
+        #threshold-label { font-family:'Cabin',sans-serif; font-size:15px; margin-top:4px; color:#333; }
+        #threshold-reached-alert { display:none; font-family:'Cabin',sans-serif; font-size:16px; font-weight:bold; color:#fff; background:#EE7733; border-radius:8px; padding:8px 16px; margin-top:8px; }
+        #counter-grid { display:flex; flex-wrap:wrap; gap:20px; padding:10px 0; }
+        #counter-grid .counter-col { flex: 0 0 225px; }
+        .btn-delete-counter { position:absolute; top:4px; right:8px; background:none; border:none; color:rgba(255,255,255,0.7); font-size:18px; line-height:1; cursor:pointer; z-index:10; padding:0; }
+        .btn-delete-counter:hover { color:#fff; }
+        .counter { position:relative; }
+        .chart-toggle-btn { font-family:'Cabin',sans-serif; font-size:14px; border-radius:6px; border:1px solid #009988; background:#fff; color:#009988; padding:4px 12px; cursor:pointer; margin-right:6px; }
+        .chart-toggle-btn.active-toggle { background:#009988; color:#fff; }
+    
+        /* ---- site navigation: one button per counter, visible from every page ---- */
+        .site-nav { display:flex; flex-wrap:wrap; align-items:center; gap:6px; padding:6px 14px 8px; }
+        .site-nav a {
+            font-family:'Cabin',sans-serif; font-size:15px; text-decoration:none;
+            color:#fff; background:rgba(255,255,255,0.10);
+            border:1px solid rgba(255,255,255,0.45); border-radius:6px;
+            padding:4px 11px; white-space:nowrap; line-height:1.3;
+        }
+        .site-nav a:hover { background:rgba(255,255,255,0.24); }
+        .site-nav a:focus-visible { outline:3px solid #ffbf47; outline-offset:2px; }
+        /* the two food web pages are a set, and a different colour says so */
+        .site-nav a.fw { background:#009988; border-color:#00bfa8; }
+        .site-nav a.fw:hover { background:#00b3a0; }
+        .site-nav a[aria-current="page"] { background:#fff; color:#222; border-color:#fff; font-weight:600; }
+        .site-nav a.fw[aria-current="page"] { background:#fff; color:#00695f; border-color:#fff; }
+        .site-nav .spacer { flex:1 1 auto; }
+        .site-nav a.help { background:transparent; border-style:dashed; }
+        .navheader nav { padding-bottom:2px; }
+        .first { margin-top:86px !important; }
+    </style>
+</head>
+<body class="jumbotron">
+<div class="navheader">
+    <nav class="navbar-light navbar-expand-lg fixed-top" style="background-color:#333;">
+        <a class="navbar-brand" href="index.html" style="color:lightgreen;padding-left:14px;">Cyano Counter</a>
+        <div class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="cyano.html" aria-current="page">Cyano Counter</a>
+        <a href="FoodWeb.html" class="fw">Food Web Counter</a>
+        <a href="dashboard.html" class="fw">Food Web Dashboard</a>
+        <span class="spacer"></span>
+        <a class="help" href="https://github.com/jvthaney/cyanocounter/blob/main/README.md" target="_blank">Full instructions</a>
+        </div>
+    </nav>
+</div>
+
+<!-- METADATA -->
+<div class="row g-3 first" style="margin-left:2px;margin-right:2px;">
+    <h3 style="font-family:'News Cycle','Arial Narrow',Arial,sans-serif;font-size:32px;color:darkcyan;text-align:center;"><b>Counters for enumerating cyanobacteria taxa</b></h3>
+    <div class="col-md-2"><label class="form-label">Name of counter</label><input type="text" class="form-control" id="text1" placeholder="Type your name"></div>
+    <div class="col-md-2"><label class="form-label">Date</label><input type="date" class="form-control" id="text2"></div>
+    <div class="col-md-2"><label class="form-label">Time of collection</label><input type="time" class="form-control" id="text3"></div>
+    <div class="col-md-2"><label class="form-label">Sampling Location</label><input type="text" class="form-control" id="text4"></div>
+    <div class="col-md-2"><label class="form-label">Latitude (e.g., 43.385787)</label><input type="text" class="form-control" id="text5"></div>
+    <div class="col-md-2"><label class="form-label">Longitude (e.g., -72.08125)</label><input type="text" class="form-control" id="text6"></div>
+    <div class="col-md-2"><label class="form-label">Volume sample (ml)</label><input type="text" class="form-control" id="text_vol" placeholder="Vol in graduated cylinder"></div>
+    <div class="col-md-2"><label class="form-label">Squares counted (of 1,000) <span title="Sedgewick Rafter = 50 cols × 20 rows = 1,000 squares. Enter total squares traversed; enter 1000 for full slide." style="cursor:help;color:#009988;">&#9432;</span></label><input type="number" class="form-control" id="text_squares" placeholder="e.g. 300"></div>
+    <div class="col-md-2"><label class="form-label">Depth (m)</label><input type="text" class="form-control" id="text_depth" placeholder="e.g. 2"></div>
+    <div class="col-md-1"><label class="form-label"># Tows</label><input type="text" class="form-control" id="text_tows" placeholder="e.g. 2"></div>
+    <div class="col-md-3"><label class="form-label">Net diameter (m)</label><input type="text" class="form-control" id="text_diam" placeholder="e.g. 0.16"></div>
+    <div class="col-md-1"><label class="form-label">Vol slide (ml)</label><input type="text" class="form-control" id="text_volslide" placeholder="e.g. 1"></div>
+    <div class="col-md-2"><label class="form-label">Count threshold <span title="Optional. Enter a number to enable threshold counting with progress bar. Leave blank to count by squares only." style="cursor:help;color:#009988;">&#9432;</span></label><input type="number" class="form-control" id="text_threshold" min="1" placeholder="e.g. 300 (optional)"></div>
+    <div class="col-md-2"><label class="form-label">Notes</label><input type="text" class="form-control" id="text_notes"></div>
+    <div class="row">
+        <button type="button" class="btn btn-r bg-light submitinfo" onclick="submitInfo()">Submit info</button>
+        <br><br><p id="outalert" style="color:darkgreen;font-family:'Cabin',sans-serif;font-size:15px;margin-left:12px;"></p>
+    </div>
+    <div class="container second">
+        <ul>
+            <li class="instructions no-bullet">1. Enter your information above and click <b>"Submit Info"</b>.</li>
+            <ul style="margin-left:50px;padding-left:0">
+                <li class="instructions">Enter the total <b>squares counted</b> (out of 1,000) when you finish. The Sedgewick Rafter has 50 columns × 20 rows = 1,000 squares. For a partial row, add completed squares in that row to your full rows (e.g., 5 rows + 23 squares = 273).</li>
+                <li class="instructions" style="padding-bottom:10px;">If using a <b>count threshold</b>, a progress bar will appear tracking your total. Stop when it turns orange or complete the slide.</li>
+            </ul>
+            <li class="instructions no-bullet">2. Use the counters to tally each cyanobacterium. Click <b>"Add counter +"</b> for any taxa beyond the presets.</li>
+            <li class="instructions no-bullet">3. When done, click <b>"Export data"</b> to download a .CSV file.</li>
+        </ul>
+    </div>
+</div>
+<hr>
+
+<!-- THRESHOLD BAR -->
+<div class="container" style="margin-top:10px;margin-bottom:0;">
+    <div id="threshold-bar-wrap">
+        <div class="progress"><div id="threshold-bar" class="progress-bar" role="progressbar" style="width:0%"></div></div>
+        <div id="threshold-label">Total counted: <b id="total-counted-display">0</b> / <b id="threshold-display">300</b></div>
+        <div id="threshold-reached-alert">&#10003; Threshold reached — stop counting or continue to complete the slide.</div>
+    </div>
+</div>
+
+<!-- PRESET COUNTERS -->
+<div class="container second">
+    <div class="row">
+        <div class="col-md-3 col-sm-6"><div class="counter" id="preset-card-1"><div class="counter-icon"></div><button type="button" id="myImg1" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">−</button><h3>Microcystis</h3><span class="counter-value" id="count-1">0</span></div></div>
+        <div class="col-md-3 col-sm-6"><div class="counter pink" id="preset-card-2"><div class="counter-icon"></div><button type="button" id="myImg2" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">−</button><h3>Dolichospermum</h3><span class="counter-value" id="count-2">0</span></div></div>
+        <div class="col-md-3 col-sm-6"><div class="counter blue" id="preset-card-3"><div class="counter-icon"></div><button type="button" id="myImg3" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">−</button><h3>Gloeotrichia</h3><span class="counter-value" id="count-3">0</span></div></div>
+        <div class="col-md-3 col-sm-6"><div class="counter orange" id="preset-card-4"><div class="counter-icon"></div><button type="button" id="myImg4" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">−</button><h3>Chroococcus</h3><span class="counter-value" id="count-4">0</span></div></div>
+    </div>
+</div>
+<div class="container second">
+    <div class="row">
+        <div class="col-md-3 col-sm-6"><div class="counter teal" id="preset-card-5"><div class="counter-icon"></div><button type="button" id="myImg5" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">−</button><h3>Coelosphaerium/Woronichinia</h3><span class="counter-value" id="count-5">0</span></div></div>
+        <div class="col-md-3 col-sm-6"><div class="counter grey" id="preset-card-6"><div class="counter-icon"></div><button type="button" id="myImg6" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">−</button><h3>Aphanocapsa</h3><span class="counter-value" id="count-6">0</span></div></div>
+        <div class="col-md-3 col-sm-6"><div class="counter rose" id="preset-card-7"><div class="counter-icon"></div><button type="button" id="myImg7" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">−</button><h3>Merismopedia</h3><span class="counter-value" id="count-7">0</span></div></div>
+        <div class="col-md-3 col-sm-6"><div class="counter wine" id="preset-card-8"><div class="counter-icon"></div><button type="button" id="myImg8" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">−</button><h3>Oscillatoria</h3><span class="counter-value" id="count-8">0</span></div></div>
+    </div>
+</div>
+
+<!-- DYNAMIC COUNTER GRID -->
+<div class="container second"><div id="counter-grid"></div></div>
+<br>
+<button type="button" class="btn btn-r" onclick="addCounter()" style="background-color:darkslategray;color:white;">Add counter +</button>
+<br><br>
+<button type="button" class="btn btn-r reset bg-light" onclick="resetCounters()">Reset counters</button>
+<hr><br>
+<button type="button" class="btn btn-r exp btn-light" onclick="exportData()">EXPORT DATA</button>
+<br><br><hr>
+
+<!-- PREVIEW -->
+<h1 class="instructions">Preview of data:</h1><br>
+<table class="tbl" border="1" cellspacing="0" cellpadding="10">
+    <thead><tr><th>Name</th><th>Date</th><th>Time</th><th>Location</th><th>Lat</th><th>Lon</th><th>Vol sample (ml)</th><th>Squares counted</th><th>Depth (m)</th><th># Tows</th><th>Net diam (m)</th><th>Vol slide (ml)</th><th>Count threshold</th><th>Total counted</th><th>Notes</th></tr></thead>
+    <tbody><tr><td id="out1"></td><td id="out2"></td><td id="out3"></td><td id="out4"></td><td id="out5"></td><td id="out6"></td><td id="out_vol"></td><td id="out_squares"></td><td id="out_depth"></td><td id="out_tows"></td><td id="out_diam"></td><td id="out_volslide"></td><td id="out_threshold"></td><td id="out_total_counted"></td><td id="out_notes"></td></tr></tbody>
+</table><br>
+<table class="tbl" border="1" cellspacing="0" cellpadding="10">
+    <thead><tr><th>Taxon name</th><th>Count</th><th>Individuals/slide</th><th>Individuals/L</th><th>Relative abundance (%)</th></tr></thead>
+    <tbody id="taxa-preview-body"></tbody>
+</table><br>
+
+<!-- CHART -->
+<h2 class="instructions" style="margin-top:20px;">Chart:</h2>
+<div style="margin:8px 0 16px 0;">
+    <button class="chart-toggle-btn active-toggle" data-mode="rel" onclick="setChartMode('rel')">Relative abundance (%)</button>
+    <button class="chart-toggle-btn" data-mode="slide" onclick="setChartMode('slide')">Individuals/slide</button>
+    <button class="chart-toggle-btn" data-mode="density" onclick="setChartMode('density')">Individuals/L</button>
+</div>
+<div style="max-width:860px;"><canvas id="taxa-chart"></canvas></div><br>
+
+<!-- MODALS -->
+<div id="myModal1" class="modal"><span class="close">&times;</span><img class="modal-content" src="IDimages/MCimages.jpg"><div class="caption"><a href="http://cfb.unh.edu/CyanoKey/Microcystis.html" target="_blank">See more images</a></div></div>
+<div id="myModal2" class="modal"><span class="close">&times;</span><img class="modal-content" src="IDimages/DOLimages.jpg"><div class="caption"><a href="http://cfb.unh.edu/CyanoKey/Anabaena.html" target="_blank">See more images</a></div></div>
+<div id="myModal3" class="modal"><span class="close">&times;</span><img class="modal-content" src="IDimages/GLOEOimages.jpg"><div class="caption"><a href="http://cfb.unh.edu/CyanoKey/Gloeotrichia.html" target="_blank">See more images</a></div></div>
+<div id="myModal4" class="modal"><span class="close">&times;</span><img class="modal-content" src="IDimages/CHROOimages.jpg"><div class="caption"><a href="http://cfb.unh.edu/CyanoKey/Gloeocapsa.html" target="_blank">See more images</a></div></div>
+<div id="myModal5" class="modal"><span class="close">&times;</span><img class="modal-content" src="IDimages/COEL_WOROimages.jpg"><div class="caption">See more of <a href="http://cfb.unh.edu/CyanoKey/Woronichinia.html" target="_blank">Woronichinia</a> and <a href="http://cfb.unh.edu/CyanoKey/Coelosphaerium.html" target="_blank">Coelosphaerium</a></div></div>
+<div id="myModal6" class="modal"><span class="close">&times;</span><img class="modal-content" src="IDimages/APHANimages.jpg"><div class="caption"><a href="http://cfb.unh.edu/CyanoKey/Aphanocapsa.html" target="_blank">See more images</a></div></div>
+<div id="myModal7" class="modal"><span class="close">&times;</span><img class="modal-content" src="IDimages/MERISimages.jpg"><div class="caption"><a href="http://cfb.unh.edu/CyanoKey/Merismopedia.html" target="_blank">See more images</a></div></div>
+<div id="myModal8" class="modal"><span class="close">&times;</span><img class="modal-content" src="IDimages/OSCimages.jpg"><div class="caption"><a href="http://cfb.unh.edu/CyanoKey/Oscillatoria.html" target="_blank">See more images</a></div></div>
+
+<script>
+window.PAGE_CONFIG = {
+    mode: 'cyano',
+    presets: [
+        { name:'Microcystis',             colour:'',      imgIndex:1 },
+        { name:'Dolichospermum',          colour:'pink',  imgIndex:2 },
+        { name:'Gloeotrichia',            colour:'blue',  imgIndex:3 },
+        { name:'Chroococcus',             colour:'orange',imgIndex:4 },
+        { name:'Coelosphaerium/Woronichinia', colour:'teal', imgIndex:5 },
+        { name:'Aphanocapsa',             colour:'grey',  imgIndex:6 },
+        { name:'Merismopedia',            colour:'rose',  imgIndex:7 },
+        { name:'Oscillatoria',            colour:'wine',  imgIndex:8 },
+    ],
+    yAxisLabels: { rel:'Relative abundance (%)', slide:'Individuals/slide', density:'Individuals/L' },
+    densityLabel: 'Individuals/L',
+};
+</script>
+<script src="main.js"></script>
+<script>
+// Wire preset cards: View buttons open modals
+document.querySelectorAll('[id^="myImg"]').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const idx = btn.id.replace('myImg','');
+        openModal(idx);
+    });
+});
+initCounters();
+</script>
+</body>
+</html>
