@@ -16,9 +16,6 @@ These counters are user-friendly tools designed for enumerating taxa in aquatic 
 - Supports a **count threshold** (e.g., stop at 300 total colonies): a progress bar tracks your running total and alerts you when the threshold is reached
 - Calculates estimated colonies per liter of lake water based on your inputs
 
-**TaxonCounter**
-- General-purpose counter for any aquatic or terrestrial taxa
-- Calculates counts per square meter based on user inputs
 
 ---
 
@@ -84,3 +81,4 @@ All density estimates assume the sample was well-mixed before loading the slide.
 Where:
 - *Proportion of sample on slide* = subsample volume (ml) ÷ total sample volume (ml)
 - *Volume of lake water sampled* = π × (net radius)² × depth × 1000 (converts m³ to L)
+ 
