@@ -41,6 +41,28 @@
         .site-nav .spacer { flex:1 1 auto; }
         .site-nav a.help { background:transparent; border-style:dashed; }
         .navheader nav { padding-bottom:2px; }
+
+        /* ---- what was counted: cells, colonies or filaments ---- */
+        .seg { display:flex; gap:3px; justify-content:center; margin:4px 0 2px; flex-wrap:wrap; }
+        .seg button {
+            font-family:'Cabin',sans-serif; font-size:12px; font-weight:600;
+            padding:3px 8px; border:1px solid rgba(255,255,255,0.65); border-radius:5px;
+            background:rgba(255,255,255,0.18); color:#fff; cursor:pointer; line-height:1.2;
+        }
+        .seg button[aria-pressed="true"] { background:#fff; color:#222; border-color:#fff; }
+        .seg button:focus-visible { outline:3px solid #ffbf47; outline-offset:1px; }
+        .seg-label { font-family:'Cabin',sans-serif; font-size:11px; color:rgba(255,255,255,0.9);
+                     text-transform:uppercase; letter-spacing:.06em; margin-top:4px; }
+        /* a counter with no unit chosen yet: the prompt is hard to miss, and the
+           plus and minus buttons do nothing until one is picked */
+        .counter.needs-unit .seg-label::after { content:" \2190 pick one"; font-weight:700; }
+        .counter.needs-unit .seg { outline:2px dashed #ffbf47; outline-offset:3px;
+                                   border-radius:6px; }
+        .counter.needs-unit .btn.add { opacity:.45; }
+        .unit-cell { font-style:italic; color:#777; }
+        .unit-note { font-family:'Cabin',sans-serif; font-size:15px; background:#eef6f0;
+                     border-left:4px solid #1f6b45; padding:12px 16px; margin:14px 0;
+                     max-width:46rem; color:#22402f; }
         /* The preview tables have fourteen columns and are about 900px wide, so on a
            phone they used to push the whole page sideways. Each now scrolls inside its
            own box and the page itself stays put. */
@@ -109,8 +131,18 @@
                 <li class="instructions">Enter the total <b>squares counted</b> (out of 1,000) when you finish. The Sedgewick Rafter has 50 columns × 20 rows = 1,000 squares. For a partial row, add completed squares in that row to your full rows (e.g., 5 rows + 23 squares = 273).</li>
                 <li class="instructions" style="padding-bottom:10px;">If using a <b>count threshold</b>, a progress bar will appear tracking your total. Stop when it turns orange or complete the slide.</li>
             </ul>
-            <li class="instructions no-bullet">2. Use the counters to tally each cyanobacterium. Click <b>"Add counter +"</b> for any taxa beyond the presets.</li>
+            <li class="instructions no-bullet">2. On each counter, set what you are counting:
+                <b>cells</b>, <b>colonies</b> or <b>filaments</b>. The plus and minus buttons do
+                nothing until you have. Then tally each cyanobacterium, clicking
+                <b>"Add counter +"</b> for any taxa beyond the presets.</li>
             <li class="instructions no-bullet">3. When done, click <b>"Export data"</b> to download a .CSV file.</li>
+        </ul>
+        <p class="unit-note"><b>Why the unit matters.</b> A count of "<i>Microcystis</i>: 40" means
+           nothing on its own: 40 cells and 40 colonies differ about eightyfold in biomass. Recording
+           what you actually counted is what lets the number become a biomass later, and lets the
+           file be read by the <a href="dashboard.html">Food Web Dashboard</a>. If you switch
+           mid-count, start a new counter.</p>
+        <ul style="display:none">
         </ul>
     </div>
 </div>
@@ -160,7 +192,7 @@
     <tbody><tr><td id="out1"></td><td id="out2"></td><td id="out3"></td><td id="out4"></td><td id="out5"></td><td id="out6"></td><td id="out_vol"></td><td id="out_squares"></td><td id="out_depth"></td><td id="out_tows"></td><td id="out_diam"></td><td id="out_volslide"></td><td id="out_threshold"></td><td id="out_total_counted"></td><td id="out_notes"></td></tr></tbody>
 </table></div><br>
 <div class="table-scroll"><table class="tbl" border="1" cellspacing="0" cellpadding="10">
-    <thead><tr><th>Taxon name</th><th>Count</th><th>Individuals/slide</th><th>Individuals/L</th><th>Relative abundance (%)</th></tr></thead>
+    <thead><tr><th>Taxon name</th><th>Counting unit</th><th>Count</th><th>Individuals/slide</th><th>Individuals/L</th><th>Relative abundance (%)</th></tr></thead>
     <tbody id="taxa-preview-body"></tbody>
 </table></div><br>
 

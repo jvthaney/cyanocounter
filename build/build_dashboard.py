@@ -865,6 +865,18 @@ function redraw() {
     .map(c=>`<tr><td>${c.id.replace(/</g,'&lt;')}</td><td>${c.degree}</td><td>${c.betweenness}</td></tr>`)
     .join('') || '<tr><td colspan="3" class="muted">No taxa yet.</td></tr>';
 
+  if (typeof d3 === 'undefined') {
+    const g = document.getElementById('graph');
+    if (g && !document.getElementById('no-d3')) {
+      const p = document.createElement('p');
+      p.id = 'no-d3'; p.className = 'warn';
+      p.innerHTML = '<b>The diagram cannot be drawn.</b> The drawing library (d3) did not load, '
+        + 'which usually means no internet connection or a blocked script. Everything else on '
+        + 'this page still works: the count, the rules, and the centrality table below.';
+      g.replaceWith(p);
+    }
+    return;
+  }
   const svg = d3.select('#graph');
   svg.selectAll('*').remove();
   if (!nodes.length) return;
@@ -1059,8 +1071,9 @@ function parseCsv(text) {
   const cols = splitCsvLine(lines[head]).map(c=>c.toLowerCase().trim());
   const ci = n => {
     let i = cols.indexOf(n);
+    if (i < 0) i = cols.indexOf(n.replace(/_/g, ' '));            // "counting unit"
     if (i < 0 && n === 'taxon') i = cols.indexOf('taxon name');   // older exports
-    if (i < 0 && n === 'count') i = cols.findIndex(c => c.startsWith('count'));
+    if (i < 0 && n === 'count') i = cols.findIndex(c => /^count\b/.test(c));
     return i;
   };
   clearAll();

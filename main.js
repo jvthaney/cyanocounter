@@ -13,7 +13,48 @@
  */
 
 // ─── State ────────────────────────────────────────────────────────────────────
-let counters = [];     // { id, name, count, isPreset, imgIndex? }
+let counters = [];     // { id, name, count, unit, isPreset, imgIndex? }
+
+// What was counted has to be recorded, not assumed: 40 Microcystis cells and 40
+// Microcystis colonies differ about eightyfold in biomass, so a count without its
+// unit cannot be turned into biomass at all. Nothing is counted until a unit is set.
+const UNITS = [["cell", "Cells"], ["colony", "Colonies"], ["filament", "Filaments"]];
+
+function unitSegHtml(id, chosen) {
+    return `<div class="seg-label" id="unit-label-${id}">Counting</div>
+        <div class="seg" role="group" aria-labelledby="unit-label-${id}" id="unit-seg-${id}">` +
+        UNITS.map(([u, label]) => `<button type="button" onclick="setUnit(${id},'${u}')"
+            aria-pressed="${u === chosen}">${label}</button>`).join("") + `</div>`;
+}
+
+function setUnit(id, unit) {
+    const c = counters.find(c => c.id === id);
+    if (!c || !UNITS.some(([u]) => u === unit)) return;
+    if (c.count > 0 && c.unit && c.unit !== unit &&
+        !confirm(`This counter already has ${c.count} counted as ${c.unit}. Mixing units in ` +
+                 `one counter makes the biomass wrong. Change it anyway?`)) return;
+    c.unit = unit;
+    const seg = document.getElementById(`unit-seg-${id}`);
+    if (seg) [...seg.querySelectorAll("button")].forEach((b, i) =>
+        b.setAttribute("aria-pressed", String(UNITS[i][0] === unit)));
+    const cell = document.getElementById(`tunit-${id}`);
+    if (cell) cell.textContent = unit;
+    document.getElementById(`card-${id}`)?.classList.remove("needs-unit");
+    document.getElementById(`preset-card-${c.presetIdx}`)?.classList.remove("needs-unit");
+    updateAll();
+}
+
+function requireUnit(id) {
+    const c = counters.find(c => c.id === id);
+    if (!c || c.unit) return true;
+    const card = document.getElementById(`card-${id}`)
+              || document.getElementById(`preset-card-${c.presetIdx}`);
+    if (card) {
+        card.classList.add("needs-unit");
+        card.querySelector(".seg")?.scrollIntoView({ block: "nearest" });
+    }
+    return false;
+}
 let nextId   = 1;
 let meta     = {};
 let chart    = null;
@@ -28,7 +69,8 @@ function initCounters() {
     if (window.PAGE_CONFIG && PAGE_CONFIG.presets) {
         PAGE_CONFIG.presets.forEach((p, i) => {
             const id = nextId++;
-            counters.push({ id, name: p.name, count: 0, isPreset: true, imgIndex: p.imgIndex, colour: p.colour });
+            counters.push({ id, name: p.name, count: 0, unit: "", isPreset: true,
+                            imgIndex: p.imgIndex, colour: p.colour, presetIdx: i + 1 });
             renderPresetCard(id, p, i);
             addTableRow(id, p.name);
         });
@@ -41,6 +83,12 @@ function renderPresetCard(id, preset, idx) {
     // Preset cards are in HTML; we just store their data and wire +/- buttons
     const card = document.getElementById(`preset-card-${idx + 1}`);
     if (!card) return;
+    card.classList.add("needs-unit");
+    const heading = card.querySelector("h3");
+    const seg = document.createElement("div");
+    seg.innerHTML = unitSegHtml(id, "");
+    if (heading) heading.insertAdjacentElement("afterend", seg);
+    else card.appendChild(seg);
     card.querySelector('.btn-add').addEventListener('click', () => { increment(id); });
     card.querySelector('.btn-min').addEventListener('click', () => { decrement(id); });
     if (card.querySelector('.btn-view')) {
@@ -52,16 +100,17 @@ function renderPresetCard(id, preset, idx) {
 function addCounter() {
     const id     = nextId++;
     const colour = COLOURS[(counters.length) % COLOURS.length];
-    counters.push({ id, name: '', count: 0, isPreset: false, colour });
+    counters.push({ id, name: '', count: 0, unit: "", isPreset: false, colour });
 
     const grid = document.getElementById('counter-grid');
     const col  = document.createElement('div');
     col.className = 'counter-col';
     col.id = `col-${id}`;
     col.innerHTML = `
-        <div class="counter ${colour}" id="card-${id}">
+        <div class="counter ${colour} needs-unit" id="card-${id}">
             <button class="btn-delete-counter" onclick="deleteCounter(${id})" title="Remove">&#10005;</button>
             <div class="counter-icon"></div>
+            ${unitSegHtml(id, "")}
             <button class="btn add mx-10 mt-10" onclick="increment(${id})">+</button>
             <button class="btn add mx-10 mt-10" onclick="decrement(${id})">−</button>
             <input type="text" class="form-control transparent-input countername"
@@ -89,6 +138,7 @@ function addTableRow(id, name) {
     const densityHeader = window.PAGE_CONFIG?.densityLabel || 'Individuals/L';
     tr.innerHTML = `
         <td id="tname-${id}">${name}</td>
+        <td id="tunit-${id}" class="unit-cell">not set</td>
         <td id="tcount-${id}">0</td>
         <td id="tslide-${id}">—</td>
         <td id="tdensity-${id}">—</td>
@@ -98,6 +148,7 @@ function addTableRow(id, name) {
 
 // ─── Increment / Decrement ────────────────────────────────────────────────────
 function increment(id) {
+    if (!requireUnit(id)) return;
     const c = counters.find(c => c.id === id);
     if (!c) return;
     c.count++;
@@ -107,6 +158,7 @@ function increment(id) {
 }
 
 function decrement(id) {
+    if (!requireUnit(id)) return;
     const c = counters.find(c => c.id === id);
     if (!c || c.count === 0) return;
     c.count--;
@@ -345,6 +397,18 @@ function exportData() {
     const mode  = window.PAGE_CONFIG?.mode || 'plankton';
     const total = counters.reduce((s, c) => s + c.count, 0);
 
+    const noUnit = counters.filter(c => c.count > 0 && !c.unit);
+    if (noUnit.length) {
+        alert('Set what was counted (cells, colonies or filaments) on these counters first:\n\n'
+              + noUnit.map(c => '  ' + (c.name || 'unnamed counter')).join('\n'));
+        noUnit.forEach(c => {
+            const card = document.getElementById(`card-${c.id}`)
+                      || document.getElementById(`preset-card-${c.presetIdx}`);
+            card?.classList.add('needs-unit');
+        });
+        return;
+    }
+
     let metaHeaders, metaValues;
     if (mode === 'cyano' || mode === 'plankton') {
         metaHeaders = ['Name','Date','Time','Location','Lat','Lon','Vol sample (ml)','Squares counted','Depth (m)','# Tows','Net diam (m)','Vol slide (ml)','Count threshold','Total counted','Notes'];
@@ -358,13 +422,17 @@ function exportData() {
     }
 
     const densityCol = PAGE_CONFIG?.densityLabel || 'Individuals/L';
-    const taxaHeaders = ['Taxon name','Count','Individuals/slide', densityCol, 'Relative abundance (%)'];
+    // 'Group' and 'Counting unit' are what the Food Web Dashboard reads, so a count
+    // exported here can be loaded there without editing.
+    const taxaHeaders = ['Taxon name','Group','Counting unit','Count','Individuals/slide',
+                         densityCol, 'Relative abundance (%)'];
 
+    const group = (window.PAGE_CONFIG?.mode === 'cyano') ? 'Phytoplankton' : '';
     const taxaRows = counters.map(c => {
         const slide   = document.getElementById(`tslide-${c.id}`)?.textContent   || '—';
         const density = document.getElementById(`tdensity-${c.id}`)?.textContent || '—';
         const rel     = document.getElementById(`trel-${c.id}`)?.textContent     || '0';
-        return [`"${c.name}"`, c.count, slide, density, rel].join(',');
+        return [`"${c.name}"`, `"${group}"`, `"${c.unit || ''}"`, c.count, slide, density, rel].join(',');
     });
 
     const csv = [

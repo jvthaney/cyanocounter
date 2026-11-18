@@ -1,36 +1,56 @@
-# Welcome to the CyanoCounter, PlanktonCounter, and TaxonCounter!
+# Using the Plankton Counters and Food Web Tools
 
-These counters are user-friendly tools designed for enumerating taxa in aquatic (CyanoCounter and PlanktonCounter) or terrestrial (TaxonCounter) environments.
+This site contains user-friendly tools designed for counting plankton (or other taxa) and using 
+these data to build a model food web of your lake, which you can manipulate.
+
+---
+## General functions of counters
+
+- Add unlimited counters and input taxonomic names (rename any time)
+- Supports using a <i>count threshold</i> you can set (e.g., stop when you've counted 300 colonies), and a progress bar that tracks your running total and alerts you you reach the threshold
+- Calculates and plots relative abundance of each taxon in the sample
+- Calculates and plots estimated colonies/cells/individuals per liter lake water based on your inputs of sample depth, plankton-net ring diameter, and volume of subsample counted
+---
+
+## Quick guide to tool differences
+
+**Cyano Counter**
+- <b>Specifically for cyanobacteria, preset with common taxa on the counters </b>(with options to rename them or add more)
+- Designed for community science cyanobacterial monitoring  
+- The **View** button on each counter opens an identification image for that taxon
+
+
+
+**Food Web Counter**
+- <b>For counting any plankton, or other taxa</b>
+- Add unlimited counters for phytoplankton, zooplankton, or other taxa
+
+
+**Food Web Dashboard**
+- <b>Build a food web based on your taxa and counts</b>
+-   Several ways to enter data:
+    1. <b>Send count data directly</b> from the Food Web Counter to the dashboard using the "Send to Food Web Dashboard" button
+    2. <b>Upload a spreasheet</b> with taxa and counts to the dashbaord
+    3. <b>Manually add each taxon</b> and count value to the dashboard
+    
+- Add, remove, or adjust the counts of any taxa and watch the visual representation of your food web change
+- Adjust values in the "The Rules" section to change how the dashboard calculates trophic relationships
+
 
 ---
 
-## Quick guide to differences
+## How to use the tools
 
-**CyanoCounter**
-- Designed specifically for cyanobacteria; common taxa are preset on the counters, with the option to rename them or add more
-- The **"View"** button on each counter opens an identification image for that taxon
-- Calculates estimated colonies/cells per liter of lake water based on your inputs for depth, net ring diameter, and sample volume
+**1.** Open the [Plankton Counter homepage](https://jvthaney.github.io/cyanocounter/).
 
-**PlanktonCounter**
-- For any taxa from a plankton tow; all counter names are blank by default — enter the taxon name on each card
-- Supports a **count threshold** (e.g., stop at 300 total colonies): a progress bar tracks your running total and alerts you when the threshold is reached
-- Calculates estimated colonies per liter of lake water based on your inputs
-
-
----
-
-## How to use the counters
-
-**1.** Open the [CyanoCounter page](https://jvthaney.github.io/cyanocounter/).
-
-**2.** To switch counters, click **"More counters"** in the top navigation bar.
+**2.** Select the tool you wish to use from the top navigation bar (Cyano Counter, Food Web Counter, or Food Web Dashboard).
 
 **3.** Enter your session metadata in the fields at the top of the page:
 - **Name** of the person counting
 - **Date** and **time** of sample collection
 - **Location** and **coordinates** (lat/lon)
 
-**4a. CyanoCounter and PlanktonCounter** — enter the additional fields needed for density calculations:
+**4a. Cyano Counter and Food Web Counter** — enter the additional fields needed for density calculations:
 - **Volume sample (ml):** the volume of your concentrated net sample, measured in the graduated cylinder
 - **Depth sampled (m):** the depth of the plankton tow (used to calculate volume of lake water sampled)
 - **Net diameter (m):** the diameter of the net ring (used to calculate volume of lake water sampled)
