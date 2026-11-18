@@ -41,7 +41,29 @@
         .site-nav .spacer { flex:1 1 auto; }
         .site-nav a.help { background:transparent; border-style:dashed; }
         .navheader nav { padding-bottom:2px; }
+        /* The preview tables have fourteen columns and are about 900px wide, so on a
+           phone they used to push the whole page sideways. Each now scrolls inside its
+           own box and the page itself stays put. */
+        .table-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; max-width:100%;
+                        margin:0 0 8px; }
+        .table-scroll table { margin-bottom:0; }
+        @media (max-width:860px) {
+            .table-scroll { border:1px solid #ccc; border-radius:6px; }
+            .table-scroll::after { content:"scroll sideways to see the rest \2192";
+                display:block; font-family:'Cabin',sans-serif; font-size:13px; color:#666;
+                padding:4px 8px; }
+        }
+
+        /* On a narrow screen the button row wraps onto two or three lines, and a bar
+           pinned to the top then covers the first thing on the page. Rather than guess
+           how tall it will be, let it scroll with the page below 860px: the content
+           then always starts underneath it, whatever the width. */
+        @media (max-width:860px) {
+            .navheader nav.fixed-top { position:static !important; }
+        }
+
         .first { margin-top:86px !important; }
+        @media (max-width:860px) { .first { margin-top:12px !important; } }
     </style>
 </head>
 <body class="jumbotron">
@@ -133,14 +155,14 @@
 
 <!-- PREVIEW -->
 <h1 class="instructions">Preview of data:</h1><br>
-<table class="tbl" border="1" cellspacing="0" cellpadding="10">
+<div class="table-scroll"><table class="tbl" border="1" cellspacing="0" cellpadding="10">
     <thead><tr><th>Name</th><th>Date</th><th>Time</th><th>Location</th><th>Lat</th><th>Lon</th><th>Vol sample (ml)</th><th>Squares counted</th><th>Depth (m)</th><th># Tows</th><th>Net diam (m)</th><th>Vol slide (ml)</th><th>Count threshold</th><th>Total counted</th><th>Notes</th></tr></thead>
     <tbody><tr><td id="out1"></td><td id="out2"></td><td id="out3"></td><td id="out4"></td><td id="out5"></td><td id="out6"></td><td id="out_vol"></td><td id="out_squares"></td><td id="out_depth"></td><td id="out_tows"></td><td id="out_diam"></td><td id="out_volslide"></td><td id="out_threshold"></td><td id="out_total_counted"></td><td id="out_notes"></td></tr></tbody>
-</table><br>
-<table class="tbl" border="1" cellspacing="0" cellpadding="10">
+</table></div><br>
+<div class="table-scroll"><table class="tbl" border="1" cellspacing="0" cellpadding="10">
     <thead><tr><th>Taxon name</th><th>Count</th><th>Individuals/slide</th><th>Individuals/L</th><th>Relative abundance (%)</th></tr></thead>
     <tbody id="taxa-preview-body"></tbody>
-</table><br>
+</table></div><br>
 
 <!-- CHART -->
 <h2 class="instructions" style="margin-top:20px;">Chart:</h2>

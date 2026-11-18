@@ -24,10 +24,19 @@
         .site-nav .spacer { flex:1 1 auto; }
         .site-nav a.help { background:transparent; border-style:dashed; }
         .navheader nav { padding-bottom:2px; }
+        /* On a narrow screen the button row wraps onto two or three lines, and a bar
+           pinned to the top then covers the first thing on the page. Rather than guess
+           how tall it will be, let it scroll with the page below 860px: the content
+           then always starts underneath it, whatever the width. */
+        @media (max-width:860px) {
+            .navheader nav.fixed-top { position:static !important; }
+        }
+
 
         /* ---- the page itself ---- */
         .home-wrap { max-width:1140px; margin:0 auto; padding:104px 16px 40px; }
-        @media (max-width:560px) { .home-wrap { padding-top:128px; } }
+        /* with the bar scrolling in the flow below 860px, no room need be reserved */
+        @media (max-width:860px) { .home-wrap { padding-top:20px; } }
         /* Sized against the viewport so the words cannot run off a narrow screen:
            22px on a small phone, up to 34px once there is room. */
         .home-title { font-family:'News Cycle','Arial Narrow',Arial,sans-serif;
