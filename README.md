@@ -15,24 +15,24 @@ these data to build a model food web of your lake, which you can manipulate.
 ## Quick guide to tool differences
 
 **Cyano Counter**
-- <b>Specifically for cyanobacteria, preset with common taxa on the counters </b>(with options to rename them or add more)
+- Specifically for cyanobacteria, preset with common taxa on the counters (with options to rename them or add more)
 - Designed for community science cyanobacterial monitoring  
 - The **View** button on each counter opens an identification image for that taxon
 
 
 
 **Food Web Counter**
-- <b>For counting any plankton, or other taxa</b>
+- For counting any plankton, or other taxa
 - Add unlimited counters for phytoplankton, zooplankton, or other taxa
 
 
 **Food Web Dashboard**
-- <b>Build a food web based on your taxa and counts</b>
+- Build a food web based on your taxa and counts
 -   Several ways to enter data:
-    1. <b>Send count data directly</b> from the Food Web Counter to the dashboard using the "Send to Food Web Dashboard" button
-    2. <b>Upload a spreasheet</b> with taxa and counts to the dashbaord
-    3. <b>Manually add each taxon</b> and count value to the dashboard
-    
+    - <b>Send count data directly</b> from the Food Web Counter to the dashboard using the "Send to Food Web Dashboard" button
+    - <b>Upload a spreasheet</b> with taxa and counts to the dashbaord
+    - <b>Manually add each taxon</b> and count value to the dashboard
+
 - Add, remove, or adjust the counts of any taxa and watch the visual representation of your food web change
 - Adjust values in the "The Rules" section to change how the dashboard calculates trophic relationships
 
