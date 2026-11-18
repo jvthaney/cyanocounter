@@ -3,30 +3,24 @@
 This site contains user-friendly tools designed for counting plankton (or other taxa) and using 
 these data to build a model food web of your lake, which you can manipulate.
 
----
-## General functions of counters
 
-- Add unlimited counters and input taxonomic names (rename any time)
-- Supports using a <i>count threshold</i> you can set (e.g., stop when you've counted 300 colonies), and a progress bar that tracks your running total and alerts you you reach the threshold
-- Calculates and plots relative abundance of each taxon in the sample
-- Calculates and plots estimated colonies/cells/individuals per liter lake water based on your inputs of sample depth, plankton-net ring diameter, and volume of subsample counted
 ---
 
-## Quick guide to tool differences
+## Quick guide to tools
 
-**Cyano Counter**
+**[Cyano Counter](https://jvthaney.github.io/cyanocounter/cyano.html)**
 - Specifically for cyanobacteria, preset with common taxa on the counters (with options to rename them or add more)
 - Designed for community science cyanobacterial monitoring  
 - The **View** button on each counter opens an identification image for that taxon
 
 
 
-**Food Web Counter**
+**[Food Web Counter](https://jvthaney.github.io/cyanocounter/FoodWeb.html)**
 - For counting any plankton, or other taxa
 - Add unlimited counters for phytoplankton, zooplankton, or other taxa
 
 
-**Food Web Dashboard**
+**[Food Web Dashboard](https://jvthaney.github.io/cyanocounter/dashboard.html)**
 - Build a food web based on your taxa and counts
 -   Several ways to enter data:
     - <b>Send count data directly</b> from the Food Web Counter to the dashboard using the "Send to Food Web Dashboard" button
@@ -36,10 +30,18 @@ these data to build a model food web of your lake, which you can manipulate.
 - Add, remove, or adjust the counts of any taxa and watch the visual representation of your food web change
 - Adjust values in the "The Rules" section to change how the dashboard calculates trophic relationships
 
+---
+## General functions of the Counters
+
+- Add unlimited counters and input taxonomic names (rename any time)
+- Supports using a <i>count threshold</i> you can set (e.g., stop when you've counted 300 colonies), and a progress bar that tracks your running total and alerts you you reach the threshold
+- Calculates and plots relative abundance of each taxon in the sample
+- Calculates and plots estimated colonies/cells/individuals per liter lake water based on your inputs of sample depth, plankton-net ring diameter, and volume of subsample counted
+
 
 ---
 
-## How to use the tools
+## How to use each tool
 
 **1.** Open the [Plankton Counter homepage](https://jvthaney.github.io/cyanocounter/).
 
