@@ -41,6 +41,17 @@
         .site-nav .spacer { flex:1 1 auto; }
         .site-nav a.help { background:transparent; border-style:dashed; }
         .navheader nav { padding-bottom:2px; }
+        /* There is no Submit button: the boxes above are read as they are typed, and
+           read again before any export, so nothing can be left unsubmitted. */
+        .meta-saved { font-family:'Cabin',sans-serif; font-size:15px; color:#1f6b45;
+                      margin:10px 0 0 12px; }
+
+        /* Bootstrap gives every .btn a near-black text colour, which on the dark card
+           is almost invisible (1.6:1). These are the plus and minus on each counter. */
+        .counter .btn.add { color:#ffffff; }
+        .counter .btn.add:hover, .counter .btn.add:focus { color:#ffd98a; }
+        .counter .btn.add:focus-visible { outline:3px solid #ffbf47; outline-offset:2px; }
+
 
         /* ---- how wide each entry box is ----
            A box that only holds a short number is sized for about four digits, and its
@@ -48,8 +59,12 @@
            never wrap, so the column is never narrower than its label. */
         .field-wrap { position:relative; }
         .field-wrap .form-label { white-space:nowrap; margin-bottom:2px; }
-        .field-wrap input.num-narrow { width:5.5ch; min-width:5.5ch; }
-        .field-wrap input.num-medium { width:12ch; min-width:12ch; }
+        /* The box fills its column, and the column is sized by whichever is wider: the
+           box's own minimum (about four digits) or the title above it. So a short title
+           gives a small box, and a long title gives a box that matches it, with the
+           title never wrapping either way. */
+        .field-wrap input.num-narrow { width:100%; min-width:5.5ch; }
+        .field-wrap input.num-medium { width:100%; min-width:12ch; }
         /* The note floats over what follows rather than pushing it down, so opening one
            does not shuffle the whole row of boxes. */
         .field-help { position:absolute; top:100%; left:0; z-index:60; width:17rem;
@@ -103,7 +118,7 @@
         /* every counter the same colour, whatever palette class it carries */
         .counter:before, .counter.pink:before, .counter.blue:before, .counter.orange:before,
         .counter.teal:before, .counter.grey:before, .counter.rose:before,
-        .counter.wine:before, .counter.khaki:before { background-color:#114B5F; }
+        .counter.wine:before, .counter.khaki:before { background-color:#3C6E71; }
 
         /* ---- the identification guide ---- */
         /* The bar at the top of the page sits at z-index 1030, so a guide at the
@@ -177,40 +192,55 @@
 <!-- METADATA -->
 <div class="row g-3 first" style="margin-left:2px;margin-right:2px;">
     <h3 style="font-family:'News Cycle','Arial Narrow',Arial,sans-serif;font-size:36px;color:black;text-align:center;"><b>Count cyanobacterial taxa</b></h3>
-    <div class="col-md-2 field-wrap"><div class="field-label"><label class="form-label" for="text1">Your name</label><button type="button" class="info-btn" aria-expanded="false" aria-controls="help-text1" aria-label="What is Your name?">?</button></div><input type="text" class="form-control" id="text1" placeholder="Type your name"><p class="field-help" id="help-text1" hidden>Who did the counting. Used only to name the downloaded file and to record who to ask about the count later.</p></div>
-    <div class="col-md-2 field-wrap"><div class="field-label"><label class="form-label" for="text2">Date collected</label><button type="button" class="info-btn" aria-expanded="false" aria-controls="help-text2" aria-label="What is Date collected?">?</button></div><input type="date" class="form-control" id="text2"><p class="field-help" id="help-text2" hidden>The day the sample was taken from the lake, not the day you counted it.</p></div>
-    <div class="col-md-2 field-wrap"><div class="field-label"><label class="form-label" for="text3">Time collected</label><button type="button" class="info-btn" aria-expanded="false" aria-controls="help-text3" aria-label="What is Time collected?">?</button></div><input type="time" class="form-control" id="text3"><p class="field-help" id="help-text3" hidden>Roughly when the sample was taken. Plankton move up and down through the day, so the time of a tow affects what is in it.</p></div>
-    <div class="col-md-2 field-wrap"><div class="field-label"><label class="form-label" for="text4">Sampling location</label><button type="button" class="info-btn" aria-expanded="false" aria-controls="help-text4" aria-label="What is Sampling location?">?</button></div><input type="text" class="form-control" id="text4" placeholder="e.g. Sunapee, deep station"><p class="field-help" id="help-text4" hidden>The lake, and the spot in it: a station name, a landmark, or the deep hole. Anything that lets someone repeat the tow.</p></div>
-    <div class="col-auto field-wrap"><div class="field-label"><label class="form-label" for="text5">Latitude</label><button type="button" class="info-btn" aria-expanded="false" aria-controls="help-text5" aria-label="What is Latitude?">?</button></div><input type="text" class="form-control num-medium" id="text5" placeholder="e.g. 43.385787"><p class="field-help" id="help-text5" hidden>In decimal degrees. A phone's map app will give you this if you press and hold on your location.</p></div>
-    <div class="col-auto field-wrap"><div class="field-label"><label class="form-label" for="text6">Longitude</label><button type="button" class="info-btn" aria-expanded="false" aria-controls="help-text6" aria-label="What is Longitude?">?</button></div><input type="text" class="form-control num-medium" id="text6" placeholder="e.g. -72.08125"><p class="field-help" id="help-text6" hidden>In decimal degrees, negative west of Greenwich, so negative throughout North America.</p></div>
-    <div class="col-auto field-wrap"><div class="field-label"><label class="form-label" for="text_vol">Concentrated sample volume (ml)</label><button type="button" class="info-btn" aria-expanded="false" aria-controls="help-text_vol" aria-label="What is Concentrated sample volume (ml)?">?</button></div><input type="text" class="form-control num-narrow" id="text_vol" placeholder="e.g. 100"><p class="field-help" id="help-text_vol" hidden>How much water you ended up with AFTER the tow: the volume in your collection bottle or graduated cylinder, with the plankton from the whole tow concentrated into it. This is NOT the volume of lake water that passed through the net, which is worked out from the tow depth and net diameter instead.</p></div>
-    <div class="col-auto field-wrap"><div class="field-label"><label class="form-label" for="text_squares">Squares counted (of 1,000)</label><button type="button" class="info-btn" aria-expanded="false" aria-controls="help-text_squares" aria-label="What is Squares counted (of 1,000)?">?</button></div><input type="number" class="form-control num-narrow" id="text_squares" placeholder="e.g. 1000"><p class="field-help" id="help-text_squares" hidden>A Sedgewick Rafter cell is 50 columns across and 20 rows down, so 1,000 squares in all. Count a whole slide and enter 1000. For part of one, multiply the full rows you finished by 50 and add the squares in the row you stopped partway through: 5 full rows plus 23 squares is 273.</p></div>
-    <div class="col-auto field-wrap"><div class="field-label"><label class="form-label" for="text_depth">Tow depth (m)</label><button type="button" class="info-btn" aria-expanded="false" aria-controls="help-text_depth" aria-label="What is Tow depth (m)?">?</button></div><input type="text" class="form-control num-narrow" id="text_depth" placeholder="e.g. 2"><p class="field-help" id="help-text_depth" hidden>How deep the net went before you hauled it up. With the net diameter this gives the volume of lake water the tow filtered.</p></div>
-    <div class="col-auto field-wrap"><div class="field-label"><label class="form-label" for="text_tows">Number of tows</label><button type="button" class="info-btn" aria-expanded="false" aria-controls="help-text_tows" aria-label="What is Number of tows?">?</button></div><input type="text" class="form-control num-narrow" id="text_tows" placeholder="e.g. 1"><p class="field-help" id="help-text_tows" hidden>How many separate hauls went into this one sample. If you combined three tows into the same bottle, enter 3.</p></div>
-    <div class="col-auto field-wrap"><div class="field-label"><label class="form-label" for="text_diam">Net ring diameter (m)</label><button type="button" class="info-btn" aria-expanded="false" aria-controls="help-text_diam" aria-label="What is Net ring diameter (m)?">?</button></div><input type="text" class="form-control num-narrow" id="text_diam" placeholder="e.g. 0.16"><p class="field-help" id="help-text_diam" hidden>The width of the mouth of the plankton net, across the metal ring. Measure it once and reuse the figure: a common net is 0.16 m.</p></div>
-    <div class="col-auto field-wrap"><div class="field-label"><label class="form-label" for="text_volslide">Subsample counted (ml)</label><button type="button" class="info-btn" aria-expanded="false" aria-controls="help-text_volslide" aria-label="What is Subsample counted (ml)?">?</button></div><input type="text" class="form-control num-narrow" id="text_volslide" placeholder="e.g. 1"><p class="field-help" id="help-text_volslide" hidden>How much of that concentrated sample you put on the slide and counted. On a Sedgewick Rafter cell this is 1 ml. Together with the concentrated sample volume it tells us what fraction of the tow you looked at.</p></div>
-    <div class="col-auto field-wrap"><div class="field-label"><label class="form-label" for="text_threshold">Count threshold</label><span class="optional-tag">optional</span><button type="button" class="info-btn" aria-expanded="false" aria-controls="help-text_threshold" aria-label="What is Count threshold?">?</button></div><input type="number" class="form-control num-narrow" id="text_threshold" min="1" placeholder="blank, or e.g. 300"><p class="field-help" id="help-text_threshold" hidden>OPTIONAL. Leave this blank to count the whole slide. If you would rather stop at a set total, enter it here and a progress bar will track your running count and turn orange when you reach it. Stopping at 300 gives a counting error of about 6 per cent; stopping at 100 about 10 per cent.</p></div>
-    <div class="col-md-2 field-wrap"><div class="field-label"><label class="form-label" for="text_notes">Notes</label><button type="button" class="info-btn" aria-expanded="false" aria-controls="help-text_notes" aria-label="What is Notes?">?</button></div><input type="text" class="form-control" id="text_notes"><p class="field-help" id="help-text_notes" hidden>Anything worth remembering: weather, a visible bloom, water colour, preservative used, taxa you saw but did not count.</p></div>
+        <div class="col-md-2 field-wrap"><div class="field-label"><label class="form-label" for="text1">Your name</label><button type="button" class="info-btn" aria-expanded="false" aria-controls="help-text1" aria-label="What is Your name?">?</button></div><input type="text" class="form-control" id="text1" placeholder="Type your name">
+        <p class="field-help" id="help-text1" hidden>Who did the counting. Used to record who to ask about the count later.</p></div>
+    <div class="col-md-2 field-wrap"><div class="field-label"><label class="form-label" for="text2">Date collected</label><button type="button" class="info-btn" aria-expanded="false" aria-controls="help-text2" aria-label="What is Date collected?">?</button></div><input type="date" class="form-control" id="text2">
+        <p class="field-help" id="help-text2" hidden>The day the sample was collected from the lake (not the day you counted it).</p></div>
+    <div class="col-md-2 field-wrap"><div class="field-label"><label class="form-label" for="text3">Time collected</label><button type="button" class="info-btn" aria-expanded="false" aria-controls="help-text3" aria-label="What is Time collected?">?</button></div><input type="time" class="form-control" id="text3">
+        <p class="field-help" id="help-text3" hidden>Roughly the time when the sample was taken. Plankton often move throughout the day, so the time of a tow can affect what is in it.</p></div>
+    <div class="col-md-2 field-wrap"><div class="field-label"><label class="form-label" for="text4">Sampling location</label><button type="button" class="info-btn" aria-expanded="false" aria-controls="help-text4" aria-label="What is Sampling location?">?</button></div><input type="text" class="form-control" id="text4" placeholder="e.g. Sunapee, deep station">
+        <p class="field-help" id="help-text4" hidden>The name of the water body and the rough location within it (e.g., a station name, a landmark, the deep hole, etc.).</p></div>
+    <div class="col-auto field-wrap"><div class="field-label"><label class="form-label" for="text5">Latitude</label><button type="button" class="info-btn" aria-expanded="false" aria-controls="help-text5" aria-label="What is Latitude?">?</button></div><input type="text" inputmode="decimal" size="12" class="form-control num-medium" id="text5" placeholder="e.g. 43.385787"><p class="field-help" id="help-text5" hidden>In decimal degrees. A phone's map app will give you this if you press and hold on your location.</p></div>
+    <div class="col-auto field-wrap"><div class="field-label"><label class="form-label" for="text6">Longitude</label><button type="button" class="info-btn" aria-expanded="false" aria-controls="help-text6" aria-label="What is Longitude?">?</button></div><input type="text" inputmode="decimal" size="12" class="form-control num-medium" id="text6" placeholder="e.g. -72.08125"><p class="field-help" id="help-text6" hidden>In decimal degrees, negative west of Greenwich, so negative throughout North America.</p></div>
+    <div class="col-auto field-wrap"><div class="field-label"><label class="form-label" for="text_depth">Tow depth (m)</label><button type="button" class="info-btn" aria-expanded="false" aria-controls="help-text_depth" aria-label="What is Tow depth (m)?">?</button></div><input type="text" inputmode="numeric" size="5" class="form-control num-narrow" id="text_depth" placeholder="e.g. 2">
+        <p class="field-help" id="help-text_depth" hidden>How deep you lowered net for the tow. Combined with the net diameter, this gives the volume of lake water the tow filtered.</p></div>
+    <div class="col-auto field-wrap"><div class="field-label"><label class="form-label" for="text_tows">Number of tows</label><button type="button" class="info-btn" aria-expanded="false" aria-controls="help-text_tows" aria-label="What is Number of tows?">?</button></div><input type="text" inputmode="numeric" size="5" class="form-control num-narrow" id="text_tows" placeholder="e.g. 1">
+        <p class="field-help" id="help-text_tows" hidden>How many separate tows went into this sample. If you combined three tows into the same bottle, enter 3.</p></div>
+    <div class="col-auto field-wrap"><div class="field-label"><label class="form-label" for="text_diam">Net ring diameter (m)</label><button type="button" class="info-btn" aria-expanded="false" aria-controls="help-text_diam" aria-label="What is Net ring diameter (m)?">?</button></div><input type="text" inputmode="numeric" size="5" class="form-control num-narrow" id="text_diam" placeholder="e.g. 0.16">
+        <p class="field-help" id="help-text_diam" hidden>The width of the mouth of the plankton net, across the metal ring (e.g., a common size is 0.16 m).</p></div>
+    <div class="col-auto field-wrap"><div class="field-label"><label class="form-label" for="text_vol">Concentrated sample volume (ml)</label><button type="button" class="info-btn" aria-expanded="false" aria-controls="help-text_vol" aria-label="What is Concentrated sample volume (ml)?">?</button></div><input type="text" inputmode="numeric" size="5" class="form-control num-narrow" id="text_vol" placeholder="e.g. 100">
+        <p class="field-help" id="help-text_vol" hidden>How much water you ended up with AFTER the tow: the volume in your collection bottle, with the plankton from the whole tow concentrated into it. This is NOT the volume of lake water that passed through the net, which is worked out from the tow depth and net diameter instead.</p></div>
+    <div class="col-auto field-wrap"><div class="field-label"><label class="form-label" for="text_volslide">Subsample counted (ml)</label><button type="button" class="info-btn" aria-expanded="false" aria-controls="help-text_volslide" aria-label="What is Subsample counted (ml)?">?</button></div><input type="text" inputmode="numeric" size="5" class="form-control num-narrow" id="text_volslide" placeholder="e.g. 1">
+        <p class="field-help" id="help-text_volslide" hidden>How much of that concentrated sample you put on the slide and counted. On a Sedgewick Rafter cell this is 1 ml. Together with the concentrated sample volume this tells us what fraction of the tow you looked at.</p></div>
+    <div class="col-auto field-wrap"><div class="field-label"><label class="form-label" for="text_squares">Squares counted</label><span class="optional-tag">optional</span><button type="button" class="info-btn" aria-expanded="false" aria-controls="help-text_squares" aria-label="What is Squares counted (of 1,000)?">?</button></div><input type="text" inputmode="numeric" size="5" class="form-control num-narrow" id="text_squares" placeholder="e.g. 1000">
+        <p class="field-help" id="help-text_squares" hidden>If using a Sedgewick Rafter slide: it is 50 columns across and 20 rows down, so 1,000 squares total. If you counted part of a slide, enter the number of squares you counted. Or, multiply the full rows you finished by 50 and add the squares in the row you stopped partway through (e.g., 5 full rows plus 23 squares = 273). Leave it blank if you counted the whole slide, or if you are not using a counting cell at all.</p></div>
+    <div class="col-auto field-wrap"><div class="field-label"><label class="form-label" for="text_threshold">Count threshold</label><span class="optional-tag">optional</span><button type="button" class="info-btn" aria-expanded="false" aria-controls="help-text_threshold" aria-label="What is Count threshold?">?</button></div><input type="text" inputmode="numeric" size="5" class="form-control num-narrow" id="text_threshold" placeholder="blank, or e.g. 300">
+        <p class="field-help" id="help-text_threshold" hidden>If you would rather stop at a set number of counts, enter it here and a progress bar will track your running count and turn orange when you reach it. Stopping at 300 gives a counting error of about 6 per cent; stopping at 100 about 10 per cent.</p></div>
+    <div class="col-md-2 field-wrap"><div class="field-label"><label class="form-label" for="text_notes">Notes</label><button type="button" class="info-btn" aria-expanded="false" aria-controls="help-text_notes" aria-label="What is Notes?">?</button></div><input type="text" class="form-control" id="text_notes">
+        <p class="field-help" id="help-text_notes" hidden>Other details about the sample (e.g., weather, a visible bloom, water colour, notes on your identifications, etc.).</p></div>
     <div class="row">
-        <button type="button" class="btn btn-r bg-light submitinfo" onclick="submitInfo()">Submit info</button>
-        <br><br><p id="outalert" style="color:darkgreen;font-family:'Cabin',sans-serif;font-size:15px;margin-left:12px;"></p>
+        <p id="outalert" class="meta-saved">Metadata details are saved as you type.</p>
     </div>
     <div class="container second">
         <ul>
-            <li class="instructions no-bullet">1. <b>Enter your metadata above</b> and click <i>"Submit Info"</i>.</li>
-            <ul style="margin-left:16px;padding-left:5">
+            <li class="instructions no-bullet">1. <b>Enter your metadata above</b></li>
+            <ul style="margin-left:50px;padding-left:0;font-size:18px;">
+            <li>Click the <i>question mark symbol</i> next to each field to see its definition</li>
             </ul>
             <li class="instructions no-bullet">2. <b>Select whether you are counting:</b>
-                <i>cells</i>, <i>colonies</i> or <i>filaments</i>. 
+                <i>cells</i>, <i>colonies</i> or <i>filaments</i> 
             <ul style="margin-left:50px;padding-left:0;font-size:18px;">
-              <li>Click <i>Add counter + </i> to add a new taxon.</li>
+              <li>Click <i>Add counter + </i> to add new taxa</li>
+            <li>Click <i>View</i> to see example images and get links to identification guides</li>
+
             </ul>
-            <li class="instructions no-bullet">3. <b>When done</b>, click <i>Download spreadsheet</i> to download the data to your computer.</li>
+            <li class="instructions no-bullet">3. <b>When done</b>, click <i>Download spreadsheet</i> to download the data to your computer</li>
         </ul>
         <ul style="display:none">
         </ul>
     </div>
 </div>
+
 <hr>
 
 <!-- THRESHOLD BAR -->

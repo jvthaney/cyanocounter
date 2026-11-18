@@ -64,7 +64,32 @@ const COLOURS  = ['', 'pink', 'blue', 'orange', 'teal', 'grey', 'rose', 'wine', 
 const SR_TOTAL = 1000; // Sedgewick Rafter total squares (50 cols × 20 rows)
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
+
+// ─── Keeping the sample details in step ───────────────────────────────────────
+// These used to be read only when a Submit button was pressed, so a note typed and
+// not submitted was missing from the export: quiet data loss. They are now read as
+// they are typed, and read again before any export, so pressing anything is optional.
+const META_IDS = ['text1','text2','text3','text4','text5','text6','text_vol','text_squares',
+                  'text_depth','text_tows','text_diam','text_volslide','text_threshold',
+                  'text_notes','text_area'];
+let metaTimer = null;
+
+function watchMetaFields() {
+    META_IDS.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        // A short wait means a half-typed number such as "0." never reaches the
+        // density sums; leaving the box applies it at once.
+        el.addEventListener('input', () => {
+            clearTimeout(metaTimer);
+            metaTimer = setTimeout(() => submitInfo(true), 350);
+        });
+        el.addEventListener('change', () => { clearTimeout(metaTimer); submitInfo(true); });
+    });
+}
+
 function initCounters() {
+    watchMetaFields();
     // Build preset counters (cyano page)
     if (window.PAGE_CONFIG && PAGE_CONFIG.presets) {
         PAGE_CONFIG.presets.forEach((p, i) => {
@@ -199,7 +224,7 @@ function updateName(id) {
 }
 
 // ─── Submit info ──────────────────────────────────────────────────────────────
-function submitInfo() {
+function submitInfo(quiet) {
     const g  = id => document.getElementById(id)?.value || '';
     const mode = window.PAGE_CONFIG?.mode || 'plankton';
 
@@ -239,7 +264,8 @@ function submitInfo() {
     set('out_threshold', meta.threshold || '(none)');
     set('out_notes',     meta.notes);
 
-    document.getElementById('outalert').textContent = 'Info submitted ✓';
+    const note = document.getElementById('outalert');
+    if (note) note.textContent = 'Sample details saved \u2713';
 
     // Threshold bar
     const thresh = parseFloat(meta.threshold);
@@ -283,8 +309,10 @@ function updateAll() {
         const relAbund = total > 0 ? (c.count / total) * 100 : 0;
 
         if (mode === 'cyano' || mode === 'plankton') {
+            // Squares counted is optional. Left blank, the whole slide is assumed,
+            // which also suits anyone not using a Sedgewick Rafter at all.
             const squares    = parseFloat(meta.squares);
-            const percSlide  = (!isNaN(squares) && squares > 0) ? squares / SR_TOTAL : NaN;
+            const percSlide  = (!isNaN(squares) && squares > 0) ? squares / SR_TOTAL : 1;
             const volSample  = parseFloat(meta.volSample);
             const volSlide   = parseFloat(meta.volSlide);
             const depth      = parseFloat(meta.depth);
@@ -416,6 +444,7 @@ document.addEventListener('click', e => {
 
 // ─── Export CSV ───────────────────────────────────────────────────────────────
 function exportData() {
+    submitInfo(true);   // whatever is in the boxes right now
     const mode  = window.PAGE_CONFIG?.mode || 'plankton';
     const total = counters.reduce((s, c) => s + c.count, 0);
 

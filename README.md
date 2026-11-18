@@ -1,10 +1,7 @@
 # Using the Plankton Counters and Food Web Tools
 
 This site contains user-friendly tools for counting plankton (or other taxa) and using those
-counts to build a model food web of your lake, which you can then manipulate.
-
-Everything runs in your browser. Nothing is installed, nothing is uploaded, and nothing you
-enter leaves your computer unless you download it yourself.
+counts to build a model food web of your lake, which you can then change and manipulate.
 
 ---
 
@@ -23,63 +20,60 @@ enter leaves your computer unless you download it yourself.
 
 **[Food Web Dashboard](https://jvthaney.github.io/cyanocounter/dashboard.html)**
 - Builds a food web from your taxa and counts
-- Three ways to get data in:
-  - **Send counts directly** from the Food Web Counter with its *Send to Food Web Dashboard* button
+- Three ways to enter data:
+  - **Send counts directly** from the Food Web Counter by clicking the *Send to Food Web Dashboard* button
   - **Upload a spreadsheet** of taxa and counts
   - **Add each taxon by hand** in the dashboard itself
-- Add, remove or adjust any taxon and watch the web change
-- Adjust the values under **The Rules** to change how feeding relationships are worked out
+- Add, remove, or adjust any taxon and watch the food web change
+- Adjust values under The Rules to change how feeding relationships are calculated
+
 
 ---
 
-## What the counters do
+## The counters are designed to
 
-- Unlimited counters, each with a taxon name you can change at any time
-- Every counter records **what was counted**: cells, colonies or filaments
-- An optional **count threshold**, with a progress bar that turns orange when you reach it
-- Relative abundance of each taxon, as a table and a chart
-- Estimated individuals, colonies or cells per litre of lake water, from your tow depth, net
-  diameter and sample volumes
-- A spreadsheet of everything, downloadable at any point
+- Allow you to add unlimited counters, each with a taxon name you can change at any time
+- Record what was counted: cells, colonies, filaments, or individuals
+- Choose an optional count threshold, with a progress bar that alerts you when you reach it
+- Estimate and plot relative abundance of each taxon
+- Estimate and plot individuals, colonies, or cells per litre of lake water, derived from your tow depth, net
+  diameter, and sample volumes
+- Download a spreadsheet of the data (or optionally send the data to the food web dashboard)
 
----
-
-## Why every counter asks what you counted
-
-A count of "*Microcystis*: 40" cannot be turned into biomass, because 40 cells and 40 colonies
-are about eightyfold apart. So each counter asks whether you are tallying **cells**, **colonies**
-or **filaments**, and the plus and minus buttons do nothing until you have said which.
-
-Pick the unit that matches what you can actually see and count reliably. For most colonial
-cyanobacteria that is colonies; for a filamentous genus such as *Dolichospermum* or
-*Aphanizomenon* it is filaments. If you change your mind partway through, start a new counter
-rather than switching, because a counter holding a mixture of units cannot be corrected later.
 
 ---
 
-## Filling in the sample details
+## Entering the sample metadata
 
-Every box has a **?** beside it. Click it for an explanation of what that box wants; click again
-to close. The two that cause the most confusion:
+Every metadata entry field box has a **?** beside it. Click it for an explanation of what that box wants, and click again
+to close. 
 
-| Box | What it means |
-|---|---|
-| **Concentrated sample volume (ml)** | How much water you ended up with **after** the tow: the volume in your collection bottle or cylinder, holding the plankton from the whole tow. **Not** the volume of lake water that passed through the net, which is worked out from the tow depth and net diameter instead. |
-| **Subsample counted (ml)** | How much of that concentrated sample you put on the slide and counted. On a Sedgewick Rafter cell this is 1 ml. |
+Once you've entered metadata, click **Submit info** to save the details.
 
-Together those two say what fraction of the tow you actually looked at, which is what turns a
-tally into a density.
+## What each box on the counters means
 
-**Squares counted (of 1,000).** A Sedgewick Rafter cell is 50 columns by 20 rows. Count a whole
-slide and enter 1000. For part of one, multiply the full rows you finished by 50 and add the
-squares in the row you stopped partway through: 5 full rows plus 23 squares is 273.
+Every box has a **?** beside it that opens this same explanation on the page itself.
+Click it again to close.
 
-**Count threshold is optional.** Leave it blank to count the whole slide. If you would rather
-stop at a set total, enter it and a progress bar will track your running count. Stopping at 300
-gives a counting error of roughly 6 per cent, and at 100 roughly 10 per cent.
+- **Your name**: Who did the counting. Used to record who to ask about the count later.
+- **Date collected**: The day the sample was collected from the lake (not the day you counted it).
+- **Time collected**: Roughly the time when the sample was taken. Plankton often move throughout the day, so the time of a tow can affect what is in it.
+- **Sampling location**: The name of the water body and the rough location within it (e.g., a station name, a landmark, the deep hole, etc.). 
+- **Latitude**: In decimal degrees. A phone's map app will give you this if you press and hold on your location. *(e.g. 43.385787)*
+- **Longitude**: In decimal degrees, negative west of Greenwich, so negative throughout North America. *(e.g. -72.08125)*
+- **Tow depth (m)**: How deep you lowered the net for the tow. Combined with the net diameter, this gives the volume of lake water the tow filtered. 
+- **Number of tows**: How many separate tows went into this sample. If you combined three tows into the same bottle, enter 3. 
+- **Net ring diameter (m)**: The width of the mouth of the plankton net, across the metal ring (e.g., a common size is 0.16 m). 
+- **Concentrated sample volume (ml)**: This is how much water you ended up with AFTER the tow; the volume in your collection bottle, with the plankton from the whole tow concentrated into it. This is NOT the volume of lake water that passed through the net - that is calculated from the tow depth and net diameter. 
+- **Subsample counted (ml)**: How much of that concentrated sample you put on the slide and counted. On a Sedgewick Rafter cell this is 1 ml. Together with the concentrated sample volume this tells us what fraction of the tow you looked at.
+- **Squares counted** *(optional)*: If using a Sedgewick Rafter slide: it is 50 columns across and 20 rows down, so 1,000 squares total. If you counted part of a slide, enter the number of squares you counted. Or, multiply the full rows you finished by 50 and add the squares in the row you stopped partway through (e.g., 5 full rows plus 23 squares = 273).
+- **Count threshold** *(optional)*: If you would rather stop at a set number of counts, enter it here and a progress bar will track your running count and turn orange when you reach it. Stopping at 300 gives a counting error of about 6 per cent; stopping at 100 about 10 per cent. *(e.g. blank, or 300)*
+- **Notes**: Other details about the sample (e.g., weather, a visible bloom, water colour, notes on your identifications, etc.).
 
-Click **Submit info** to record these details. You can change any of them later and click it
-again.
+The two that cause the most confusion are the volumes. **Concentrated sample volume** is
+what came out of the lake and into your bottle; **subsample counted** is the part of that
+bottle you put under the microscope. Together they say what fraction of the tow you
+actually looked at, which is what turns a tally into a density.
 
 ---
 

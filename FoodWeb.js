@@ -34,7 +34,32 @@ const GROUPS = {
 };
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
-function initCounters() { renderChart(); }
+
+// ─── Keeping the sample details in step ───────────────────────────────────────
+// These used to be read only when a Submit button was pressed, so a note typed and
+// not submitted was missing from the export: quiet data loss. They are now read as
+// they are typed, and read again before any export, so pressing anything is optional.
+const META_IDS = ['text1','text2','text3','text4','text5','text6','text_vol','text_squares',
+                  'text_depth','text_tows','text_diam','text_volslide','text_threshold',
+                  'text_notes','text_area'];
+let metaTimer = null;
+
+function watchMetaFields() {
+    META_IDS.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        // A short wait means a half-typed number such as "0." never reaches the
+        // density sums; leaving the box applies it at once.
+        el.addEventListener('input', () => {
+            clearTimeout(metaTimer);
+            metaTimer = setTimeout(() => submitInfo(true), 350);
+        });
+        el.addEventListener('change', () => { clearTimeout(metaTimer); submitInfo(true); });
+    });
+}
+
+function initCounters() {
+    watchMetaFields(); renderChart(); }
 
 // ─── Add a counter ────────────────────────────────────────────────────────────
 function addCounter(group) {
@@ -173,22 +198,25 @@ function resetCounters() {
 }
 
 // ─── Metadata ─────────────────────────────────────────────────────────────────
-function submitInfo() {
+function submitInfo(quiet) {
     const v = id => document.getElementById(id)?.value || '';
     meta = {
         name: v('text1'), date: v('text2'), time: v('text3'), location: v('text4'),
         lat: v('text5'), lon: v('text6'), volSample: v('text_vol'),
         squares: v('text_squares'), depth: v('text_depth'), netDiam: v('text_diam'),
+        tows: v('text_tows'),
         volSlide: v('text_volslide'), threshold: v('text_threshold'), notes: v('text_notes'),
     };
     const set = (id, val) => { const e = document.getElementById(id); if (e) e.textContent = val; };
     set('out1', meta.name); set('out2', meta.date); set('out3', meta.time);
     set('out4', meta.location); set('out5', meta.lat); set('out6', meta.lon);
     set('out_vol', meta.volSample); set('out_squares', meta.squares);
-    set('out_depth', meta.depth); set('out_diam', meta.netDiam);
+    set('out_depth', meta.depth); set('out_tows', meta.tows);
+    set('out_diam', meta.netDiam);
     set('out_volslide', meta.volSlide); set('out_notes', meta.notes);
     set('out_threshold', meta.threshold || '(full slide)');
-    document.getElementById('outalert').textContent = 'Info submitted \u2713';
+    const note = document.getElementById('outalert');
+    if (note) note.textContent = 'Sample details saved \u2713';
 
     const t = parseFloat(meta.threshold);
     const wrap = document.getElementById('threshold-bar-wrap');
@@ -203,14 +231,21 @@ function submitInfo() {
 
 // ─── Calculations ─────────────────────────────────────────────────────────────
 function densities() {
+    // Squares counted is optional. Left blank, the whole slide is assumed, which is
+    // also the sensible reading for anyone not using a Sedgewick Rafter at all.
     const squares   = parseFloat(meta.squares);
-    const propSlide = (!isNaN(squares) && squares > 0) ? squares / SR_TOTAL : NaN;
+    const propSlide = (!isNaN(squares) && squares > 0) ? squares / SR_TOTAL : 1;
     const volSample = parseFloat(meta.volSample);
     const volSlide  = parseFloat(meta.volSlide);
     const depth     = parseFloat(meta.depth);
     const diam      = parseFloat(meta.netDiam);
     const r         = diam / 2;
-    const lakeL     = (!isNaN(diam) && !isNaN(depth)) ? Math.PI * r * r * depth * 1000 : NaN;
+    // Several tows into one bottle means several times the lake water filtered. A blank
+    // box counts as one tow. The Cyano Counter has always done this; without it the two
+    // pages gave different densities for the same sample.
+    const towsRaw   = parseFloat(meta.tows);
+    const tows      = (!isNaN(towsRaw) && towsRaw > 0) ? towsRaw : 1;
+    const lakeL     = (!isNaN(diam) && !isNaN(depth)) ? Math.PI * r * r * depth * tows * 1000 : NaN;
     const propOn    = (volSample > 0 && volSlide > 0) ? volSlide / volSample : NaN;
     return { propSlide, propOn, lakeL };
 }
@@ -289,6 +324,7 @@ function renderChart() {
 const HANDOFF_KEY = 'cfb.foodweb.count';
 
 function sendToDashboard() {
+    submitInfo(true);   // whatever is in the boxes right now
     const named = counters.filter(c => c.name.trim() !== '');
     if (!named.length) { alert('Add at least one named taxon first.'); return; }
     const payload = {
@@ -313,6 +349,7 @@ function sendToDashboard() {
 
 // ─── Export ───────────────────────────────────────────────────────────────────
 function exportData() {
+    submitInfo(true);   // whatever is in the boxes right now
     const total = counters.reduce((s, c) => s + c.count, 0);
     const missingUnit = counters.filter(c => c.name.trim() !== '' && !c.unit);
     if (missingUnit.length) {
@@ -325,7 +362,7 @@ function exportData() {
         'Vol sample (ml)', 'Squares counted', 'Depth (m)', 'Net diam (m)',
         'Vol slide (ml)', 'Count threshold', 'Total counted', 'Notes'];
     const metaValues = [meta.name, meta.date, meta.time, meta.location, meta.lat, meta.lon,
-        meta.volSample, meta.squares, meta.depth, meta.netDiam, meta.volSlide,
+        meta.volSample, meta.squares, meta.depth, meta.tows, meta.netDiam, meta.volSlide,
         meta.threshold || '(full slide)', total, meta.notes];
 
     // These column names are what build_food_web.py reads.
