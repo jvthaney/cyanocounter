@@ -30,11 +30,11 @@ counts to build a model food web of your lake, which you can then change and man
 
 ---
 
-## The counters are designed to
+## Features of the Counters
 
 - Allow you to add unlimited counters, each with a taxon name you can change at any time
 - Record what was counted: cells, colonies, filaments, or individuals
-- Choose an optional count threshold, with a progress bar that alerts you when you reach it
+- Optional count threshold if you chose to use it, with a progress bar that alerts you when you reach it
 - Estimate and plot relative abundance of each taxon
 - Estimate and plot individuals, colonies, or cells per litre of lake water, derived from your tow depth, net
   diameter, and sample volumes
@@ -45,8 +45,9 @@ counts to build a model food web of your lake, which you can then change and man
 
 ## Entering the sample metadata
 
-Every box has a **?** beside it that opens this same explanation on the page itself.
-Click it again to close.
+Before you start counting, fill out the metadata to save important information about your sample. NOTE: Every box has a **?** beside it that opens this same explanation on the page itself.
+
+*Metadata Field Explanations*
 
 - **Your name**: Who did the counting. Used to record who to ask about the count later.
 - **Date collected**: The day the sample was collected from the lake (not the day you counted it).
@@ -55,7 +56,7 @@ Click it again to close.
 - **Latitude**: In decimal degrees. A phone's map app will give you this if you press and hold on your location. *(e.g. 43.385787)*
 - **Longitude**: In decimal degrees, negative west of Greenwich, so negative throughout North America. *(e.g. -72.08125)*
 - **Tow depth (m)**: How deep you lowered the net for the tow. Combined with the net diameter, this gives the volume of lake water the tow filtered. 
-- **Number of tows**: How many separate tows went into this sample. If you combined three tows into the same bottle, enter 3. 
+- **Number of tows**: How many separate tows went into this sample (e.g., if you combined three tows into the same bottle, enter 3). 
 - **Net ring diameter (m)**: The width of the mouth of the plankton net, across the metal ring (e.g., a common size is 0.16 m). 
 - **Concentrated sample volume (ml)**: This is how much water you ended up with AFTER the tow; the volume in your collection bottle, with the plankton from the whole tow concentrated into it. This is NOT the volume of lake water that passed through the net - that is calculated from the tow depth and net diameter. 
 - **Subsample counted (ml)**: How much of that concentrated sample you put on the slide and counted. On a Sedgewick Rafter cell this is 1 ml. Together with the concentrated sample volume this tells us what fraction of the tow you looked at.
@@ -63,61 +64,57 @@ Click it again to close.
 - **Count threshold** *(optional)*: If you would rather stop at a set number of counts, enter it here and a progress bar will track your running count and turn orange when you reach it. Stopping at 300 gives a counting error of about 6 per cent; stopping at 100 about 10 per cent. *(e.g. blank, or 300)*
 - **Notes**: Other details about the sample (e.g., weather, a visible bloom, water colour, notes on your identifications, etc.).
 
-The two that cause the most confusion are the volumes. **Concentrated sample volume** is
-what came out of the lake and into your bottle; **subsample counted** is the part of that
-bottle you put under the microscope. Together they say what fraction of the tow you
-actually looked at, which is what turns a tally into a density.
+
 
 ---
 
 ## Counting
 
-1. Enter the sample details and click **Submit info**.
-2. Add a counter for each taxon, set what you are counting, and tally with **+** and **−**.
-3. Rename any counter by typing in its name box, including the preset ones.
+1. Enter the metadata. You can update these details any time and it will save automatically to your count spreadsheet. 
+2. Add a counter for each taxon, set what you are counting, and tally with the **+** and **−** buttons.
+3. Rename any counter by typing in its name box.
 4. Remove a counter you added by mistake with the **×** in its corner.
-5. **Reset counters** zeroes every tally but keeps the taxa, names and units.
+5. **Reset counters** zeroes every tally but keeps the taxa, names and units. 
 
 ---
 
-## When you have finished
+## When you have finished counting
 
 **Download Spreadsheet** saves a CSV to your computer with your sample details, the raw counts,
 the counting unit for each taxon, and the calculated values. Calculated columns show **—** where
 a required detail was left blank. The file is named after you and the date.
 
-**Send to Food Web Dashboard** *(Food Web Counter)* opens the dashboard in a new tab with the
-count already loaded, so there is no file to download or upload. The counter is not changed.
+**Send to Food Web Dashboard** opens the food web dashboard in a new tab with the
+counts already loaded, so there is no file to download or upload. The counter is not changed.
 
-A spreadsheet from either counter can also be loaded into the dashboard later with its
-**Choose File** button, so a count made last summer still works.
+A spreadsheet with count data can also be loaded into the dashboard later using the
+**Choose File** button.
 
 ---
 
-## How the numbers are worked out
+## Density estimates 
 
-All density estimates assume the sample was well mixed before the slide was loaded.
+At the bottom of the counter page, it automatically estimates the relative abundance and density of taxa in your sample, based on the metadata:
 
-| Output | Formula |
+| Estimate | Formula |
 |---|---|
 | **Per slide** | count ÷ (squares counted ÷ 1,000) |
 | **Per litre of lake water** | (per slide ÷ proportion of the sample on the slide) ÷ litres of lake water filtered |
 | **Relative abundance (%)** | taxon count ÷ total count × 100 |
 
-Where:
-- *proportion of the sample on the slide* = subsample counted (ml) ÷ concentrated sample volume (ml)
-- *litres of lake water filtered* = π × (net radius)² × tow depth × 1,000
+Given that:
+- *Proportion of the sample on the slide* = subsample counted (ml) ÷ concentrated sample volume (ml)
+- *Litres of lake water filtered* = π × (net radius)² × tow depth × 1,000
 
 ---
 
-## A note on the food web
+## Food Web Dashboard
 
-The dashboard's links are **predictions, not observations**. A link means that feeding is
-physically possible given the sizes involved and the rules in force: that the food falls inside
-the consumer's size window, and is not a filament or a colony too large to handle. It does not
-mean the interaction has been recorded anywhere.
+Importantly, the links bewteen taxa in the food webs generated by the dashboard are predictions based on averages and published data, not observations. A link bewteen two taxa means that feeding is
+physically possible given the sizes involved and the rules set. A link is drawn if prey falls inside
+the consumer's size window, or is not a filament or a colony that is generally too large to handle. It does not
+mean this trophic interaction is necessarily occuring in this system.
 
-Size-based rules tend to over-predict, so treat a web as a set of candidate relationships to
-examine rather than a result. The trait data behind it is still being assembled, and the
-parameters under **The Rules** are a mixture of published values and our own placeholders. Each
-one says which it is.
+Each food web output should be treated as a set of candidate relationships to
+examine further. The trait data used to generate the food webs are still being assembled and expanded, and the
+parameters under **The Rules** are a combination of published values and placeholders. All values can be adjusted and each one says which it is.
