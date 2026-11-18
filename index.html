@@ -26,11 +26,19 @@
         .navheader nav { padding-bottom:2px; }
 
         /* ---- the page itself ---- */
-        .home-wrap { max-width:1140px; margin:0 auto; padding:104px 20px 40px; }
-        .home-lede { font-family:'Cabin',sans-serif; font-size:18px; max-width:46rem;
-                     margin:0 auto 28px; text-align:center; color:#333; }
-        .home-title { font-family:'News Cycle','Arial Narrow',Arial,sans-serif; font-size:34px;
-                      text-align:center; margin:0 0 10px; color:black; font-weight:bold; }
+        .home-wrap { max-width:1140px; margin:0 auto; padding:104px 16px 40px; }
+        @media (max-width:560px) { .home-wrap { padding-top:128px; } }
+        /* Sized against the viewport so the words cannot run off a narrow screen:
+           22px on a small phone, up to 34px once there is room. */
+        .home-title { font-family:'News Cycle','Arial Narrow',Arial,sans-serif;
+                      font-size:clamp(22px, 6.2vw, 34px); line-height:1.15;
+                      text-align:center; margin:0 0 10px; color:black; font-weight:bold;
+                      overflow-wrap:break-word; hyphens:auto; }
+        .home-lede { font-family:'Cabin',sans-serif; font-size:clamp(15px, 4.2vw, 18px);
+                     max-width:46rem; margin:0 auto 28px; text-align:center; color:#333;
+                     overflow-wrap:break-word; }
+        /* the brand in the bar shrinks too, instead of forcing the page wider */
+        .navbar-brand { font-size:clamp(20px, 5.5vw, 35px) !important; }
 
         .options { display:grid; grid-template-columns:repeat(3, 1fr); gap:26px; }
         @media (max-width:860px) { .options { grid-template-columns:1fr; max-width:420px; margin:0 auto; } }
@@ -86,8 +94,7 @@
 
 <div class="home-wrap">
     <h1 class="home-title">Plankton Counters and Food Web Tools</h1>
-    <p class="home-lede">Tools for counting plankton in your own lake, and for using those counts to
-       build a food web.</p>
+    <p class="home-lede">Tools for counting plankton and building a food web for your lake.</p>
 
     <div class="options">
 
