@@ -45,13 +45,6 @@ counts to build a model food web of your lake, which you can then change and man
 
 ## Entering the sample metadata
 
-Every metadata entry field box has a **?** beside it. Click it for an explanation of what that box wants, and click again
-to close. 
-
-Once you've entered metadata, click **Submit info** to save the details.
-
-## What each box on the counters means
-
 Every box has a **?** beside it that opens this same explanation on the page itself.
 Click it again to close.
 
