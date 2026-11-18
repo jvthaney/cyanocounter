@@ -57,6 +57,14 @@
            The plus and minus buttons are dimmed to show they are not live yet. */
         .counter.needs-unit .btn.add { opacity:.4; }
         .unit-cell { font-style:italic; color:#777; }
+        /* the preset names are editable, and look it: a faint underline that firms up
+           on hover, so a counter can be renamed to whatever was on the slide */
+        .counter .preset-name { text-align:center; cursor:text;
+            border-bottom:1px dashed rgba(255,255,255,0.45) !important; border-radius:0; }
+        .counter .preset-name:hover { border-bottom-color:rgba(255,255,255,0.9) !important;
+            background:rgba(255,255,255,0.08) !important; }
+        .counter .preset-name:focus { background:rgba(255,255,255,0.14) !important;
+            border-bottom-color:#fff !important; outline:3px solid #ffbf47; outline-offset:2px; }
         /* every counter the same colour, whatever palette class it carries */
         .counter:before, .counter.pink:before, .counter.blue:before, .counter.orange:before,
         .counter.teal:before, .counter.grey:before, .counter.rose:before,

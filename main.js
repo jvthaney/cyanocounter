@@ -70,7 +70,8 @@ function initCounters() {
         PAGE_CONFIG.presets.forEach((p, i) => {
             const id = nextId++;
             counters.push({ id, name: p.name, count: 0, unit: "", isPreset: true,
-                            imgIndex: p.imgIndex, colour: p.colour, presetIdx: i + 1 });
+                            imgIndex: p.imgIndex, colour: p.colour, presetIdx: i + 1,
+                            presetName: p.name });
             renderPresetCard(id, p, i);
             addTableRow(id, p.name);
         });
@@ -84,10 +85,28 @@ function renderPresetCard(id, preset, idx) {
     const card = document.getElementById(`preset-card-${idx + 1}`);
     if (!card) return;
     card.classList.add("needs-unit");
+
+    // The preset name is editable: a counter labelled Dolichospermum can be renamed to
+    // whatever was actually on the slide, and the original stays as the placeholder so
+    // emptying the box does not lose it.
     const heading = card.querySelector("h3");
+    let anchor = heading;
+    if (heading) {
+        const box = document.createElement("input");
+        box.type = "text";
+        box.className = "form-control transparent-input countername preset-name";
+        box.id = `name-${id}`;
+        box.value = preset.name;
+        box.placeholder = preset.name;
+        box.title = "Rename this counter";
+        box.setAttribute("aria-label", `Name of this counter (currently ${preset.name})`);
+        box.addEventListener("input", () => updateName(id));
+        heading.replaceWith(box);
+        anchor = box;
+    }
     const seg = document.createElement("div");
     seg.innerHTML = unitSegHtml(id, "");
-    if (heading) heading.insertAdjacentElement("afterend", seg);
+    if (anchor) anchor.insertAdjacentElement("afterend", seg);
     else card.appendChild(seg);
     card.querySelector('.btn-add').addEventListener('click', () => { increment(id); });
     card.querySelector('.btn-min').addEventListener('click', () => { decrement(id); });
@@ -170,7 +189,10 @@ function decrement(id) {
 function updateName(id) {
     const c = counters.find(c => c.id === id);
     if (!c) return;
-    c.name = document.getElementById(`name-${id}`).value;
+    const typed = document.getElementById(`name-${id}`).value;
+    // An emptied preset box falls back to the name it started with, so a counter can
+    // never be exported nameless just because someone cleared the field.
+    c.name = typed.trim() ? typed : (c.presetName || "");
     const cell = document.getElementById(`tname-${id}`);
     if (cell) cell.textContent = c.name;
     renderChart();
