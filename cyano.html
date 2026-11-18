@@ -53,13 +53,41 @@
         .seg button:focus-visible { outline:3px solid #ffbf47; outline-offset:1px; }
         .seg-label { font-family:'Cabin',sans-serif; font-size:11px; color:rgba(255,255,255,0.9);
                      text-transform:uppercase; letter-spacing:.06em; margin-top:4px; }
-        /* a counter with no unit chosen yet: the prompt is hard to miss, and the
-           plus and minus buttons do nothing until one is picked */
-        .counter.needs-unit .seg-label::after { content:" \2190 pick one"; font-weight:700; }
-        .counter.needs-unit .seg { outline:2px dashed #ffbf47; outline-offset:3px;
-                                   border-radius:6px; }
-        .counter.needs-unit .btn.add { opacity:.45; }
+        /* Counting simply does not start until cells, colonies or filaments is chosen.
+           The plus and minus buttons are dimmed to show they are not live yet. */
+        .counter.needs-unit .btn.add { opacity:.4; }
         .unit-cell { font-style:italic; color:#777; }
+        /* every counter the same colour, whatever palette class it carries */
+        .counter:before, .counter.pink:before, .counter.blue:before, .counter.orange:before,
+        .counter.teal:before, .counter.grey:before, .counter.rose:before,
+        .counter.wine:before, .counter.khaki:before { background-color:#114B5F; }
+
+        /* ---- the identification guide ---- */
+        /* The bar at the top of the page sits at z-index 1030, so a guide at the
+           default z-index appeared underneath it and its close button was unreachable.
+           The guide now sits above the bar, and the close button is inside the panel
+           beside the name rather than floating in the corner of the screen. */
+        .modal { z-index:2000; padding-top:40px; }
+        .modal-panel { position:relative; margin:0 auto; max-width:760px; width:92%;
+                       background:#fff; border-radius:10px; overflow:hidden;
+                       box-shadow:0 10px 40px rgba(0,0,0,0.5); }
+        .modal-head { display:flex; align-items:center; justify-content:space-between;
+                      gap:12px; background:#114B5F; padding:8px 10px 8px 16px; }
+        .modal-title { font-family:'News Cycle','Arial Narrow',Arial,sans-serif;
+                       font-size:22px; color:#fff; }
+        .modal .close { position:static; color:#fff; background:rgba(255,255,255,0.14);
+                        border:1px solid rgba(255,255,255,0.6); border-radius:6px;
+                        font-size:26px; line-height:1; padding:2px 12px 5px; cursor:pointer;
+                        opacity:1; text-shadow:none; }
+        .modal .close:hover, .modal .close:focus { background:rgba(255,255,255,0.3); color:#fff; }
+        .modal .close:focus-visible { outline:3px solid #ffbf47; outline-offset:2px; }
+        .modal .modal-content { width:100%; max-width:100%; display:block; }
+        .modal-text { font-family:'Cabin',sans-serif; font-size:18px; padding:22px 18px;
+                      margin:0; text-align:center; color:#222; }
+        .modal-text a { color:#114B5F; font-weight:600; }
+        .modal .caption { color:#333; width:auto; max-width:none; height:auto;
+                          padding:10px 16px 16px; font-size:16px; }
+        .modal .caption a { color:#114B5F; }
         .unit-note { font-family:'Cabin',sans-serif; font-size:15px; background:#eef6f0;
                      border-left:4px solid #1f6b45; padding:12px 16px; margin:14px 0;
                      max-width:46rem; color:#22402f; }
@@ -137,6 +165,11 @@
                 <b>"Add counter +"</b> for any taxa beyond the presets.</li>
             <li class="instructions no-bullet">3. When done, click <b>"Export data"</b> to download a .CSV file.</li>
         </ul>
+        <p class="unit-note"><b>Why the unit matters.</b> A count of "<i>Microcystis</i>: 40" means
+           nothing on its own: 40 cells and 40 colonies differ about eightyfold in biomass. Recording
+           what you actually counted is what lets the number become a biomass later, and lets the
+           file be read by the <a href="dashboard.html">Food Web Dashboard</a>. If you switch
+           mid-count, start a new counter.</p>
         <ul style="display:none">
         </ul>
     </div>
@@ -155,18 +188,25 @@
 <!-- PRESET COUNTERS -->
 <div class="container second">
     <div class="row">
-        <div class="col-md-3 col-sm-6"><div class="counter" id="preset-card-1"><div class="counter-icon"></div><button type="button" id="myImg1" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">−</button><h3>Microcystis</h3><span class="counter-value" id="count-1">0</span></div></div>
-        <div class="col-md-3 col-sm-6"><div class="counter pink" id="preset-card-2"><div class="counter-icon"></div><button type="button" id="myImg2" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">−</button><h3>Dolichospermum</h3><span class="counter-value" id="count-2">0</span></div></div>
-        <div class="col-md-3 col-sm-6"><div class="counter blue" id="preset-card-3"><div class="counter-icon"></div><button type="button" id="myImg3" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">−</button><h3>Gloeotrichia</h3><span class="counter-value" id="count-3">0</span></div></div>
-        <div class="col-md-3 col-sm-6"><div class="counter orange" id="preset-card-4"><div class="counter-icon"></div><button type="button" id="myImg4" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">−</button><h3>Chroococcus</h3><span class="counter-value" id="count-4">0</span></div></div>
+        <div class="col-md-3 col-sm-6"><div class="counter" id="preset-card-1"><div class="counter-icon"></div><button type="button" id="myImg1" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">&minus;</button><h3>Microcystis</h3><span class="counter-value" id="count-1">0</span></div></div>
+        <div class="col-md-3 col-sm-6"><div class="counter" id="preset-card-2"><div class="counter-icon"></div><button type="button" id="myImg2" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">&minus;</button><h3>Dolichospermum</h3><span class="counter-value" id="count-2">0</span></div></div>
+        <div class="col-md-3 col-sm-6"><div class="counter" id="preset-card-3"><div class="counter-icon"></div><button type="button" id="myImg3" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">&minus;</button><h3>Gloeotrichia</h3><span class="counter-value" id="count-3">0</span></div></div>
+        <div class="col-md-3 col-sm-6"><div class="counter" id="preset-card-4"><div class="counter-icon"></div><button type="button" id="myImg4" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">&minus;</button><h3>Chroococcus</h3><span class="counter-value" id="count-4">0</span></div></div>
     </div>
 </div>
 <div class="container second">
     <div class="row">
-        <div class="col-md-3 col-sm-6"><div class="counter teal" id="preset-card-5"><div class="counter-icon"></div><button type="button" id="myImg5" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">−</button><h3>Coelosphaerium/Woronichinia</h3><span class="counter-value" id="count-5">0</span></div></div>
-        <div class="col-md-3 col-sm-6"><div class="counter grey" id="preset-card-6"><div class="counter-icon"></div><button type="button" id="myImg6" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">−</button><h3>Aphanocapsa</h3><span class="counter-value" id="count-6">0</span></div></div>
-        <div class="col-md-3 col-sm-6"><div class="counter rose" id="preset-card-7"><div class="counter-icon"></div><button type="button" id="myImg7" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">−</button><h3>Merismopedia</h3><span class="counter-value" id="count-7">0</span></div></div>
-        <div class="col-md-3 col-sm-6"><div class="counter wine" id="preset-card-8"><div class="counter-icon"></div><button type="button" id="myImg8" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">−</button><h3>Oscillatoria</h3><span class="counter-value" id="count-8">0</span></div></div>
+        <div class="col-md-3 col-sm-6"><div class="counter" id="preset-card-5"><div class="counter-icon"></div><button type="button" id="myImg5" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">&minus;</button><h3>Coelosphaerium</h3><span class="counter-value" id="count-5">0</span></div></div>
+        <div class="col-md-3 col-sm-6"><div class="counter" id="preset-card-6"><div class="counter-icon"></div><button type="button" id="myImg6" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">&minus;</button><h3>Woronichinia</h3><span class="counter-value" id="count-6">0</span></div></div>
+        <div class="col-md-3 col-sm-6"><div class="counter" id="preset-card-7"><div class="counter-icon"></div><button type="button" id="myImg7" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">&minus;</button><h3>Aphanocapsa</h3><span class="counter-value" id="count-7">0</span></div></div>
+        <div class="col-md-3 col-sm-6"><div class="counter" id="preset-card-8"><div class="counter-icon"></div><button type="button" id="myImg8" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">&minus;</button><h3>Merismopedia</h3><span class="counter-value" id="count-8">0</span></div></div>
+    </div>
+</div>
+<div class="container second">
+    <div class="row">
+        <div class="col-md-3 col-sm-6"><div class="counter" id="preset-card-9"><div class="counter-icon"></div><button type="button" id="myImg9" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">&minus;</button><h3>Aphanizomenon</h3><span class="counter-value" id="count-9">0</span></div></div>
+        <div class="col-md-3 col-sm-6"><div class="counter" id="preset-card-10"><div class="counter-icon"></div><button type="button" id="myImg10" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">&minus;</button><h3>Oscillatoria</h3><span class="counter-value" id="count-10">0</span></div></div>
+        <div class="col-md-3 col-sm-6"><div class="counter" id="preset-card-11"><div class="counter-icon"></div><button type="button" id="myImg11" class="btn btn-light view">View</button><br><button class="btn add mx-10 mt-10 btn-add">+</button><button class="btn add mx-10 mt-10 btn-min">&minus;</button><h3>Planktothrix</h3><span class="counter-value" id="count-11">0</span></div></div>
     </div>
 </div>
 
@@ -201,27 +241,99 @@
 <div style="max-width:860px;"><canvas id="taxa-chart"></canvas></div><br>
 
 <!-- MODALS -->
-<div id="myModal1" class="modal"><span class="close">&times;</span><img class="modal-content" src="IDimages/MCimages.jpg"><div class="caption"><a href="http://cfb.unh.edu/CyanoKey/Microcystis.html" target="_blank">See more images</a></div></div>
-<div id="myModal2" class="modal"><span class="close">&times;</span><img class="modal-content" src="IDimages/DOLimages.jpg"><div class="caption"><a href="http://cfb.unh.edu/CyanoKey/Anabaena.html" target="_blank">See more images</a></div></div>
-<div id="myModal3" class="modal"><span class="close">&times;</span><img class="modal-content" src="IDimages/GLOEOimages.jpg"><div class="caption"><a href="http://cfb.unh.edu/CyanoKey/Gloeotrichia.html" target="_blank">See more images</a></div></div>
-<div id="myModal4" class="modal"><span class="close">&times;</span><img class="modal-content" src="IDimages/CHROOimages.jpg"><div class="caption"><a href="http://cfb.unh.edu/CyanoKey/Gloeocapsa.html" target="_blank">See more images</a></div></div>
-<div id="myModal5" class="modal"><span class="close">&times;</span><img class="modal-content" src="IDimages/COEL_WOROimages.jpg"><div class="caption">See more of <a href="http://cfb.unh.edu/CyanoKey/Woronichinia.html" target="_blank">Woronichinia</a> and <a href="http://cfb.unh.edu/CyanoKey/Coelosphaerium.html" target="_blank">Coelosphaerium</a></div></div>
-<div id="myModal6" class="modal"><span class="close">&times;</span><img class="modal-content" src="IDimages/APHANimages.jpg"><div class="caption"><a href="http://cfb.unh.edu/CyanoKey/Aphanocapsa.html" target="_blank">See more images</a></div></div>
-<div id="myModal7" class="modal"><span class="close">&times;</span><img class="modal-content" src="IDimages/MERISimages.jpg"><div class="caption"><a href="http://cfb.unh.edu/CyanoKey/Merismopedia.html" target="_blank">See more images</a></div></div>
-<div id="myModal8" class="modal"><span class="close">&times;</span><img class="modal-content" src="IDimages/OSCimages.jpg"><div class="caption"><a href="http://cfb.unh.edu/CyanoKey/Oscillatoria.html" target="_blank">See more images</a></div></div>
+<div id="myModal1" class="modal" role="dialog" aria-label="Microcystis identification guide">
+  <div class="modal-panel">
+    <div class="modal-head"><span class="modal-title">Microcystis</span><button type="button" class="close" aria-label="Close">&times;</button></div>
+    <img class="modal-content" src="IDimages/MCimages.jpg" alt="Identification images for Microcystis">
+    <div class="caption"><a href="https://cfb.unh.edu/CyanoKey/Microcystis.html" target="_blank">See more images</a></div>
+  </div>
+</div>
+<div id="myModal2" class="modal" role="dialog" aria-label="Dolichospermum identification guide">
+  <div class="modal-panel">
+    <div class="modal-head"><span class="modal-title">Dolichospermum</span><button type="button" class="close" aria-label="Close">&times;</button></div>
+    <img class="modal-content" src="IDimages/DOLimages.jpg" alt="Identification images for Dolichospermum">
+    <div class="caption"><a href="https://cfb.unh.edu/CyanoKey/Anabaena.html" target="_blank">See more images</a></div>
+  </div>
+</div>
+<div id="myModal3" class="modal" role="dialog" aria-label="Gloeotrichia identification guide">
+  <div class="modal-panel">
+    <div class="modal-head"><span class="modal-title">Gloeotrichia</span><button type="button" class="close" aria-label="Close">&times;</button></div>
+    <img class="modal-content" src="IDimages/GLOEOimages.jpg" alt="Identification images for Gloeotrichia">
+    <div class="caption"><a href="https://cfb.unh.edu/CyanoKey/Gloeotrichia.html" target="_blank">See more images</a></div>
+  </div>
+</div>
+<div id="myModal4" class="modal" role="dialog" aria-label="Chroococcus identification guide">
+  <div class="modal-panel">
+    <div class="modal-head"><span class="modal-title">Chroococcus</span><button type="button" class="close" aria-label="Close">&times;</button></div>
+    <img class="modal-content" src="IDimages/CHROOimages.jpg" alt="Identification images for Chroococcus">
+    <div class="caption"><a href="https://cfb.unh.edu/CyanoKey/Gloeocapsa.html" target="_blank">See more images</a></div>
+  </div>
+</div>
+<div id="myModal5" class="modal" role="dialog" aria-label="Coelosphaerium identification guide">
+  <div class="modal-panel">
+    <div class="modal-head"><span class="modal-title">Coelosphaerium</span><button type="button" class="close" aria-label="Close">&times;</button></div>
+    <img class="modal-content" src="IDimages/COEL_WOROimages.jpg" alt="Identification images for Coelosphaerium">
+    <div class="caption">This card shows <i>Coelosphaerium</i> and <i>Woronichinia</i> together. <a href="https://cfb.unh.edu/CyanoKey/Coelosphaerium.html" target="_blank">See more images</a></div>
+  </div>
+</div>
+<div id="myModal6" class="modal" role="dialog" aria-label="Woronichinia identification guide">
+  <div class="modal-panel">
+    <div class="modal-head"><span class="modal-title">Woronichinia</span><button type="button" class="close" aria-label="Close">&times;</button></div>
+    <img class="modal-content" src="IDimages/COEL_WOROimages.jpg" alt="Identification images for Woronichinia">
+    <div class="caption">This card shows <i>Coelosphaerium</i> and <i>Woronichinia</i> together. <a href="https://cfb.unh.edu/CyanoKey/Woronichinia.html" target="_blank">See more images</a></div>
+  </div>
+</div>
+<div id="myModal7" class="modal" role="dialog" aria-label="Aphanocapsa identification guide">
+  <div class="modal-panel">
+    <div class="modal-head"><span class="modal-title">Aphanocapsa</span><button type="button" class="close" aria-label="Close">&times;</button></div>
+    <img class="modal-content" src="IDimages/APHANimages.jpg" alt="Identification images for Aphanocapsa">
+    <div class="caption"><a href="https://cfb.unh.edu/CyanoKey/Aphanocapsa.html" target="_blank">See more images</a></div>
+  </div>
+</div>
+<div id="myModal8" class="modal" role="dialog" aria-label="Merismopedia identification guide">
+  <div class="modal-panel">
+    <div class="modal-head"><span class="modal-title">Merismopedia</span><button type="button" class="close" aria-label="Close">&times;</button></div>
+    <img class="modal-content" src="IDimages/MERISimages.jpg" alt="Identification images for Merismopedia">
+    <div class="caption"><a href="https://cfb.unh.edu/CyanoKey/Merismopedia.html" target="_blank">See more images</a></div>
+  </div>
+</div>
+<div id="myModal9" class="modal" role="dialog" aria-label="Aphanizomenon identification guide">
+  <div class="modal-panel">
+    <div class="modal-head"><span class="modal-title">Aphanizomenon</span><button type="button" class="close" aria-label="Close">&times;</button></div>
+    <p class="modal-text">See example images <a href="https://cfb.unh.edu/CyanoKey/Aphanizomenon.html" target="_blank">here</a>.</p>
+    
+  </div>
+</div>
+<div id="myModal10" class="modal" role="dialog" aria-label="Oscillatoria identification guide">
+  <div class="modal-panel">
+    <div class="modal-head"><span class="modal-title">Oscillatoria</span><button type="button" class="close" aria-label="Close">&times;</button></div>
+    <p class="modal-text">See example images <a href="https://cfb.unh.edu/phycokey/Choices/Cyanobacteria/cyano_filaments/cyano_unbranched_fil/untapered_filaments/no_heterocysts/no_vis_sheath/OSCILLATORIA/Oscillatoria_Image_page.html" target="_blank">here</a> and <a href="https://ohioseagrant.osu.edu/research/plankton/oscillatoria" target="_blank">here</a>.</p>
+    
+  </div>
+</div>
+<div id="myModal11" class="modal" role="dialog" aria-label="Planktothrix identification guide">
+  <div class="modal-panel">
+    <div class="modal-head"><span class="modal-title">Planktothrix</span><button type="button" class="close" aria-label="Close">&times;</button></div>
+    <p class="modal-text">See example images <a href="https://ohioseagrant.osu.edu/research/plankton/planktothrix" target="_blank">here</a> and <a href="https://cfb.unh.edu/phycokey/Choices/Cyanobacteria/cyano_filaments/cyano_unbranched_fil/untapered_filaments/no_heterocysts/no_vis_sheath/OSCILLATORIA/Oscillatoria_key.html" target="_blank">here</a>.</p>
+    
+  </div>
+</div>
 
 <script>
 window.PAGE_CONFIG = {
     mode: 'cyano',
     presets: [
-        { name:'Microcystis',             colour:'',      imgIndex:1 },
-        { name:'Dolichospermum',          colour:'pink',  imgIndex:2 },
-        { name:'Gloeotrichia',            colour:'blue',  imgIndex:3 },
-        { name:'Chroococcus',             colour:'orange',imgIndex:4 },
-        { name:'Coelosphaerium/Woronichinia', colour:'teal', imgIndex:5 },
-        { name:'Aphanocapsa',             colour:'grey',  imgIndex:6 },
-        { name:'Merismopedia',            colour:'rose',  imgIndex:7 },
-        { name:'Oscillatoria',            colour:'wine',  imgIndex:8 },
+        { name:'Microcystis', colour:'', imgIndex:1 },
+        { name:'Dolichospermum', colour:'', imgIndex:2 },
+        { name:'Gloeotrichia', colour:'', imgIndex:3 },
+        { name:'Chroococcus', colour:'', imgIndex:4 },
+        { name:'Coelosphaerium', colour:'', imgIndex:5 },
+        { name:'Woronichinia', colour:'', imgIndex:6 },
+        { name:'Aphanocapsa', colour:'', imgIndex:7 },
+        { name:'Merismopedia', colour:'', imgIndex:8 },
+        { name:'Aphanizomenon', colour:'', imgIndex:9 },
+        { name:'Oscillatoria', colour:'', imgIndex:10 },
+        { name:'Planktothrix', colour:'', imgIndex:11 },
     ],
     yAxisLabels: { rel:'Relative abundance (%)', slide:'Individuals/slide', density:'Individuals/L' },
     densityLabel: 'Individuals/L',
