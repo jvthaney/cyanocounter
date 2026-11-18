@@ -1,106 +1,136 @@
 # Using the Plankton Counters and Food Web Tools
 
-This site contains user-friendly tools designed for counting plankton (or other taxa) and using 
-these data to build a model food web of your lake, which you can manipulate.
+This site contains user-friendly tools for counting plankton (or other taxa) and using those
+counts to build a model food web of your lake, which you can then manipulate.
 
+Everything runs in your browser. Nothing is installed, nothing is uploaded, and nothing you
+enter leaves your computer unless you download it yourself.
 
 ---
 
-## Quick guide to tools
+## Quick guide to the tools
 
 **[Cyano Counter](https://jvthaney.github.io/cyanocounter/cyano.html)**
-- Specifically for cyanobacteria, preset with common taxa on the counters (with options to rename them or add more)
-- Designed for community science cyanobacterial monitoring  
-- The **View** button on each counter opens an identification image for that taxon
-
-
+- Specifically for cyanobacteria, preset with common taxa on the counters, which can be renamed
+  or added to
+- Designed for community science cyanobacterial monitoring
+- The **View** button on each counter opens an identification guide for that taxon
 
 **[Food Web Counter](https://jvthaney.github.io/cyanocounter/FoodWeb.html)**
-- For counting any plankton, or other taxa
-- Add unlimited counters for phytoplankton, zooplankton, or other taxa
-
+- For counting any plankton, or any other taxa
+- Add as many counters as you need for phytoplankton, zooplankton or other taxa
+- Counts can be sent straight to the Food Web Dashboard
 
 **[Food Web Dashboard](https://jvthaney.github.io/cyanocounter/dashboard.html)**
-- Build a food web based on your taxa and counts
--   Several ways to enter data:
-    - <b>Send count data directly</b> from the Food Web Counter to the dashboard using the "Send to Food Web Dashboard" button
-    - <b>Upload a spreasheet</b> with taxa and counts to the dashbaord
-    - <b>Manually add each taxon</b> and count value to the dashboard
-
-- Add, remove, or adjust the counts of any taxa and watch the visual representation of your food web change
-- Adjust values in the "The Rules" section to change how the dashboard calculates trophic relationships
-
----
-## General functions of the Counters
-
-- Add unlimited counters and input taxonomic names (rename any time)
-- Supports using a <i>count threshold</i> you can set (e.g., stop when you've counted 300 colonies), and a progress bar that tracks your running total and alerts you you reach the threshold
-- Calculates and plots relative abundance of each taxon in the sample
-- Calculates and plots estimated colonies/cells/individuals per liter lake water based on your inputs of sample depth, plankton-net ring diameter, and volume of subsample counted
-
+- Builds a food web from your taxa and counts
+- Three ways to get data in:
+  - **Send counts directly** from the Food Web Counter with its *Send to Food Web Dashboard* button
+  - **Upload a spreadsheet** of taxa and counts
+  - **Add each taxon by hand** in the dashboard itself
+- Add, remove or adjust any taxon and watch the web change
+- Adjust the values under **The Rules** to change how feeding relationships are worked out
 
 ---
 
-## How to use each tool
+## What the counters do
 
-**1.** Open the [Plankton Counter homepage](https://jvthaney.github.io/cyanocounter/).
-
-**2.** Select the tool you wish to use from the top navigation bar (Cyano Counter, Food Web Counter, or Food Web Dashboard).
-
-**3.** Enter your session metadata in the fields at the top of the page:
-- **Name** of the person counting
-- **Date** and **time** of sample collection
-- **Location** and **coordinates** (lat/lon)
-
-**4a. Cyano Counter and Food Web Counter** — enter the additional fields needed for density calculations:
-- **Volume sample (ml):** the volume of your concentrated net sample, measured in the graduated cylinder
-- **Depth sampled (m):** the depth of the plankton tow (used to calculate volume of lake water sampled)
-- **Net diameter (m):** the diameter of the net ring (used to calculate volume of lake water sampled)
-- **Rows counted:** the number of rows of the Sedgewick Rafter cell you traversed (used to estimate the proportion of the slide counted; the cell has 20 rows total)
-- **Subsample vol (ml):** the volume loaded onto the Sedgewick Rafter cell (typically 1 ml)
-- **Count threshold** *(PlanktonCounter only)*: the total number of colonies/organisms at which you stop counting. Leaving this blank means you count the full slide. Setting it to 300 yields an estimated counting error of ~5.8% (CV = 1/√N).
-
-**4b. TaxonCounter** — enter the **area sampled** (m²), if applicable.
-
-**5.** Add any **notes** that may be useful later — e.g., weather conditions, visible bloom, water colour, other taxa observed.
-
-**6.** Click **"Submit Info"** to log this information. You can update any field at any time — just click Submit Info again after making changes.
-
-![inputboxes](https://user-images.githubusercontent.com/70969187/176552968-6019b738-1148-4012-b2e7-2c10e39c76a1.jpg)
-
-**7.** Click **"Add counter +"** for each new taxon you encounter. Enter the taxon name in the field on the counter card, then use **+** and **−** to tally colonies or filaments as you traverse the slide.
-
-- Count **colonies or filaments as single units**, not individual cells — size variation between colonies will be corrected in a separate biovolume step
-- The running count is shown at the bottom of each coloured card
-- If you added a counter by mistake, click the **×** in the top-right corner of the card to remove it
-- If you need to zero all counts and start over, click **"Reset counters"**
-
-*(PlanktonCounter only)* If you entered a count threshold, a progress bar above the counters tracks your total. When it turns orange, you have reached your threshold — stop counting or continue to complete the full slide, then click Export Data.
-
-![counters](https://user-images.githubusercontent.com/70969187/176551703-295a934c-6d17-492e-bbc3-946300a0499f.jpg)
-
-**8.** When finished, click **"Export data"** to download your results as a .CSV file.
-
-- The file contains your raw counts, all metadata fields, and calculated values (colonies/slide, colonies/L, relative abundance %)
-- Calculated columns will show **—** if the required metadata fields were left blank
-- The filename is set automatically as `[your name]_[date].csv`
-- A live preview of the data table is always visible at the bottom of the page
-
-![previews](https://user-images.githubusercontent.com/70969187/175312583-ae56c976-11f3-4052-8db4-45efced83cb8.jpg)
+- Unlimited counters, each with a taxon name you can change at any time
+- Every counter records **what was counted**: cells, colonies or filaments
+- An optional **count threshold**, with a progress bar that turns orange when you reach it
+- Relative abundance of each taxon, as a table and a chart
+- Estimated individuals, colonies or cells per litre of lake water, from your tow depth, net
+  diameter and sample volumes
+- A spreadsheet of everything, downloadable at any point
 
 ---
 
-## Notes on calculations (CyanoCounter and PlanktonCounter)
+## Why every counter asks what you counted
 
-All density estimates assume the sample was well-mixed before loading the slide.
+A count of "*Microcystis*: 40" cannot be turned into biomass, because 40 cells and 40 colonies
+are about eightyfold apart. So each counter asks whether you are tallying **cells**, **colonies**
+or **filaments**, and the plus and minus buttons do nothing until you have said which.
+
+Pick the unit that matches what you can actually see and count reliably. For most colonial
+cyanobacteria that is colonies; for a filamentous genus such as *Dolichospermum* or
+*Aphanizomenon* it is filaments. If you change your mind partway through, start a new counter
+rather than switching, because a counter holding a mixture of units cannot be corrected later.
+
+---
+
+## Filling in the sample details
+
+Every box has a **?** beside it. Click it for an explanation of what that box wants; click again
+to close. The two that cause the most confusion:
+
+| Box | What it means |
+|---|---|
+| **Concentrated sample volume (ml)** | How much water you ended up with **after** the tow: the volume in your collection bottle or cylinder, holding the plankton from the whole tow. **Not** the volume of lake water that passed through the net, which is worked out from the tow depth and net diameter instead. |
+| **Subsample counted (ml)** | How much of that concentrated sample you put on the slide and counted. On a Sedgewick Rafter cell this is 1 ml. |
+
+Together those two say what fraction of the tow you actually looked at, which is what turns a
+tally into a density.
+
+**Squares counted (of 1,000).** A Sedgewick Rafter cell is 50 columns by 20 rows. Count a whole
+slide and enter 1000. For part of one, multiply the full rows you finished by 50 and add the
+squares in the row you stopped partway through: 5 full rows plus 23 squares is 273.
+
+**Count threshold is optional.** Leave it blank to count the whole slide. If you would rather
+stop at a set total, enter it and a progress bar will track your running count. Stopping at 300
+gives a counting error of roughly 6 per cent, and at 100 roughly 10 per cent.
+
+Click **Submit info** to record these details. You can change any of them later and click it
+again.
+
+---
+
+## Counting
+
+1. Enter the sample details and click **Submit info**.
+2. Add a counter for each taxon, set what you are counting, and tally with **+** and **−**.
+3. Rename any counter by typing in its name box, including the preset ones.
+4. Remove a counter you added by mistake with the **×** in its corner.
+5. **Reset counters** zeroes every tally but keeps the taxa, names and units.
+
+---
+
+## When you have finished
+
+**Download Spreadsheet** saves a CSV to your computer with your sample details, the raw counts,
+the counting unit for each taxon, and the calculated values. Calculated columns show **—** where
+a required detail was left blank. The file is named after you and the date.
+
+**Send to Food Web Dashboard** *(Food Web Counter)* opens the dashboard in a new tab with the
+count already loaded, so there is no file to download or upload. The counter is not changed.
+
+A spreadsheet from either counter can also be loaded into the dashboard later with its
+**Choose File** button, so a count made last summer still works.
+
+---
+
+## How the numbers are worked out
+
+All density estimates assume the sample was well mixed before the slide was loaded.
 
 | Output | Formula |
 |---|---|
-| **Colonies/slide** | Count ÷ (rows counted / 20) |
-| **Colonies/L lake water** | (Colonies/slide ÷ proportion of sample on slide) ÷ volume of lake water sampled (L) |
-| **Relative abundance (%)** | Taxon count ÷ total count × 100 |
+| **Per slide** | count ÷ (squares counted ÷ 1,000) |
+| **Per litre of lake water** | (per slide ÷ proportion of the sample on the slide) ÷ litres of lake water filtered |
+| **Relative abundance (%)** | taxon count ÷ total count × 100 |
 
 Where:
-- *Proportion of sample on slide* = subsample volume (ml) ÷ total sample volume (ml)
-- *Volume of lake water sampled* = π × (net radius)² × depth × 1000 (converts m³ to L)
- 
+- *proportion of the sample on the slide* = subsample counted (ml) ÷ concentrated sample volume (ml)
+- *litres of lake water filtered* = π × (net radius)² × tow depth × 1,000
+
+---
+
+## A note on the food web
+
+The dashboard's links are **predictions, not observations**. A link means that feeding is
+physically possible given the sizes involved and the rules in force: that the food falls inside
+the consumer's size window, and is not a filament or a colony too large to handle. It does not
+mean the interaction has been recorded anywhere.
+
+Size-based rules tend to over-predict, so treat a web as a set of candidate relationships to
+examine rather than a result. The trait data behind it is still being assembled, and the
+parameters under **The Rules** are a mixture of published values and our own placeholders. Each
+one says which it is.
