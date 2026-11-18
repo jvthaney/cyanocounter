@@ -52,8 +52,9 @@
         .counter.grp-other:before { background-color:#727171; }
         .chart-toggle-btn { font-family:'Cabin',sans-serif; font-size:14px; border-radius:6px; border:1px solid #009988; background:#fff; color:#009988; padding:4px 12px; cursor:pointer; margin-right:6px; }
         .chart-toggle-btn.active-toggle { background:#009988; color:#fff; }
-        .unit-note { font-family:'Cabin',sans-serif; font-size:15px; background:#fff8e1;
-                     border-left:4px solid #EE7733; padding:10px 14px; margin:10px 0; }
+        .unit-note {  font-family:'Cabin',sans-serif; font-size:15px; background:#eef6f0;
+                     border-left:4px solid #1f6b45; padding:12px 16px; margin:34px auto 0;
+                     max-width:46rem; color:#22402f;  }
     
         /* ---- site navigation: one button per counter, visible from every page ---- */
         .site-nav { display:flex; flex-wrap:wrap; align-items:center; gap:6px; padding:6px 14px 8px; }
@@ -113,9 +114,8 @@
         <ul>
             <li class="instructions no-bullet">1. Enter your information above and click <b>Submit info</b>.</li>
             <li class="instructions no-bullet">2. Click <b>Add counter +</b> for each taxon. Set whether it is <b>phytoplankton</b> or <b>zooplankton</b>, and for phytoplankton say what you are counting: <b>cells</b>, <b>colonies</b> or <b>filaments</b>.</li>
-            <li class="instructions no-bullet">3. When done, click <b>Export data</b>. The file feeds straight into the food web model.</li>
+            <li class="instructions no-bullet">3. When done, click <b>Download Spreadsheet</b>. The file feeds straight into the food web model.</li>
         </ul>
-        <p class="unit-note"><b>Why the unit matters.</b> A count of "<i>Microcystis</i>: 40" means nothing on its own: 40 cells and 40 colonies differ about eightyfold in biomass, so the food web would be wrong by that much. Record what you actually counted on each card. If you switch mid-count, start a new counter.</p>
     </div>
 </div>
 <hr>
@@ -140,13 +140,12 @@
 <br><br>
 <button type="button" class="btn btn-r reset bg-light" onclick="resetCounters()">Reset counters</button>
 <hr><br>
-<button type="button" class="btn btn-r exp btn-light" onclick="exportData()">EXPORT DATA</button>
+<button type="button" class="btn btn-r exp btn-light" onclick="exportData()">Download Spreadsheet</button>
 &nbsp;
-<button type="button" class="btn btn-r" onclick="sendToDashboard()" style="background-color:#2e5f80;color:white;">SEND TO FOOD WEB DASHBOARD &rarr;</button>
+<button type="button" class="btn btn-r" onclick="sendToDashboard()" style="background-color:#2e5f80;color:white;">Send to Food Web Dashboard &rarr;</button>
 <br><br>
-<p class="instructions" style="font-size:15px;">The dashboard opens in a new tab with this count already
-loaded, so there is no file to download. <b>Export data</b> still gives you a CSV to keep, and the
-dashboard can load that file too.</p>
+<p class="instructions" style="font-size:15px;"><i>Download Spreadsheet</i> downloads a CSV of the data on your computer. 
+ <i>Send to Food Web Dashboard</i> opens a new tab with these counts loaded. You can also upload the CSV file to the dashboard later.</p>
 <br><br><hr>
 
 <!-- PREVIEW -->
